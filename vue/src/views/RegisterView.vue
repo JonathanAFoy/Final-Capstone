@@ -73,6 +73,9 @@ export default {
 </script>
 
 <style scoped>
+#register {
+  text-align: center;
+}
 .form-input-group {
   margin-bottom: 1rem;
 }
