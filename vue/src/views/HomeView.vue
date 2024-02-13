@@ -3,11 +3,6 @@
     <h1>My Cards and Decks</h1>
     <p>If you are seeing this, you are authenticated.</p>
     <br />
-    <router-link v-bind:to="{ name: 'create-deck' }"
-      >Create New Deck</router-link
-    >
-    <br />
-    <br />
     <br />
     <br />
 
@@ -21,15 +16,21 @@
     <br />
     <br />
     <br />
-
-    <router-link v-bind:to="{ name: 'create-card' }"
-      >Create New Card</router-link
-    >
+    <router-link class="router" v-bind:to="{ name: 'create-deck' }"
+      >Create New Deck</router-link>
+<br />
+<br />
+<br />
+    
     <div class="card" v-for="card in cardList" v-bind:key="card.id">
       {{ card.id }} <br />
       {{ card.title }} <br />
       {{ card.author }} <br />
     </div>
+
+    <router-link class="router" v-bind:to="{ name: 'create-card' }"
+      >Create New Card</router-link
+    >
   </div>
 </template>
 
@@ -58,6 +59,12 @@ export default {
   column-gap: 25px;
   row-gap: 25px;
   align-items: center;
+}
+
+.router {
+
+
+
 }
 
 .deck-display {
