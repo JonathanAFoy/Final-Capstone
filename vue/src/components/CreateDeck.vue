@@ -4,9 +4,8 @@
       {{ newDeck }}
 
       <form v-on:submit.prevent="createDeck">
-      Title: <input type="text" v-model="newDeck.title"/> <br>
-      Tags: <input type="text" v-model="newDeck.tags"/> <br>
-      Description: <input type="text" v-model="newDeck.description"/> <br>
+      Title: <input type="text" v-model="newDeck.deckTitle"/> <br>
+      Tags: <input type="text" v-model="newDeck.deckTags"/> <br>
       <button>Save</button> 
     
       </form>
@@ -19,7 +18,8 @@
   export default {
       data() {
       return {
-        newDeck: {},
+        newDeck: {
+        },
       };
     },
     methods: {

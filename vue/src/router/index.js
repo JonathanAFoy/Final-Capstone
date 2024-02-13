@@ -51,12 +51,12 @@ const routes = [
     }
   },
   {
-    path: "/create-deck",
+    path: "/deck/create",
     name: "create-deck",
     component: CreateDeck
   },
   {
-    path: "/create-card",
+    path: "/card/create",
     name: "create-card",
     component: CreateCard
   }

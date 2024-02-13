@@ -2,22 +2,24 @@ import axios from 'axios';
 
 export default {
 
-    // CARD
+    getCards() {
+        return axios.get(`/card`)
+    },
 
     getCard(cardId) {
-        return axios.get(`/cards/${cardId}`);
+        return axios.get(`/card/${cardId}`);
     },
 
     createCard(card) {
-        return axios.post(`/add-card`, card);
+        return axios.post(`/card/create`, card);
     },
 
     updateCard(card) {
-        return axios.put(`/cards/${card.id}`, card);
+        return axios.put(`/card/${card.id}`, card);
     },
 
     deleteCard(cardId) {
-        return axios.delete(`/cards.${cardId}`);
+        return axios.delete(`/card/${cardId}`);
     }
     
 }

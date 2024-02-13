@@ -2,22 +2,24 @@ import axios from 'axios';
 
 export default {
 
-    // DECK
-
     getDecks() {
-        return axios.get('/decks');
+        return axios.get('/deck');
     },
 
     getDeck(deckId) {
-        return axios.get(`/decks/${deckId}`)
+        return axios.get(`/deck/${deckId}`)
     },
 
     createDeck(deck) {
-        return axios.post(`/create-deck`, deck);
+        return axios.post(`/deck/create`, deck);
+    },
+
+    updateDeck(deckId, deck){
+        return axios.put(`/deck/${deckId}`, deck)
     },
 
     deleteDeck(deckId) {
-        return axios.delete(`/decks/${deckId}`);
+        return axios.delete(`/deck/${deckId}`);
     }
     
 }
