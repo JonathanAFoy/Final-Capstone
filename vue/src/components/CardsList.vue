@@ -1,20 +1,16 @@
 <template>
-    <div class="card-item" v-for="(card, index) in cardList" v-bind:key="index">
-      <div class="card-item-container">
+    <div class="cards-container" v-for="(card, index) in cardList" v-bind:key="index">
+      <div class="card-item">
        
         <div class="card-info-text">
           {{  card.cardId  }}
-        </div>
-        <div class="card-info-text">
+          <br />
           {{  card.username  }}
-        </div>
-        <div>
-            {{  card.frontText  }}
-        </div>
-        <div>
-            {{  card.backText  }}
-        </div>
-        <div class="card-info-text">
+          <br />
+          {{  card.frontText  }}
+          <br />
+          {{  card.backText  }}
+          <br />
           {{  card.cardTags  }}
         </div>
         <br/>
@@ -31,6 +27,27 @@
   </script>
   
   <style scoped>
+  .cards-container {
+    display: flex;
+  flex-wrap: wrap;
+  column-gap: 25px;
+  row-gap: 25px;
+  justify-content: flex-start;
+  align-items: center;
+  }
+
+  .card-item {
+    justify-content: center;
+    display: flex;
+  border-radius: 15px;
+  padding: 10px;
+  margin: 10px;
+  border: 10px;
+  width: 150px;
+  background-color: rgb(129, 163, 255);
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
 
   </style>
   

@@ -59,6 +59,9 @@ export default {
     DeckService.getDecks().then((response) => {
       this.deckList = response.data;
     });
+    CardService.getCards().then((response) => {
+      this.cardList = response.data
+    })
   },
 };
 </script>
@@ -70,12 +73,6 @@ export default {
   align-items: center;
 }
 
-.router {
-
-
-
-}
-
 .deck-display {
   display: flex;
   flex-wrap: wrap;
@@ -85,14 +82,13 @@ export default {
   align-items: center;
 }
 
-.deck {
-  border-radius: 15px;
-  padding: 10px;
-  margin: 10px;
-  border: 10px;
-  width: 150px;
-  background-color: rgb(129, 163, 255);
-  text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
+.card-display {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 10px;
+  row-gap: 10px;
+  justify-content: center;
+  align-items: center;
 }
+
 </style>

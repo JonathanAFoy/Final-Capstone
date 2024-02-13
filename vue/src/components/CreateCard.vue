@@ -4,9 +4,9 @@
       {{ newCard }}
 
       <form v-on:submit.prevent="createCard">
-      Title: <input type="text" v-model="newCard.title"/> <br>
-      Tags: <input type="text" v-model="newCard.tags"/> <br>
-      Description: <input type="text" v-model="newCard.description"/> <br>
+      Front Text: <input type="text" v-model="newCard.frontText"/> <br>
+      Back Text: <input type="text" v-model="newCard.backText"/> <br>
+      Tags: <input type="text" v-model="newCard.cardTags"/> <br>
       <button>Save</button> 
     
       </form>
