@@ -5,6 +5,7 @@
     <br />
     <br />
     <br />
+    <br />
 
     <div class="deck-display">
       <!-- <div class="deck" v-for="deck in deckList" v-bind:key="deck.id">
