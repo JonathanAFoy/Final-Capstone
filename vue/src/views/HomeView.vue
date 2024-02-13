@@ -8,9 +8,7 @@
 
     <div class="deck-display">
       <div class="deck" v-for="deck in deckList" v-bind:key="deck.id">
-        {{ deck.deckId }} <br />
-        {{ deck.deckTitle }} <br />
-        {{ deck.username }} <br />
+
       </div>
       <DecksList v-bind:deckList="deckList" />
     </div>
