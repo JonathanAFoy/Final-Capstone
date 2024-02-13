@@ -11,18 +11,18 @@
   </template> -->
 
   <template>
-    <div class="deck-item" v-for="(deck, index) in deckList" v-bind:key="index">
-      <div class="deck-item-container">
+    <div class="decks-container" v-for="(deck, index) in deckList" v-bind:key="index">
+      <div class="deck-item">
         <div class="deck-info-text">
           {{  deck.deckId  }}
-        </div>
-        <div class="deck-item-text">
+        <br />
+       
           {{  deck.deckTitle  }}
-        </div>
-        <div class="deck-info-text">
+        <br />
+        
           {{  deck.username  }}
-        </div>
-        <div class="deck-info-text">
+        <br />
+       
           {{  deck.deckTags  }}
         </div>
         <br/>
@@ -39,20 +39,27 @@
   
   <style scoped>
 
-  .decks { display: flex;
+  .decks-container { 
+  display: flex;
   flex-wrap: wrap;
   column-gap: 25px;
   row-gap: 25px;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.deck {
-  min-width: 150px;
-  border-radius: 10px;
-  padding: 40px;
+  justify-content: center;
   text-align: center;
 }
+
+.deck-item {
+  display: flex;
+  border-radius: 15px;
+  padding: 10px;
+  margin: 10px;
+  border: 10px;
+  width: 150px;
+  background-color: rgb(129, 163, 255);
+  font-family: Arial, Helvetica, sans-serif;
+  justify-content: center;
+}
+
 
 
   </style>
