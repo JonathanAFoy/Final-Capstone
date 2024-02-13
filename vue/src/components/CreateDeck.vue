@@ -6,8 +6,10 @@
       <form v-on:submit.prevent="createDeck">
       Title: <input type="text" v-model="newDeck.deckTitle"/> <br>
       Tags: <input type="text" v-model="newDeck.deckTags"/> <br>
-      <button>Save</button> 
-    
+      <div class="btns">
+        <input type="submit" class="regular-btn" />
+      </div>
+
       </form>
     </div>
   </template>

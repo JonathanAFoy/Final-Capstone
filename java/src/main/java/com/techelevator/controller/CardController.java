@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 
 @RestController
+@CrossOrigin
 public class CardController {
     final private JdbcCardDao cardDao;
     final private UserDao userDao;
