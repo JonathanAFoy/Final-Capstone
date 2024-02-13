@@ -104,10 +104,10 @@ label {
 }
 
 input {
-    padding: 10px;
+    padding: 8px;
     width: 25%;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     border-radius: 4px;
 }
 
@@ -125,7 +125,6 @@ button {
     padding: 12px;
     background-color: #3498db;
     color: #fff;
-    border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -134,12 +133,10 @@ button {
 button:hover {
     background-color: #2980b9;
 }
-
 .forgot-password a {
     color: #3498db;
     text-decoration: none;
 }
-
 .forgot-password a:hover {
     text-decoration: underline;
 }
