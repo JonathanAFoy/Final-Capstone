@@ -135,10 +135,6 @@ button:hover {
     background-color: #2980b9;
 }
 
-.forgot-password {
-    margin-top: 10px;
-}
-
 .forgot-password a {
     color: #3498db;
     text-decoration: none;
