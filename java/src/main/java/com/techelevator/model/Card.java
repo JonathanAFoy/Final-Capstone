@@ -1,7 +1,6 @@
 package com.techelevator.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.validation.constraints.NotEmpty;
 
 public class Card {
@@ -19,6 +18,8 @@ public class Card {
     @JsonIgnore
     private boolean isPublic;
 
+    public Card() {
+    }
 
     public Card(int cardId, String username, String frontText, String backText, String cardTags, boolean isPublic) {
         this.cardId = cardId;
@@ -76,4 +77,5 @@ public class Card {
     public void setPublic(boolean aPublic) {
         isPublic = aPublic;
     }
+
 }

@@ -17,33 +17,33 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     @Override
-    public void createDeck(Principal principal, Deck newDeck){
-        String sql = "INSERT INTO deck (username, deck_title, deck_tags, is_public) VALUES (?,?,?,?) RETURNING deck_id";
-        String username = principal.getName();
-        try{
-            int newDeckId = jdbcTemplate.queryForObject(sql, Integer.class, username, newDeck.getDeckTitle(), newDeck.getDeckTags(), false);
-            newDeck.setDeckId(newDeckId);
-        }catch (DataAccessException dae) {
-            String detailedMessage = "Data access exception during: " + dae.getMessage();
-            System.out.println(detailedMessage);
-        }
-    }
-
-    @Override
     public List<Deck> getDecks(Principal principal) {
         List<Deck> decks = new ArrayList<>();
-        String sql = "SELECT * from deck WHERE username = ?;";
+        String sql = "SELECT * FROM deck WHERE username = ?;";
         String username = principal.getName();
-        try{
+        try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
-            while( results.next()) {
+            while(results.next()) {
                 decks.add(mapRowToDeck(results));
             }
-        }catch (DataAccessException dae) {
+        } catch (DataAccessException dae) {
             String detailedMessage = "Data access exception during: " + dae.getMessage();
             System.out.println(detailedMessage);
         }
         return decks;
+    }
+
+    @Override
+    public void createDeck(Principal principal, Deck newDeck){
+        String sql = "INSERT INTO deck (username, deck_title, deck_tags, is_public) VALUES (?,?,?,?) RETURNING deck_id";
+        String username = principal.getName();
+        try {
+            int newDeckId = jdbcTemplate.queryForObject(sql, Integer.class, username, newDeck.getDeckTitle(), newDeck.getDeckTags(), false);
+            newDeck.setDeckId(newDeckId);
+        } catch (DataAccessException dae) {
+            String detailedMessage = "Data access exception during: " + dae.getMessage();
+            System.out.println(detailedMessage);
+        }
     }
 
     private Deck mapRowToDeck(SqlRowSet rowSet) {

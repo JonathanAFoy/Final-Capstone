@@ -1,6 +1,7 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users, deck, card;
+DROP TABLE IF EXISTS deck_card, users, deck, card CASCADE;
+DROP SEQUENCE IF EXISTS seq_deck_id, seq_card_id;
 
 CREATE TABLE users (
 	user_id SERIAL,
@@ -37,6 +38,14 @@ CREATE TABLE card (
 	card_tags varchar(50) NOT NULL,
 	is_public boolean,
 	CONSTRAINT PK_card PRIMARY KEY (card_id)
+);
+
+CREATE TABLE deck_card (
+    deck_id int NOT NULL,
+    card_id int NOT NULL,
+    CONSTRAINT PK_deck_card PRIMARY KEY(deck_id, card_id),
+    CONSTRAINT FK_deck_card_deck FOREIGN KEY(deck_id) REFERENCES deck(deck_id),
+    CONSTRAINT FK_deck_card_card FOREIGN KEY(card_id) REFERENCES card(card_id)
 );
 
 COMMIT TRANSACTION;

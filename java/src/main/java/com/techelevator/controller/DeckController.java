@@ -1,6 +1,5 @@
 package com.techelevator.controller;
 
-
 import com.techelevator.dao.JdbcDeckDao;
 import com.techelevator.dao.JdbcUserDao;
 import com.techelevator.dao.UserDao;
@@ -24,15 +23,16 @@ public class DeckController {
     }
 
     @PreAuthorize("isAuthenticated()")
+    @GetMapping("/deck")
+    public List<Deck> getDecks(Principal principal) {
+        return deckDao.getDecks(principal);
+    }
+
+    @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/deck/create")
     public void createDeck(@Valid @RequestBody Deck newDeck, Principal principal) {
         deckDao.createDeck(principal, newDeck);
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/deck")
-    public List<Deck> getDecks(Principal principal) {
-        return deckDao.getDecks(principal);
-    }
 }
