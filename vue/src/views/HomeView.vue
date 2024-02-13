@@ -8,9 +8,7 @@
     <br />
 
     <div class="deck-display">
-      <div class="deck" v-for="deck in deckList" v-bind:key="deck.id">
-
-      </div>
+      
       <DecksList v-bind:deckList="deckList" />
     </div>
 
@@ -23,11 +21,7 @@
 <br />
 <br />
   <div class="card-display">
-    <div class="card" v-for="card in cardList" v-bind:key="card.id">
-      {{ card.id }} <br />
-      {{ card.title }} <br />
-      {{ card.author }} <br />
-    </div>
+   
     <CardsList v-bind:cardList="cardList" />
   </div>
     <router-link class="router" v-bind:to="{ name: 'create-card' }"
