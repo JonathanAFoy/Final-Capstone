@@ -5,8 +5,8 @@ import java.security.Principal;
 import java.util.List;
 
 public interface DeckDao {
+    List<Deck> getDecks(Principal principal);
 
     void createDeck(Principal principal, Deck newDeck);
 
-    List<Deck> getDecks(Principal principal);
 }

@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -22,9 +23,16 @@ public class CardController {
     }
 
     @PreAuthorize("isAuthenticated()")
+    @GetMapping("/card")
+    public List<Card> getCards(Principal principal) {
+        return cardDao.getCards(principal);
+    }
+
+    @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/card/create")
     public void createCard(@Valid @RequestBody Card newCard, Principal principal) {
         cardDao.createCard(principal, newCard);
     }
+
 }
