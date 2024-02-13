@@ -1,8 +1,14 @@
 <!-- <template>
     <div class="decks">
+<<<<<<< HEAD
       <router-link v-for="deck in deckList" v-bind:key="deck.id"
         v-bind:to="{ name: 'DeckView', params: { id: deck.id } }">
         <div class="deck">{{ deck.title }}</div>
+=======
+      <router-link v-for="deck in decks" v-bind:key="deck.deckId"
+        v-bind:to="{ name: 'DeckView', params: { id: deck.deckId } }">
+        <div class="deck" v-bind:style="{}">{{ deck.title }}</div>
+>>>>>>> 9aca2625da27111e04feba4ba7a7123508a51722
       </router-link>
     </div>
   </template> -->
@@ -35,6 +41,22 @@
   </script>
   
   <style scoped>
+
+  .decks { display: flex;
+  flex-wrap: wrap;
+  column-gap: 25px;
+  row-gap: 25px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.deck {
+  min-width: 150px;
+  border-radius: 10px;
+  padding: 40px;
+  text-align: center;
+}
+
 
   </style>
   
