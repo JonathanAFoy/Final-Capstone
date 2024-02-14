@@ -9,16 +9,18 @@
         Thank you for registering, please sign in.
       </div>
       <div class="form-input-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" v-model="user.username" required autofocus />
+        <!-- <label for="username">Username</label> -->
+        <input type="text" id="username" placeholder="Enter your username" v-model="user.username" required autofocus />
       </div>
       <div class="form-input-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" v-model="user.password" required />
+        <!-- <label for="password">Password</label> -->
+        <input type="password" id="password" placeholder="Enter your password" v-model="user.password" required />      </div>
+      <div>
+        <button type="submit">Sign in</button>
       </div>
-      <button type="submit">Sign in</button>
       <p>
-      <router-link v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link></p>
+        <router-link v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link>
+      </p>
     </form>
   </div>
 </template>
@@ -72,14 +74,14 @@ body {
     height: 100vh;
 }
 
-.login-container {
+/* .login-container {
     background-color: #fff;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     width: 10px;
     text-align: center;
-}
+} */
 
 h2 {
     color: #333;
@@ -128,24 +130,36 @@ button {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    width: 100px;
+
 }
 
 button:hover {
     background-color: #2980b9;
 }
+
 .forgot-password a {
     color: #3498db;
     text-decoration: none;
 }
+
 .forgot-password a:hover {
     text-decoration: underline;
 }
+
 #login{
   text-align: center;
+  margin: 50px auto;
+  max-width: 500px;
+  background-color: #F7F9FF;
+  padding: 30px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
 }
+
 .form-input-group {
   margin-bottom: 1rem;
 }
+
 label {
   margin-right: 0.5rem;
 }

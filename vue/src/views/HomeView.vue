@@ -60,6 +60,10 @@ export default {
 </script>
 
 <style>
+html, body {
+  background-color: #E6F4F1;
+}
+
 .home {
   column-gap: 25px;
   row-gap: 25px;
