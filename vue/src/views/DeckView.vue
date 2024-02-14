@@ -1,13 +1,13 @@
 <template>
     <div>
-        <div class="board-actions">
+        <div class="deck-actions">
             <router-link v-bind:to="{ name: 'home' }">Back to Decks</router-link>
         </div>
         <div class="header">
             <h1>{{ deck.deckTitle }}</h1>
             <!-- <router-link class="btn btn-submit" :to="{ name: 'AddCardView', params: { deckId: deck.deckId } }">Add
                 New Card</router-link> -->
-            <button class="btn btn-cancel deleteDeck" v-on:click="deleteDeck">Delete Board</button>
+            <button class="btn btn-cancel deleteDeck" v-on:click="deleteDeck">Delete Deck</button>
         </div>
         <div class="cards">
             <CardsList v-bind:cardList="cardList"/>
@@ -33,13 +33,13 @@ export default {
         },
 
         // planned() {
-        //     return this.board.cards.filter(card => card.status === 'Planned');
+        //     return this.deck.cards.filter(card => card.status === 'Planned');
         // },
         // inProgress() {
-        //     return this.board.cards.filter(card => card.status === 'In Progress');
+        //     return this.deck.cards.filter(card => card.status === 'In Progress');
         // },
         // completed() {
-        //     return this.board.cards.filter(card => card.status === 'Completed');
+        //     return this.deck.cards.filter(card => card.status === 'Completed');
         // }
     },
     methods: {
@@ -80,16 +80,16 @@ export default {
                 if (error.response) {
                     if (error.response.status === 404) {
                         this.$store.commit('SET_NOTIFICATION',
-                            "Error: Board " + deckId + " was not found. This board may have been deleted or you have entered an invalid board ID.");
+                            "Error: Deck " + deckId + " was not found. This deck may have been deleted or you have entered an invalid deck ID.");
                         this.$router.push({ name: 'home' });
                     } else {
                         this.$store.commit('SET_NOTIFICATION',
-                            "Error getting board " + deckId + ". Response received was '" + error.response.statusText + "'.");
+                            "Error getting deck " + deckId + ". Response received was '" + error.response.statusText + "'.");
                     }
                 } else if (error.request) {
-                    this.$store.commit('SET_NOTIFICATION', "Error getting board. Server could not be reached.");
+                    this.$store.commit('SET_NOTIFICATION', "Error getting deck. Server could not be reached.");
                 } else {
-                    this.$store.commit('SET_NOTIFICATION', "Error getting board. Request could not be created.");
+                    this.$store.commit('SET_NOTIFICATION', "Error getting deck. Request could not be created.");
                 }
             });
     }
