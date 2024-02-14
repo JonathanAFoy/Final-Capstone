@@ -8,6 +8,7 @@ import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import CreateDeck from '../components/CreateDeck.vue';
 import CreateCard from '../components/CreateCard.vue';
+import DeckView from '../views/DeckView.vue';
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
