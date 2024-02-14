@@ -33,6 +33,23 @@ public class JdbcCardDao implements CardDao {
         return cards;
     }
 
+    public List<Card> getDeckCards(Principal principal, int deckId) {
+        List<Card> deckCards = new ArrayList<>();
+        String sql = "SELECT * FROM card JOIN deck_card ON card.card_id = deck_card.card_id " +
+                "JOIN deck ON deck_card.deck_id = deck.deck_id WHERE deck.deck_id = ? AND deck.username = ?;";
+        String username = principal.getName();
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, deckId, username);
+            while(results.next()) {
+                deckCards.add(mapRowToCard(results));
+            }
+        } catch (DataAccessException dae) {
+            String detailedMessage = "Data access exception during: " + dae.getMessage();
+            System.out.println(detailedMessage);
+        }
+        return deckCards;
+    }
+
     @Override
     public void createCard(Principal principal, Card newCard) {
         String sql = "INSERT INTO card (username, front_text, back_text, card_tags, is_public) VALUES (?,?,?,?,?) RETURNING card_id";

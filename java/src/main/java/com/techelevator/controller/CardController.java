@@ -29,6 +29,12 @@ public class CardController {
     }
 
     @PreAuthorize("isAuthenticated()")
+    @GetMapping("/deck/{deckId}")
+    public List<Card> getDeckCards(Principal principal, @PathVariable int deckId) {
+        return cardDao.getDeckCards(principal, deckId);
+    }
+
+    @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/card/create")
     public void createCard(@Valid @RequestBody Card newCard, Principal principal) {
