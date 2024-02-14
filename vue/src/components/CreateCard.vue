@@ -1,14 +1,15 @@
 <template>
-    <div id="create-card">
-      <h1>New Card Form</h1>
-      <form v-on:submit.prevent="createCard">
-      <input type="text" placeholder="Front Text" v-model="newCard.frontText"/> <br/><br/>
-      <input type="text" placeholder="Back Text" v-model="newCard.backText"/> <br/><br/>
-      <input type="text" placeholder="Tags" v-model="newCard.cardTags"/> <br/><br/>
-      <button>Save</button> 
+  <div id="create-card">
+    <h1>New Card Form</h1>
     
-      </form>
-    </div>
+    <form v-on:submit.prevent="createCard">
+    <input type="text" placeholder="Front Text" v-model="newCard.frontText"/> <br/><br/>
+    <input type="text" placeholder="Back Text" v-model="newCard.backText"/> <br/><br/>
+    <input type="text" placeholder="Tags" v-model="newCard.cardTags"/> <br/><br/>
+    <button>Save</button> 
+    </form>
+
+  </div>
 </template>
   
 <script>
@@ -35,6 +36,7 @@ export default {
   
 <style>
 #create-card {
+  border-radius: 15px;
   text-align: center;
   margin: 50px auto;
   max-width: 500px;

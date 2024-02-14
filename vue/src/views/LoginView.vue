@@ -1,5 +1,6 @@
 <template>
   <div id="login">
+    
     <form v-on:submit.prevent="login">
       <h1 >Please Sign In</h1>
       <div role="alert" v-if="invalidCredentials">
@@ -16,12 +17,13 @@
         <!-- <label for="password">Password</label> -->
         <input type="password" id="password" placeholder="Enter your password" v-model="user.password" required />      </div>
       <div>
-        <button type="submit">Sign in</button>
+        <button type="submit">Sign In</button>
       </div>
       <p>
         <router-link v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link>
       </p>
     </form>
+    
   </div>
 </template>
 
@@ -63,91 +65,91 @@ export default {
 </script>
 
 <style scoped>
-
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
 /* .login-container {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    width: 10px;
-    text-align: center;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  width: 10px;
+  text-align: center;
 } */
 
 h2 {
-    color: #333;
-    margin-bottom: 20px;
+  color: #333;
+  margin-bottom: 20px;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .input-group {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 label {
-    display: block;
-    text-align: left;
-    margin-bottom: 8px;
-    color: #333;
-    text-align: center;
+  display: block;
+  text-align: left;
+  margin-bottom: 8px;
+  color: #333;
+  text-align: center;
 }
 
 input {
-    padding: 8px;
-    width: 25%;
-    margin-bottom: 10px;
-    border: 2px solid #ccc;
-    border-radius: 4px;
+  text-align: center;
+  padding: 8px;
+  width: 25%;
+  margin-bottom: 10px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
 }
 
 .checkbox-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .checkbox-group input {
-    margin-right: 8px;
+  margin-right: 8px;
 }
 
 button {
-    padding: 12px;
-    background-color: #3498db;
-    color: #fff;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100px;
-
+  padding: 12px;
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100px;
 }
 
 button:hover {
-    background-color: #2980b9;
+  background-color: #2980b9;
 }
 
 .forgot-password a {
-    color: #3498db;
-    text-decoration: none;
+  color: #3498db;
+  text-decoration: none;
 }
 
 .forgot-password a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 #login{
+  border-radius: 15px;
   text-align: center;
   margin: 50px auto;
   max-width: 500px;

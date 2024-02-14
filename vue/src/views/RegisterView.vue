@@ -1,25 +1,27 @@
 <template>
   <div id="register" class="text-center">
+    
     <form v-on:submit.prevent="register">
       <h1>Create Account</h1>
       <div role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
       <div class="form-input-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" v-model="user.username" required autofocus />
+        <!-- <label for="username">Username</label> -->
+        <input type="text" id="username" placeholder="Enter your username" v-model="user.username" required autofocus />
       </div>
       <div class="form-input-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" v-model="user.password" required />
+        <!-- <label for="password">Password</label> -->
+        <input type="password" id="password" placeholder="Enter your password" v-model="user.password" required />
       </div>
       <div class="form-input-group">
-        <label for="confirmPassword">Confirm Password</label>
-        <input type="password" id="confirmPassword" v-model="user.confirmPassword" required />
+        <!-- <label for="confirmPassword">Confirm Password</label> -->
+        <input type="password" id="confirmPassword" placeholder="Confirm your password" v-model="user.confirmPassword" required />
       </div>
       <button type="submit">Create Account</button>
       <p><router-link v-bind:to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
     </form>
+    
   </div>
 </template>
 
@@ -73,12 +75,43 @@ export default {
 </script>
 
 <style scoped>
-#register {
+input {
   text-align: center;
+  padding: 8px;
+  width: 30%;
+  margin-bottom: 10px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
 }
+
+#register {
+  border-radius: 15px;
+  text-align: center;
+  margin: 50px auto;
+  max-width: 500px;
+  background-color: #F7F9FF;
+  padding: 30px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+}
+
+button {
+  padding: 5px;
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100px;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
 .form-input-group {
   margin-bottom: 1rem;
 }
+
 label {
   margin-right: 0.5rem;
 }

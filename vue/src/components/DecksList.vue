@@ -1,45 +1,30 @@
-<!-- <template>
-    <div class="decks">
-      <router-link v-for="deck in deckList" v-bind:key="deck.id"
-        v-bind:to="{ name: 'DeckView', params: { id: deck.id } }">
-        <div class="deck">{{ deck.title }}</div>
-      <router-link v-for="deck in decks" v-bind:key="deck.deckId"
-        v-bind:to="{ name: 'DeckView', params: { id: deck.deckId } }">
-        <div class="deck" v-bind:style="{}">{{ deck.title }}</div>
-      </router-link>
-    </div>
-  </template> -->
-
-  <template>
-    <div class="decks-container" v-for="(deck, index) in deckList" v-bind:key="index">
-      <div class="deck-item">
-        <div class="deck-info-text">
-          {{  deck.deckId  }}
-        <br />
-       
-          {{  deck.deckTitle  }}
-        <br />
-        
-          {{  deck.username  }}
-        <br />
-       
-          {{  deck.deckTags  }}
-        </div>
-        <br/>
-        <br/>
+<template>
+  <div class="decks-container" v-for="(deck, index) in deckList" v-bind:key="index">
+    <div class="deck-item">
+      <div class="deck-info-text">
+        <h2>{{  deck.deckTitle  }}</h2>
+        <h4>Created by {{  deck.username  }}</h4>
       </div>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    props: ['deckList'],
-  };
-  </script>
-  
-  <style scoped>
+  </div>
+</template>
 
-  .decks-container { 
+<script>
+export default {
+  props: ['deckList'],
+};
+</script>
+
+<style scoped>
+h2{
+  font-size: 18px;
+}
+
+h4{
+  font-size: 12px;
+}
+
+.decks-container { 
   display: flex;
   flex-wrap: wrap;
   column-gap: 25px;
@@ -59,8 +44,4 @@
   font-family: Arial, Helvetica, sans-serif;
   justify-content: center;
 }
-
-
-
-  </style>
-  
+</style>

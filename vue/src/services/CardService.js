@@ -3,7 +3,7 @@ import axios from 'axios';
 export default {
 
     getCards() {
-        return axios.get(`/card`)
+        return axios.get(`/card`);
     },
 
     getCard(cardId) {

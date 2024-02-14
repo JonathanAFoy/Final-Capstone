@@ -1,32 +1,25 @@
 <template>
   <div class="home">
-    <h1>My Cards and Decks</h1>
-    <p>If you are seeing this, you are authenticated.</p>
-    <br />
-    <br />
-    <br />
-    <br />
-
+    <h1>My Decks</h1>
     <div class="deck-display">
-      
       <DecksList v-bind:deckList="deckList" />
     </div>
-
-    <br />
-    <br />
-    <br />
-    <router-link class="router" v-bind:to="{ name: 'create-deck' }"
-      >Create New Deck</router-link>
-<br />
-<br />
-<br />
-  <div class="card-display">
-   
-    <CardsList v-bind:cardList="cardList" />
-  </div>
-    <router-link class="router" v-bind:to="{ name: 'create-card' }"
-      >Create New Card</router-link
-    >
+    <br/>
+    <div class="create-deck-button">
+      <button class="create-deck-button">
+        <router-link class="router" v-bind:to="{ name: 'create-deck' }">Create New Deck</router-link>
+      </button>
+    </div>
+    <br/>
+    <div class="card-display">
+      <CardsList v-bind:cardList="cardList" />
+    </div>
+    <br/>
+    <div class="create-card-button">
+      <button  class="create-card-button">
+        <router-link class="router" v-bind:to="{ name: 'create-card' }">Create New Card</router-link>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -64,6 +57,40 @@ html, body {
   background-color: #E6F4F1;
 }
 
+h1 {
+  text-align: center;
+}
+
+.create-deck-button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 10px;
+  border-color: #3498db;
+}
+
+.create-card-button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 10px;
+  border-color: #3498db;
+}
+
+.router {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: 12px;
+  color: #3498db;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
 .home {
   column-gap: 25px;
   row-gap: 25px;
@@ -87,5 +114,4 @@ html, body {
   justify-content: center;
   align-items: center;
 }
-
 </style>

@@ -7,7 +7,7 @@ export default {
     },
 
     getDeck(deckId) {
-        return axios.get(`/deck/${deckId}`)
+        return axios.get(`/deck/${deckId}`);
     },
 
     createDeck(deck) {
@@ -15,7 +15,7 @@ export default {
     },
 
     updateDeck(deckId, deck){
-        return axios.put(`/deck/${deckId}`, deck)
+        return axios.put(`/deck/${deckId}`, deck);
     },
 
     deleteDeck(deckId) {
