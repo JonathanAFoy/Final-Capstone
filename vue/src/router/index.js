@@ -59,6 +59,11 @@ const routes = [
     path: "/card/create",
     name: "create-card",
     component: CreateCard
+  },
+  {
+    path: "/deck/:deckId",
+    name: "deck-view",
+    component: DeckView
   }
   
 ];
