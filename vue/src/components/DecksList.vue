@@ -14,6 +14,7 @@ export default {
   props: ['deckList'],
   methods: {
     showDeck(deck){
+      this.$store.commit('SET_DECK', deck);
       this.$router.push({ name: 'deck-view', params: { deckId: deck.deckId } });
     }
 }

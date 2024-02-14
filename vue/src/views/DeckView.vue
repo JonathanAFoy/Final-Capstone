@@ -4,13 +4,13 @@
             <router-link v-bind:to="{ name: 'home' }">Back to Decks</router-link>
         </div>
         <div class="header">
-            <h1>{{ board.title }}</h1>
-            <router-link class="btn btn-submit" :to="{ name: 'AddCardView', params: { boardId: board.id } }">Add
-                New Card</router-link>
+            <h1>{{ deck.deckTitle }}</h1>
+            <!-- <router-link class="btn btn-submit" :to="{ name: 'AddCardView', params: { deckId: deck.deckId } }">Add
+                New Card</router-link> -->
             <button class="btn btn-cancel deleteDeck" v-on:click="deleteDeck">Delete Board</button>
         </div>
         <div class="cards">
-            <CardsList />
+            <CardsList v-bind:cardList="cardList"/>
         </div>
     </div>
 </template>
@@ -28,15 +28,19 @@ export default {
         };
     },
     computed: {
-        planned() {
-            return this.board.cards.filter(card => card.status === 'Planned');
+        deck(){
+            return this.$store.state.currDeck;
         },
-        inProgress() {
-            return this.board.cards.filter(card => card.status === 'In Progress');
-        },
-        completed() {
-            return this.board.cards.filter(card => card.status === 'Completed');
-        }
+
+        // planned() {
+        //     return this.board.cards.filter(card => card.status === 'Planned');
+        // },
+        // inProgress() {
+        //     return this.board.cards.filter(card => card.status === 'In Progress');
+        // },
+        // completed() {
+        //     return this.board.cards.filter(card => card.status === 'Completed');
+        // }
     },
     methods: {
         deleteDeck() {
@@ -67,6 +71,7 @@ export default {
     },
     created() {
         let deckId = parseInt(this.$route.params.deckId);
+
         DeckService.getDeck(deckId)
             .then(response => {
                 this.cardList = response.data;
