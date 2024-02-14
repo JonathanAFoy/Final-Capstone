@@ -1,6 +1,6 @@
 <template>
-  <div class="decks-container" v-for="(deck, index) in deckList" v-bind:key="index">
-    <div class="deck-item">
+  <div class="decks-container" v-for="(deck, index) in deckList" v-bind:key="index" >
+    <div class="deck-item" v-on:click="showDeck(deck)">
       <div class="deck-info-text">
         <h2>{{  deck.deckTitle  }}</h2>
         <h4>Created by {{  deck.username  }}</h4>
@@ -12,7 +12,13 @@
 <script>
 export default {
   props: ['deckList'],
+  methods: {
+    showDeck(deck){
+      this.$router.push({ name: 'deck-view', params: { deckId: deck.deckId } });
+    }
+}
 };
+
 </script>
 
 <style scoped>
