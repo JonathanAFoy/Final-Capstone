@@ -7,6 +7,10 @@
       <button class="btn" id="back-to-decks">
         <router-link class="btn" v-bind:to="{ name: 'home' }">Back to Decks</router-link>
       </button>
+      
+      <button class="btn" id="study-session">
+        <router-link class="btn" v-bind:to="{ name: 'study-session' }">Study Session</router-link>
+      </button>
 
       <button class="btn" id="delete-deck" v-on:click="deleteDeck">
         Delete Deck
@@ -28,6 +32,7 @@ import CardsList from "../components/CardsList.vue";
 import CardService from "../services/CardService";
 import DeckService from "../services/DeckService";
 import CreateCard from "../components/CreateCard.vue";
+
 export default {
   components: {
     CardsList,

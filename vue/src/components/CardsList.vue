@@ -1,6 +1,7 @@
 <template>
   <div class="cards-container" v-for="(card, index) in cardList" v-bind:key="index">
     <div class="card-item">
+     
       <div class="card-info-text">
         {{  card.cardId  }}
         <br/>
@@ -12,7 +13,9 @@
         <br/>
         {{  card.cardTags  }}
       </div>
+      <button class="kill">X</button>
     </div>
+    
   </div>
 </template>
   
@@ -33,7 +36,7 @@ export default {
 }
 
 .card-item {
-  justify-content: center;
+  justify-content: space-between;
   display: flex;
   border-radius: 15px;
   padding: 10px;
@@ -43,5 +46,13 @@ export default {
   background-color: rgb(129, 163, 255);
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
+}
+.kill {
+ height: 10%;
+ border-radius: 10px;
+ justify-content: right !important;
+ align-items: right !important;
+ text-align: right !important;
+
 }
 </style>
