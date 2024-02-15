@@ -37,8 +37,7 @@ public class CardController {
     @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/card/create")
-    public void createCard(@Valid @RequestBody Card newCard, Principal principal) {
-        cardDao.createCard(principal, newCard);
+    public Card createCard(@Valid @RequestBody Card newCard, Principal principal) {
+        return cardDao.createCard(principal, newCard);
     }
-
 }

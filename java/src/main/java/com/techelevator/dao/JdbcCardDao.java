@@ -51,16 +51,19 @@ public class JdbcCardDao implements CardDao {
     }
 
     @Override
-    public void createCard(Principal principal, Card newCard) {
+    public Card createCard(Principal principal, Card newCard) {
         String sql = "INSERT INTO card (username, front_text, back_text, card_tags, is_public) VALUES (?,?,?,?,?) RETURNING card_id";
         String username = principal.getName();
         try {
             int newCardId = jdbcTemplate.queryForObject(sql, Integer.class, username, newCard.getFrontText(), newCard.getBackText(), newCard.getCardTags(), false);
             newCard.setCardId(newCardId);
+            return newCard;
         } catch (DataAccessException dae) {
             String detailedMessage = "Data access exception during: " + dae.getMessage();
             System.out.println(detailedMessage);
         }
+        //TODO: throw exception/error
+        return null;
     }
 
     private Card mapRowToCard(SqlRowSet rowSet) {

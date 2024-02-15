@@ -9,4 +9,8 @@ public interface DeckDao {
 
     void createDeck(Principal principal, Deck newDeck);
 
+    void deleteDeck(int deckId);
+
+    void addCard(int deckId, int cardId);
+
 }

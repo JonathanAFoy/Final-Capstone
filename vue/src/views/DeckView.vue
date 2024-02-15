@@ -12,25 +12,52 @@
         <div class="cards">
             <CardsList v-bind:cardList="cardList"/>
         </div>
+        <!-- <div class="add-card-form">
+            <button class="button add-card-button" v-if="!showAddCard" v-on:click="showAddCard = true">
+            Add New Card To Deck</button>
+            <form v-if="showAddCard">
+                <fieldset>
+                    <label for="front-text">Front Text: </label>
+                    <input type="text" id="front-text" name="front-text" class="form-control" v-model="newCard.frontText" />
+                </fieldset>
+                <fieldset>
+                    <label for="back-text">Back Text: </label>
+                    <input type="text" id="back-text" name="back-text" class="form-control" v-model="newCard.backText" />
+                </fieldset>
+                <fieldset>
+                    <label for="tags">Tags: </label>
+                    <input type="text" id="tags" name="tags" class="form-control" v-model="newCard.tags" />
+                </fieldset>
+                <button class="button submit-button" v-on:click.prevent="saveNewCard">Add Card</button>
+                <button class="button cancel-button" v-on:click="resetAddForm">Cancel</button>
+            </form>
+        </div> -->
+        <CreateCard v-bind:deckId="deck.deckId" />
     </div>
 </template>
 <script>
 import CardsList from '../components/CardsList.vue'
 import CardService from '../services/CardService';
 import DeckService from '../services/DeckService';
+import CreateCard from '../components/CreateCard.vue';
 export default {
     components: {
-        CardsList
+        CardsList,
+        CreateCard
     },
     data() {
         return {
-            cardList: []
+            newCard: {},
+            showAddCard: false
         };
     },
     computed: {
         deck(){
             return this.$store.state.currDeck;
         },
+        cardList(){
+            return this.$store.state.currCards;
+        }
 
         // planned() {
         //     return this.deck.cards.filter(card => card.status === 'Planned');
@@ -74,7 +101,7 @@ export default {
 
         DeckService.getDeck(deckId)
             .then(response => {
-                this.cardList = response.data;
+            this.$store.commit('SET_CARD_LIST', response.data);
             })
             .catch(error => {
                 if (error.response) {
@@ -92,7 +119,17 @@ export default {
                     this.$store.commit('SET_NOTIFICATION', "Error getting deck. Request could not be created.");
                 }
             });
-    }
+    },
+    // saveNewCard(newCard) {
+    //     CardService.createCard(this.newCard).then((response) => {
+    //     if (response.status === 201) {
+    //       window.alert("Card Added!");
+    //       this.$router.push({name: "home"});
+
+    //     }
+    //   });
+
+    // }
 };
 </script>
 <style scoped>

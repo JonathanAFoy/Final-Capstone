@@ -14,6 +14,10 @@ export default {
         return axios.post(`/deck/create`, deck);
     },
 
+    addCard(deckId, cardId) {
+        return axios.post(`/deck/${deckId}/${cardId}`);
+    },
+
     updateDeck(deckId, deck){
         return axios.put(`/deck/${deckId}`, deck);
     },
@@ -21,5 +25,4 @@ export default {
     deleteDeck(deckId) {
         return axios.delete(`/deck/${deckId}`);
     }
-    
 }

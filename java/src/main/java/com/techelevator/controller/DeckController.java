@@ -35,4 +35,16 @@ public class DeckController {
         deckDao.createDeck(principal, newDeck);
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @DeleteMapping("/deck/{deckId}")
+    public void deleteDeck(@PathVariable int deckId) {
+        deckDao.deleteDeck(deckId);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/deck/{deckId}/{cardId}")
+    public void addCard(@PathVariable int deckId, @PathVariable int cardId) {
+        deckDao.addCard(deckId, cardId);
+    }
 }

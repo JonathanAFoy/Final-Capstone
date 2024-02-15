@@ -46,6 +46,28 @@ public class JdbcDeckDao implements DeckDao{
         }
     }
 
+    @Override
+    public void deleteDeck(int deckId) {
+        String sql = "DELETE FROM deck WHERE deck_id = ?;";
+        try {
+            jdbcTemplate.update(sql, deckId);
+        } catch (DataAccessException dae) {
+            String detailedMessage = "Data access exception during: " + dae.getMessage();
+            System.out.println(detailedMessage);
+        }
+    }
+
+    @Override
+    public void addCard(int deckId, int cardId) {
+        String sql = "INSERT INTO deck_card (deck_id, card_id) VALUES (?,?);";
+        try {
+            jdbcTemplate.update(sql, deckId, cardId);
+        } catch (DataAccessException dae) {
+            String detailedMessage = "Data access exception during: " +dae.getMessage();
+            System.out.println(detailedMessage);
+        }
+    }
+
     private Deck mapRowToDeck(SqlRowSet rowSet) {
         Deck deck = new Deck();
         deck.setDeckId(rowSet.getInt("deck_id"));

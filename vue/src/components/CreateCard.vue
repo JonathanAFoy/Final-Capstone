@@ -14,8 +14,12 @@
   
 <script>
 import CardService from '../services/CardService';
+import DeckService from '../services/DeckService';
   
 export default {
+  props: [
+    "deckId"
+  ],
     data() {
     return {
       newCard: {},
@@ -23,10 +27,17 @@ export default {
   },
   methods: {
     createCard() {
+
       CardService.createCard(this.newCard).then((response) => {
         if (response.status === 201) {
           window.alert("Card Added!");
+          if(!this.deckId){
           this.$router.push({name: "home"});
+          } else {
+            DeckService.addCard(this.deckId, response.data.cardId).then((resp) => {
+              this.$store.commit('ADD_CARD_CURRDECK', response.data);
+            })
+          }
         }
       });
     },

@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       deckList: [],
-      cardList: []
+      cardList: [],
     };
   },
   components: {
