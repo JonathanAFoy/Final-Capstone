@@ -40,4 +40,9 @@ public class CardController {
     public Card createCard(@Valid @RequestBody Card newCard, Principal principal) {
         return cardDao.createCard(principal, newCard);
     }
+    @PreAuthorize("isAuthenticated()")
+    @DeleteMapping("/card/{cardId}")
+    public void deleteCard(@PathVariable int cardId, Principal principal) {
+        cardDao.deleteCard(cardId, principal);
+    }
 }

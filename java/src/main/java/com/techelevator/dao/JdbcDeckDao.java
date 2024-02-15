@@ -47,11 +47,21 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     @Override
-    public void deleteDeck(int deckId) {
-        String sql = "DELETE FROM deck_card WHERE deck_id = ?; " +
-                "DELETE FROM deck WHERE deck_id = ?;";
+    public void addCard(int deckId, int cardId) {
+        String sql = "INSERT INTO deck_card (deck_id, card_id) VALUES (?,?);";
         try {
-            jdbcTemplate.update(sql, deckId, deckId);
+            jdbcTemplate.update(sql, deckId, cardId);
+        } catch (DataAccessException dae) {
+            String detailedMessage = "Data access exception during: " +dae.getMessage();
+            System.out.println(detailedMessage);
+        }
+    }
+
+    public void removeCardFromDeck(int deckId, int cardId, Principal principal) {
+        String sql = "DELETE FROM deck_card USING card WHERE deck_card.deck_id = ? AND deck_card.card_id = ? AND card.username = ?;";
+        String username = principal.getName();
+        try {
+            jdbcTemplate.update(sql, deckId, cardId, username);
         } catch (DataAccessException dae) {
             String detailedMessage = "Data access exception during: " + dae.getMessage();
             System.out.println(detailedMessage);
@@ -59,12 +69,14 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     @Override
-    public void addCard(int deckId, int cardId) {
-        String sql = "INSERT INTO deck_card (deck_id, card_id) VALUES (?,?);";
+    public void deleteDeck(int deckId, Principal principal) {
+        String sql = "DELETE FROM deck_card USING deck WHERE deck_card.deck_id = ? AND deck.username = ?; " +
+                "DELETE FROM deck WHERE deck_id = ? AND username = ?;";
+        String username = principal.getName();
         try {
-            jdbcTemplate.update(sql, deckId, cardId);
+            jdbcTemplate.update(sql, deckId, username, deckId, username);
         } catch (DataAccessException dae) {
-            String detailedMessage = "Data access exception during: " +dae.getMessage();
+            String detailedMessage = "Data access exception during: " + dae.getMessage();
             System.out.println(detailedMessage);
         }
     }
