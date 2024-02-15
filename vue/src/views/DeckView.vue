@@ -5,36 +5,17 @@
         </div>
         <div class="header">
             <h1>{{ deck.deckTitle }}</h1>
-            <!-- <router-link class="btn btn-submit" :to="{ name: 'AddCardView', params: { deckId: deck.deckId } }">Add
-                New Card</router-link> -->
-            <button class="btn btn-cancel deleteDeck" v-on:click="deleteDeck">Delete Deck</button>
+        </div>
+        <div>
+            <button class="delete-deck" v-on:click="deleteDeck">Delete Deck</button>
         </div>
         <div class="cards">
             <CardsList v-bind:cardList="cardList"/>
         </div>
-        <!-- <div class="add-card-form">
-            <button class="button add-card-button" v-if="!showAddCard" v-on:click="showAddCard = true">
-            Add New Card To Deck</button>
-            <form v-if="showAddCard">
-                <fieldset>
-                    <label for="front-text">Front Text: </label>
-                    <input type="text" id="front-text" name="front-text" class="form-control" v-model="newCard.frontText" />
-                </fieldset>
-                <fieldset>
-                    <label for="back-text">Back Text: </label>
-                    <input type="text" id="back-text" name="back-text" class="form-control" v-model="newCard.backText" />
-                </fieldset>
-                <fieldset>
-                    <label for="tags">Tags: </label>
-                    <input type="text" id="tags" name="tags" class="form-control" v-model="newCard.tags" />
-                </fieldset>
-                <button class="button submit-button" v-on:click.prevent="saveNewCard">Add Card</button>
-                <button class="button cancel-button" v-on:click="resetAddForm">Cancel</button>
-            </form>
-        </div> -->
         <CreateCard v-bind:deckId="deck.deckId" />
     </div>
 </template>
+
 <script>
 import CardsList from '../components/CardsList.vue'
 import CardService from '../services/CardService';
@@ -134,7 +115,9 @@ export default {
 </script>
 <style scoped>
 .cards {
-    display: grid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
 }
@@ -142,9 +125,20 @@ export default {
 .header {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .header h1 {
+    justify-content: center;
     flex-grow: 1;
 }
+
+
+div .delete-deck {
+    display: flex;
+    justify-content: right;
+    align-items: right;
+    text-align: right;
+}
+
 </style>

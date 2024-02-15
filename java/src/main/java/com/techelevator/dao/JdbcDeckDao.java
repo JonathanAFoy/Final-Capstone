@@ -48,9 +48,10 @@ public class JdbcDeckDao implements DeckDao{
 
     @Override
     public void deleteDeck(int deckId) {
-        String sql = "DELETE FROM deck WHERE deck_id = ?;";
+        String sql = "DELETE FROM deck_card WHERE deck_id = ?; " +
+                "DELETE FROM deck WHERE deck_id = ?;";
         try {
-            jdbcTemplate.update(sql, deckId);
+            jdbcTemplate.update(sql, deckId, deckId);
         } catch (DataAccessException dae) {
             String detailedMessage = "Data access exception during: " + dae.getMessage();
             System.out.println(detailedMessage);
