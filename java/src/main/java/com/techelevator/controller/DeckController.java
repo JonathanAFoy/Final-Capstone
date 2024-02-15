@@ -36,15 +36,22 @@ public class DeckController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @DeleteMapping("/deck/{deckId}")
-    public void deleteDeck(@PathVariable int deckId) {
-        deckDao.deleteDeck(deckId);
-    }
-
-    @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/deck/{deckId}/{cardId}")
     public void addCard(@PathVariable int deckId, @PathVariable int cardId) {
         deckDao.addCard(deckId, cardId);
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @DeleteMapping("/deck/{deckId}/{cardId}")
+    public void removeCardFromDeck(@PathVariable int deckId, int cardId, Principal principal) {
+        deckDao.removeCardFromDeck(deckId, cardId, principal);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @DeleteMapping("/deck/{deckId}")
+    public void deleteDeck(@PathVariable int deckId, Principal principal) {
+        deckDao.deleteDeck(deckId, principal);
+    }
+
 }

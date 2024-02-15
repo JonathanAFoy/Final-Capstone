@@ -66,6 +66,18 @@ public class JdbcCardDao implements CardDao {
         return null;
     }
 
+    public void deleteCard(int cardId, Principal principal){
+        String sql = "DELETE FROM deck_card USING card WHERE deck_card.card_id = ? AND card.username = ?; " +
+                "DELETE FROM card WHERE card_id = ? AND username = ?;";
+        String username = principal.getName();
+        try {
+            jdbcTemplate.update(sql, cardId, username, cardId, username);
+        } catch (DataAccessException dae) {
+            String detailedMessage = "Data access exception during: " + dae.getMessage();
+            System.out.println(detailedMessage);
+        }
+    }
+
     private Card mapRowToCard(SqlRowSet rowSet) {
         Card card = new Card();
         card.setCardId(rowSet.getInt("card_id"));
