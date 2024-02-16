@@ -12,7 +12,7 @@
     </div>
     <br/>
     <div class="card-display">
-      <CardsList v-bind:cardList="cardList" from = 'home' />
+      <CardsList v-bind:cardList="cardList" from = 'home' @refresh="loadCards"/>
     </div>
     <br/>
     <div class="create-card-button">
@@ -49,6 +49,10 @@ export default {
     DeckService.getDecks().then((response) => {
       this.deckList = response.data;
     });
+    this.loadCards()
+  },
+  methods: {
+    loadCards(){
     CardService.getCards().then((response) => {
       // this.cardList = response.data
       // response.data.forEach( card => {
@@ -62,7 +66,8 @@ export default {
       }
       this.$store.commit('SET_CARD_LIST', response.data);
     })
-  },
+    }
+  }
 };
 </script>
 

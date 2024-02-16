@@ -150,6 +150,7 @@ export default {
                             message: `Card has been deleted`,
                             type: "success",
                         });
+                        this.$emit('refresh')
                         this.$router.push({ name: "home" });
                     }
                 })
