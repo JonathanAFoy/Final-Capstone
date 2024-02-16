@@ -12,7 +12,7 @@
     </div>
     <br/>
     <div class="card-display">
-      <CardsList v-bind:cardList="cardList" />
+      <CardsList v-bind:cardList="cardList" from = 'home' />
     </div>
     <br/>
     <div class="create-card-button">

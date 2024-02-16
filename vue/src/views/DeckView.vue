@@ -21,7 +21,7 @@
     </div>
 
     <div class="cards">
-      <CardsList v-bind:cardList="cardList" />
+      <CardsList v-bind:cardList="cardList" v-bind:deckId="deck.deckId" from = 'deck'/>
     </div>
     <CreateCard v-bind:deckId="deck.deckId" />
   </div>
@@ -34,6 +34,7 @@ import DeckService from "../services/DeckService";
 import CreateCard from "../components/CreateCard.vue";
 
 export default {
+
   components: {
     CardsList,
     CreateCard,
@@ -42,6 +43,7 @@ export default {
     return {
       newCard: {},
       showAddCard: false,
+      from: "deck"
     };
   },
   computed: {

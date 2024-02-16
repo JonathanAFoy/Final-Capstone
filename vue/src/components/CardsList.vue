@@ -1,6 +1,7 @@
 <template>
   <div class="cards-container" v-for="(card, index) in cardList" v-bind:key="index">
-    <div class="card-item">
+    <Card v-bind:card="card" v-bind:from="from" v-bind:deckId="deckId"/>
+    <!-- <div class="card-item">
      
       <div class="card-info-text">
         {{  card.cardId  }}
@@ -14,14 +15,20 @@
         {{  card.cardTags  }}
       </div>
       <button class="kill">X</button>
-    </div>
+    </div> -->
     
   </div>
 </template>
   
 <script>
+import Card from '../components/Card.vue';
+import CardService from '../services/CardService';
+
 export default {
-  props: ['cardList'],
+  props: ['cardList', 'from', 'deckId'],
+  components: {
+    Card 
+  }
 };
 </script>
 

@@ -4,7 +4,7 @@
         <div class="head">
             <p>{{ cardData.cardId }} {{ cardData.username }}</p>
             <!-- Button to delete card from database -->
-            <button class="x" v-on:click="deleteCard">X</button>
+            <button class="x" v-on:click="deleteCard(card.cardId)">X</button>
         </div>
         <div class="body">
             <p>{{ cardData.frontText }}</p>
@@ -24,7 +24,7 @@
         <div class="head">
             <p>{{ cardData.cardId }} {{ cardData.username }}</p>
             <!-- Button to delete card from deck only -->
-            <button class="x" v-on:click="removeCardFromDeck">X</button>
+            <button class="x" v-on:click="removeCardFromDeck(deckId, card.cardId)">X</button>
         </div>
         <div class="body">
             <p>{{ cardData.frontText }}</p>
