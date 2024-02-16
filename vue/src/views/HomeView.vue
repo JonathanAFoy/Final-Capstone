@@ -128,9 +128,9 @@ h1 {
 .card-display {
   display: flex;
   flex-wrap: wrap;
-  column-gap: 10px;
+  column-gap: 100px;
   row-gap: 10px;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
 }
 </style>

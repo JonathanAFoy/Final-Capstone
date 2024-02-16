@@ -231,7 +231,7 @@ export default {
 .card {
     display: flex;
     flex-wrap: wrap;
-    column-gap: 25px;
+    column-gap: 205px;
     row-gap: 25px;
     align-items: center;
 
