@@ -33,7 +33,7 @@ export default {
 </script>
 
 <style scoped>
-.cards-container {
+/* .cards-container {
   display: flex;
   flex-wrap: wrap;
   column-gap: 25px;
@@ -61,5 +61,5 @@ export default {
  align-items: right !important;
  text-align: right !important;
 
-}
+} */
 </style>

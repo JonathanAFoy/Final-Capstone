@@ -1,10 +1,11 @@
 <template>
     <!-- Display for HomeView, shows all card properties -->
     <div class="card" name="home-view" v-if="from === 'home'" v-on:click="flip">
+         <!-- Button to delete card from database -->
+         <button class="x" v-on:click="deleteCard(card.cardId)">X</button>
         <div class="head">
+            
             <p>{{ cardData.cardId }} {{ cardData.username }}</p>
-            <!-- Button to delete card from database -->
-            <button class="x" v-on:click="deleteCard(card.cardId)">X</button>
         </div>
         <div class="body">
             <p>{{ cardData.frontText }}</p>
@@ -151,4 +152,42 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.card {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 25px;
+  row-gap: 25px;
+  align-items: center;
+
+  border-radius: 15px;
+  padding: 10px;
+  margin: 10px;
+  border: 10px;
+  width: 150px;
+  background-color: rgb(129, 163, 255);
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.head {
+  justify-content: space-between;
+  display: flex;
+  border-radius: 15px;
+  padding: 10px;
+  margin: 10px;
+  border: 10px;
+  width: 150px;
+  background-color: rgb(129, 163, 255);
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.x {
+ height: 10%;
+ border-radius: 10px;
+ justify-content: right !important;
+ align-items: right !important;
+ text-align: right !important;
+
+}
+</style>
