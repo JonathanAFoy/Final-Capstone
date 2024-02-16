@@ -21,7 +21,7 @@
         </div>
 
         <div class="cards">
-            <CardsList v-bind:cardList="cardList" v-bind:deckId="deck.deckId" from='deck' />
+            <CardsList v-bind:cardList="cardList" v-bind:deckId="deck.deckId" from='deck' @refresh="loadData" />
         </div>
         <CreateCard v-bind:deckId="deck.deckId" />
     </div>
@@ -65,6 +65,17 @@ export default {
         // }
     },
     methods: {
+        loadData() {
+            DeckService.getDeck(this.deck.deckId)
+            .then((response) => {
+                let cards = response.data;
+                for (let i = 0; i < cards.length; i++) {
+                    cards[i].flipped = false;
+                    cards[i].completed = null;
+                }
+                this.$store.commit('SET_CARD_LIST', cards);
+            })
+        },
         deleteDeck() {
             if (
                 confirm(
