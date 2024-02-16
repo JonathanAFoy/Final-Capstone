@@ -22,6 +22,10 @@ export default {
         return axios.put(`/deck/${deckId}`, deck);
     },
 
+    removeCardFromDeck(deckId, cardId){
+        return axios.delete(`/deck/${deckId}/${cardId}`);
+    },
+
     deleteDeck(deckId) {
         return axios.delete(`/deck/${deckId}`);
     }
