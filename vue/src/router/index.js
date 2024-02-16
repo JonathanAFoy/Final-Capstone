@@ -68,6 +68,11 @@ const routes = [
     component: DeckView
   },
   {
+    path: "/deck/:deckId/edit-deck",
+    name: "edit-deck",
+    component: CreateDeck
+  },
+  {
     path: "/deck/:deckId/study-session",
     name: "study-session",
     component: StudySessionView

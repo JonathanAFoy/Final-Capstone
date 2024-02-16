@@ -20,6 +20,8 @@
             <h1>{{ deck.deckTitle }}</h1>
         </div>
 
+        <CreateDeck v-bind:deck="deck" />
+
         <div class="cards">
             <CardsList v-bind:cardList="cardList" v-bind:deckId="deck.deckId" from='deck' @refresh="loadData" />
         </div>
@@ -32,12 +34,14 @@ import CardsList from "../components/CardsList.vue";
 import CardService from "../services/CardService";
 import DeckService from "../services/DeckService";
 import CreateCard from "../components/CreateCard.vue";
+import CreateDeck from "../components/CreateDeck.vue";
 
 export default {
 
     components: {
         CardsList,
         CreateCard,
+        CreateDeck
     },
     data() {
         return {

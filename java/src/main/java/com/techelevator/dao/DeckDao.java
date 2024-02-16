@@ -11,6 +11,8 @@ public interface DeckDao {
 
     void addCard(int deckId, int cardId);
 
+    void updateDeck(int deckId, Deck newDeck, String username);
+
     void removeCardFromDeck(int deckId, int cardId, Principal principal);
 
     void deleteDeck(int deckId, Principal principal);

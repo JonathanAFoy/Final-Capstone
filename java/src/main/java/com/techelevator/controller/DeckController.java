@@ -42,8 +42,11 @@ public class DeckController {
         deckDao.addCard(deckId, cardId);
     }
 
-//    @PreAuthorize("isAuthenticated()")
-//    @PutMapping("/deck/{deckId}")
+    @PreAuthorize("isAuthenticated()")
+    @PutMapping("/deck/{deckId}")
+    public void updateDeck(@PathVariable int deckId, @Valid @RequestBody Deck newDeck, Principal principal){
+        deckDao.updateDeck(deckId, newDeck, principal.getName());
+    }
 
     @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/deck/{deckId}/{cardId}")
