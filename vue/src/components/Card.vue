@@ -1,6 +1,6 @@
 <template>
     <!-- Display for HomeView, shows all card properties -->
-    <div class="card" name="home-view" v-if="from === 'home'" v-on:click="flip">
+    <div class="card" name="home-view" v-if="from === 'home'" v-on:click="flip(cardData)">
          <!-- Button to delete card from database -->
          <button class="x" v-on:click="deleteCard(card.cardId)">X</button>
         <div class="head">
@@ -21,7 +21,7 @@
 
 
     <!-- Display for DeckView, shows all card properties except for public status -->
-    <div class="card" name="deck-view" v-if="from === 'deck'" v-on:click="flip">
+    <div class="card" name="deck-view" v-if="from === 'deck'" v-on:click="flip(cardData)">
         <div class="head">
             <p>{{ cardData.cardId }} {{ cardData.username }}</p>
             <!-- Button to delete card from deck only -->
@@ -30,25 +30,25 @@
         <div class="body">
             <p>{{ cardData.frontText }}</p>
         </div>
-        <div class="foot">
+        <div class="foot" v-bind:class="{ front: !cardData.flipped}">
             <p>{{ cardData.tags }}</p>
         </div>
 
-        <div class="back">
+        <div class="back"  v-bind:class="{ back: cardData.flipped}">
             <p>{{ cardData.backText }}</p>
         </div>
     </div>
 
 
     <!-- Display for Study Session, shows front and back text only -->
-    <div class="card" name="session-view" v-if="from === 'session'" v-on:click="flip">
+    <div class="card" name="session-view" v-if="from === 'session'" v-on:click="flip(card)">
         <div class="body">
             <button class="x" v-on:click="skipCard">X</button>
-            <p>{{ cardData.frontText }}</p>
+            <p>{{ card.frontText }}</p>
         </div>
 
         <div class="back">
-            <p>{{ cardData.backText }}</p>
+            <p>{{ card.backText }}</p>
         </div>
     </div>
 </template>
@@ -66,8 +66,14 @@ export default {
         }
     },
     methods: {
-        flip() {
-            this.cardData.flipped = !this.cardData.flipped;
+        flip(card) {
+            // this.cardData.flipped = !this.cardData.flipped;
+            const cardInfo = {
+                cardId: card.cardId,
+                flipped: !card.flipped,
+                correct: card.correct
+            }
+            this.$store.commit('UPDATE_CARD', cardInfo)
         },
         deleteCard(cardId) {
             if(confirm("Are you sure you want to delete this card? This action cannot be undone.")){
@@ -190,4 +196,7 @@ export default {
  text-align: right !important;
 
 }
+
+
+
 </style>

@@ -37,6 +37,13 @@ export function createStore(currentToken, currentUser) {
 
       ADD_CARD_CURRDECK(state, card) {
         state.currCards.push(card);
+      },
+      UPDATE_CARD(state, cardInfo) {
+        const card = state.currCards.find( crd => crd.cardId == cardInfo.cardId);
+        if (card) {
+          card.flipped = cardInfo.flipped;
+          card.correct = cardInfo.correct;
+        }
       }
     },
   });

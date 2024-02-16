@@ -34,8 +34,12 @@ export default {
   data() {
     return {
       deckList: [],
-      cardList: [],
     };
+  },
+  computed: {
+    cardList() {
+      return this.$store.state.currCards;
+    }
   },
   components: {
     DecksList,
@@ -46,7 +50,17 @@ export default {
       this.deckList = response.data;
     });
     CardService.getCards().then((response) => {
-      this.cardList = response.data
+      // this.cardList = response.data
+      // response.data.forEach( card => {
+      //   card.flipped = false;
+      //   card.correct = null
+      // })
+      let cards = response.data;
+      for (let i = 0; i < cards.length; i++ ) {
+        cards[i].flipped = false;
+        cards[i].completed = null;
+      }
+      this.$store.commit('SET_CARD_LIST', response.data);
     })
   },
 };
