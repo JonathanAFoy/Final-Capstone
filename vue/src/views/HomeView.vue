@@ -137,8 +137,9 @@ h1 {
 .card-display {
   display: flex;
   flex-wrap: wrap;
-  column-gap: 100px;
-  row-gap: 10px;
+  margin: 20px;
+  column-gap: 50px;
+  row-gap: 50px;
   justify-content: center;
   /* align-items: center; */
 }

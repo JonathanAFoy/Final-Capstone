@@ -6,32 +6,34 @@
                 <div class="card-face front">
                     <div class="heading-section">
 
+                        
+                        <div class="heading-text-section">
+                           {{ card.username }}
+                        </div>
                         <div class="button-section">
                             <button class="x" v-on:click.stop="deleteCard(card.cardId)">X</button>
-                        </div>
-                        <div class="heading-text-section">
-                            {{ card.cardId }} {{ card.username }}
                         </div>
                     </div>
                     <div class="front-back-section">{{ card.frontText }}</div>
                     <div class="foot-section">
-                        {{ card.cardTags }} {{ card.public }}
+                         {{ card.public }}
                     </div>
                 </div>
                 <div class="card-face back">
 
                     <div class="heading-section">
 
+                        
+                        <div class="heading-text-section">
+                            {{ card.username }}
+                        </div>
                         <div class="button-section">
                             <button class="x" v-on:mousedown.stop="deleteCard(card.cardId)">X</button>
-                        </div>
-                        <div class="heading-text-section">
-                            {{ card.cardId }} {{ card.username }}
                         </div>
                     </div>
                     <div class="front-back-section">{{ card.backText }}</div>
                     <div class="foot-section">
-                        {{ card.cardTags }} {{ card.public }}
+                         {{ card.public }}
                     </div>
                 </div>
             </div>
@@ -46,11 +48,12 @@
                 <div class="card-face front">
                     <div class="heading-section">
 
+                        <div class="heading-text-section">
+                           {{ card.username }}
+                        </div>
+                        
                         <div class="button-section">
                             <button class="x" v-on:click.stop="removeCardFromDeck(deckId, card.cardId)">X</button>
-                        </div>
-                        <div class="heading-text-section">
-                            {{ card.cardId }} {{ card.username }}
                         </div>
                     </div>
                     <div class="front-back-section">{{ card.frontText }}</div>
@@ -61,12 +64,11 @@
                 <div class="card-face back">
                     <div class="heading-section">
 
-                        <div class="button-section">
-                            <button class="x" v-on:click.stop="removeCardFromDeck(deckId, card.cardId)">X</button>
-                        </div>
+                        
                         <div class="heading-text-section">
-                            {{ card.cardId }} {{ card.username }}
+                            {{ card.username }}
                         </div>
+                        
                     </div>
                     <div class="front-back-section">{{ card.backText }}</div>
                     <div class="foot-section">
@@ -236,19 +238,35 @@ export default {
 </script>
 
 <style scoped>
+.card {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    position: relative;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
 .heading-section {
     height: 27px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-size: 16px;
+    color: white;
 }
 
 .front-back-section {
     height: 117px;
     display: flex;
+    flex: wrap;
     align-items: center;
     justify-content: center;
+    color: white;
+    
+    
 }
 
 .button-section {}
@@ -257,17 +275,28 @@ export default {
     height: 10%;
     margin: 4px;
     border-radius: 10px;
-    justify-content: right !important;
-    align-items: right !important;
-    text-align: right !important;
-    ;
+    background: none;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+    padding: 10px 5px;
+    opacity: .4;
+    transition: all 0.5s ease;
+    color: rgb(255, 255, 255);
+}
+.x:hover, .error {
+    opacity: 1;
+    transform: rotate(360deg);
+    
 }
 
 
 .heading-text-section {
     flex-grow: 1;
-    margin-right: 30px;
-    text-align: center;
+    margin: 10px;
+    text-align: left;
+    
 
 
 }
@@ -278,6 +307,7 @@ export default {
     align-items: center;
     justify-content: center;
     font-size: 16px;
+    color: rgb(255, 255, 255);
 }
 
 .scene {
@@ -288,16 +318,9 @@ export default {
 
 }
 
-.card {
-    width: 100%;
-    height: 100%;
-    border-radius: 15px;
-    transition: transform 1s;
-    transform-style: preserve-3d;
-    cursor: pointer;
-    position: relative;
-    font-family: Arial, Helvetica, sans-serif;
-}
+.card:hover{
+    transform: scale(1.1);
+  }
 
 .card.is-flipped {
     transform: rotateY(180deg);
@@ -319,15 +342,17 @@ export default {
 
 
 .card-face.front {
+    min-height: 200px;
     background-color: rgb(129, 163, 255);
     color: #000000;
 }
 
 .card-face.back {
     /* background-color: blue; */
-    background-color: rgb(129, 163, 255);
+    background-color: #97CE68;
     transform: rotateY(180deg);
     color: #000000;
+    
 }
 
 </style>
