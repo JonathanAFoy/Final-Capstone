@@ -1,6 +1,6 @@
 <template>
   <div class="cards-container" v-for="(card, index) in cardList" v-bind:key="index">
-    <Card v-bind:card="card" v-bind:from="from" v-bind:deckId="deckId" @refresh="refresh"/>
+    <FlipCard v-bind:card="card" v-bind:from="from" v-bind:deckId="deckId" @refresh="refresh"/>
     <!-- <div class="card-item">
      
       <div class="card-info-text">
@@ -21,14 +21,14 @@
 </template>
   
 <script>
-import Card from '../components/FlipCard.vue';
+import FlipCard from '../components/FlipCard.vue';
 import CardService from '../services/CardService';
 
 export default {
   props: ['cardList', 'from', 'deckId'],
   emits: ['refresh'],
   components: {
-    Card 
+    FlipCard 
   },
   methods: {
     refresh() {
