@@ -9,7 +9,7 @@
 <script>
 
 // import CardService from '../services/CardService';
-import Card from '../components/Card.vue';
+import Card from '../components/FlipCard.vue';
 
 export default {
     name: "home",
@@ -37,6 +37,7 @@ computed: {
   }
 },
 created() {
+  this.$store.commit('SET_ALL_CARDS_TO_FRONT');
     
     // CardService.getCards().then((response) => {
     //   this.cardList = response.data
