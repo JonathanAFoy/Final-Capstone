@@ -7,6 +7,8 @@ import java.util.List;
 public interface DeckDao {
     List<Deck> getDecks(Principal principal);
 
+    Deck getDeck(int deckId);
+
     void createDeck(Principal principal, Deck newDeck);
 
     void addCard(int deckId, int cardId);

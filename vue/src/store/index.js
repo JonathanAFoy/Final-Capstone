@@ -7,7 +7,8 @@ export function createStore(currentToken, currentUser) {
       token: currentToken || '',
       user: currentUser || {},
       currDeck: {},
-      currCards: []
+      currCards: [],
+      hideCards: false
     },
     mutations: {
       SET_AUTH_TOKEN(state, token) {
@@ -47,6 +48,9 @@ export function createStore(currentToken, currentUser) {
       },
       SET_ALL_CARDS_TO_FRONT(state) {
         state.currCards.forEach( card => card.flipped = false);
+      },
+      SET_CARDS_HIDDEN(state, hidden) {
+        state.hideCards = hidden;
       }
     },
   });

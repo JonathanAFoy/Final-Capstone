@@ -70,15 +70,18 @@ export default {
     },
     methods: {
         loadData() {
-            DeckService.getDeck(this.deck.deckId)
-            .then((response) => {
-                let cards = response.data;
-                for (let i = 0; i < cards.length; i++) {
-                    cards[i].flipped = false;
-                    cards[i].completed = null;
-                }
-                this.$store.commit('SET_CARD_LIST', cards);
-            })
+            DeckService.getCardsForDeck(this.deck.deckId)
+                .then((response) => {
+                    let cards = response.data;
+                    for (let i = 0; i < cards.length; i++) {
+                        cards[i].flipped = false;
+                        cards[i].completed = null;
+                    }
+                    this.$store.commit('SET_CARD_LIST', cards);
+
+                    // Show cards
+                    this.$store.commit('SET_CARDS_HIDDEN', false);
+                })
         },
         deleteDeck() {
             if (
@@ -126,7 +129,11 @@ export default {
         //     this.$store.commit('SET_DECK', resp.data);
         // })
 
-        DeckService.getDeck(deckId)
+
+        // Hide cards so that they aren't visible as they flip back to
+        // fronts
+        this.$store.commit('SET_CARDS_HIDDEN', true);
+        DeckService.getCardsForDeck(deckId)
             .then((response) => {
                 let cards = response.data;
                 for (let i = 0; i < cards.length; i++) {

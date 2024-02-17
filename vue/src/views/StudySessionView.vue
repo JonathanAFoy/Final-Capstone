@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- <CardsList v-bind:cardList="cardList" v-bind:deckId="$route.params.deckId" from = "session"/> -->
-    <Card v-bind:card="currCard" from = "session" v-bind:deckId="$route.params.deckId" />
+    <Card v-bind:card="currCard" from = "session" v-bind:deckId="$route.params.deckId" v-show="showCard"/>
     <button v-on:click="nextCard">Next Card</button>
   </div>
 </template>
@@ -20,12 +20,29 @@ export default {
     };
     
 },
+computed: {
+  showCard() {
+    return !this.$store.state.hideCards;
+  }
+},
 components: {
     Card
 },
 methods: {
   nextCard() {
+    this.$store.commit('UPDATE_CARD', {
+      cardId: this.currCard.cardId,
+      flipped: false,
+      correct: this.currCard.correct
+    });
+
+    // Hide cards as we move to next card
+    this.$store.commit('SET_CARDS_HIDDEN', true);
     this.cardIndex++;
+
+    // Show the cards
+    this.$store.commit('SET_CARDS_HIDDEN', false);
+    
   }
 },
 computed: {
@@ -37,11 +54,11 @@ computed: {
   }
 },
 created() {
+  // Hide cards while flipping all back to front
+  this.$store.commit('SET_CARDS_HIDDEN', true);
   this.$store.commit('SET_ALL_CARDS_TO_FRONT');
-    
-    // CardService.getCards().then((response) => {
-    //   this.cardList = response.data
-    // })
+  // Show cards
+  this.$store.commit('SET_CARDS_HIDDEN', false);
   },
 }
 </script>

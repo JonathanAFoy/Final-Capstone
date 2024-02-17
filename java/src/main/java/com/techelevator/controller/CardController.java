@@ -29,7 +29,7 @@ public class CardController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/deck/{deckId}")
+    @GetMapping("/deck/{deckId}/cards")
     public List<Card> getDeckCards(Principal principal, @PathVariable int deckId) {
         return cardDao.getDeckCards(principal, deckId);
     }

@@ -29,6 +29,12 @@ public class DeckController {
     }
 
     @PreAuthorize("isAuthenticated()")
+    @GetMapping("/decks/{deckId}")
+    public Deck getDeck(@PathVariable int deckId) {
+        return deckDao.getDeck(deckId);
+    }
+
+    @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/deck/create")
     public void createDeck(@Valid @RequestBody Deck newDeck, Principal principal) {

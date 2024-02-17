@@ -1,30 +1,37 @@
 <template>
     <!-- Display for HomeView, shows all card properties -->
-    <div class="card" name="home-view" v-if="from === 'home'" v-on:click="flip(card)">
+    <div name="home-view" v-if="from === 'home'">
         <div class="scene">
-            <div class="card" :class="{ 'is-flipped': card.flipped }">
+            <div class="card" :class="{ 'is-flipped': card.flipped }" v-on:click.stop="flip($event, card)">
                 <div class="card-face front">
-                    <div class="head">
-                        <div>{{ card.cardId }} {{ card.username }}</div>
+                    <div class="heading-section">
+
+                        <div class="button-section">
+                            <button class="x" v-on:click.stop="deleteCard(card.cardId)">X</button>
+                        </div>
+                        <div class="heading-text-section">
+                            {{ card.cardId }} {{ card.username }}
+                        </div>
                     </div>
-                    <div class="x-container">
-                        <button class="x" v-on:click="deleteCard(card.cardId)">X</button>
-                    </div>
-                    <div class="card-face-data">{{ card.frontText }}</div>
-                    <div class="foot">
-                        <div>{{ card.cardTags }} {{ card.public }}</div>
+                    <div class="front-back-section">{{ card.frontText }}</div>
+                    <div class="foot-section">
+                        {{ card.cardTags }} {{ card.public }}
                     </div>
                 </div>
                 <div class="card-face back">
-                    <div class="head">
-                        <div>{{ card.cardId }} {{ card.username }}</div>
+
+                    <div class="heading-section">
+
+                        <div class="button-section">
+                            <button class="x" v-on:mousedown.stop="deleteCard(card.cardId)">X</button>
+                        </div>
+                        <div class="heading-text-section">
+                            {{ card.cardId }} {{ card.username }}
+                        </div>
                     </div>
-                    <div class="x-container">
-                        <button class="x" v-on:click="deleteCard(card.cardId)">X</button>
-                    </div>
-                    <div class="card-face-data">{{ card.backText }}</div>
-                    <div class="foot">
-                        <div>{{ card.cardTags }} {{ card.public }}</div>
+                    <div class="front-back-section">{{ card.backText }}</div>
+                    <div class="foot-section">
+                        {{ card.cardTags }} {{ card.public }}
                     </div>
                 </div>
             </div>
@@ -33,63 +40,76 @@
 
 
     <!-- Display for DeckView, shows all card properties except for public status -->
-    <div class="card" name="deck-view" v-if="from === 'deck'" v-on:click="flip(card)">
+    <div class="card" name="deck-view" v-if="from === 'deck'" v-on:click="flip($event, card)">
         <div class="scene">
             <div class="card" :class="{ 'is-flipped': card.flipped }">
                 <div class="card-face front">
-                    <div class="head">
-                        <div>{{ card.cardId }} {{ card.username }}</div>
+                    <div class="heading-section">
+
+                        <div class="button-section">
+                            <button class="x" v-on:click.stop="removeCardFromDeck(deckId, card.cardId)">X</button>
+                        </div>
+                        <div class="heading-text-section">
+                            {{ card.cardId }} {{ card.username }}
+                        </div>
                     </div>
-                    <div class="x-container">
-                        <button class="x" v-on:click="removeCardFromDeck(deckId, card.cardId)">X</button>
-                    </div>
-                    <div class="card-face-data">{{ card.frontText }}</div>
-                    <div class="foot">
-                        <div>{{ card.cardTags }}</div>
+                    <div class="front-back-section">{{ card.frontText }}</div>
+                    <div class="foot-section">
+                        {{ card.cardTags }}
                     </div>
                 </div>
                 <div class="card-face back">
-                    <div class="head">
-                        <div>{{ card.cardId }} {{ card.username }}</div>
+                    <div class="heading-section">
+
+                        <div class="button-section">
+                            <button class="x" v-on:click.stop="removeCardFromDeck(deckId, card.cardId)">X</button>
+                        </div>
+                        <div class="heading-text-section">
+                            {{ card.cardId }} {{ card.username }}
+                        </div>
                     </div>
-                    <div class="x-container">
-                        <button class="x" v-on:click="deleteCard(card.cardId)">X</button>
-                    </div>
-                    <div class="card-face-data">{{ card.backText }}</div>
-                    <div class="foot">
-                        <div>{{ card.cardTags }} </div>
+                    <div class="front-back-section">{{ card.backText }}</div>
+                    <div class="foot-section">
+                        {{ card.cardTags }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-     <!-- Display for Study Session, shows front and back text only -->
-    <div class="card" name="session-view" v-if="from === 'session'" v-on:click="flip(card)">
+    <!-- Display for Study Session, shows front and back text only -->
+    <div class="card" name="session-view" v-if="from === 'session'" v-on:click="flip($event, card)">
         <div class="scene">
             <div class="card" :class="{ 'is-flipped': card.flipped }">
                 <div class="card-face front">
-                    <div class="head">
-                        <div></div>
+                    <div class="heading-section">
+
+                        <div class="button-section">
+
+                        </div>
+                        <div class="heading-text-section">
+
+                        </div>
                     </div>
-                    <div class="x-container">
-                        <!-- <button class="x" v-on:click="removeCardFromDeck(deckId, card.cardId)">X</button> -->
+                    <div class="front-back-section">{{ card.frontText }}</div>
+                    <div class="foot-section">
+
                     </div>
-                    <div class="card-face-data">{{ card.frontText }}</div>
-                    <div class="foot">
-                        <div></div>
-                    </div>
+
                 </div>
                 <div class="card-face back">
-                    <div class="head">
-                        <div></div>
+                    <div class="heading-section">
+
+                        <div class="button-section">
+
+                        </div>
+                        <div class="heading-text-section">
+
+                        </div>
                     </div>
-                    <div class="x-container">
-                        <!-- <button class="x" v-on:click="deleteCard(card.cardId)">X</button> -->
-                    </div>
-                    <div class="card-face-data">{{ card.backText }}</div>
-                    <div class="foot">
-                        <div></div>
+                    <div class="front-back-section"  v-show="showAnswer" >{{ card.backText }}</div>
+                    <div class="foot-section">
+
                     </div>
                 </div>
             </div>
@@ -110,15 +130,23 @@ export default {
             cardData: {}
         }
     },
+    computed: {
+        showAnswer() {
+            // We only want to show the answer if we are flipping
+            // TO back - otherwise we may see the answer as the card
+            // flips back to non-flipped state while moving to next card
+            return this.card.flipped;
+        }
+    },
     methods: {
-        flip(card) {
-            // this.cardData.flipped = !this.cardData.flipped;
+        flip(evt, card) {
             const cardInfo = {
                 cardId: card.cardId,
                 flipped: !card.flipped,
                 correct: card.correct
             }
-            this.$store.commit('UPDATE_CARD', cardInfo)
+            this.$store.commit('UPDATE_CARD', cardInfo);
+
         },
         deleteCard(cardId) {
             if (confirm("Are you sure you want to delete this card? This action cannot be undone.")) {
@@ -128,6 +156,7 @@ export default {
                             message: `Card has been deleted`,
                             type: "success",
                         });
+                        this.$store.commit('SET_CARDS_HIDDEN', true);
                         this.$emit('refresh')
                         this.$router.push({ name: "home" });
                     }
@@ -162,6 +191,7 @@ export default {
                             message: `Card has been removed from deck.`,
                             type: "success",
                         });
+                        this.$store.commit('SET_CARDS_HIDDEN', true);
                         this.$emit('refresh')
                         this.$router.push({ name: "deck-view", params: { deckId: deckId } });
                     }
@@ -206,12 +236,54 @@ export default {
 </script>
 
 <style scoped>
+.heading-section {
+    height: 27px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+}
 
+.front-back-section {
+    height: 117px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-section {}
+
+.x {
+    height: 10%;
+    margin: 4px;
+    border-radius: 10px;
+    justify-content: right !important;
+    align-items: right !important;
+    text-align: right !important;
+    ;
+}
+
+
+.heading-text-section {
+    flex-grow: 1;
+    margin-right: 30px;
+    text-align: center;
+
+
+}
+
+.foot-section {
+    height: 27px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
 
 .scene {
     width: 200px;
     height: 180px;
-    margin: 40px 0;
+    /* margin: 40px 0; */
     perspective: 600px;
 
 }
@@ -236,7 +308,7 @@ export default {
     position: absolute;
     width: 100%;
     height: 100%;
-    line-height: 260px;
+    /* line-height: 260px; */
     color: white;
     text-align: center;
     font-size: 20px;
@@ -245,19 +317,6 @@ export default {
 }
 
 
-.card-face-data {
-    position: absolute;
-    width: 100%;
-    height: 65%;
-    line-height: 260px;
-    /* color: white; */
-    text-align: center;
-    font-size: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-}
 
 .card-face.front {
     background-color: rgb(129, 163, 255);
@@ -271,44 +330,4 @@ export default {
     color: #000000;
 }
 
-.x-container {
-    height: 15%;
-    width: 100%;
-    background-color: rgb(129, 163, 255);
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-
-    border-radius: 15px;
-}
-
-.x {
-    position: absolute;
-    height: 10%;
-    margin: 4px;
-    border-radius: 10px;
-    justify-content: right !important;
-    align-items: right !important;
-    text-align: right !important;
-    ;
-    /* background-color: rgb(129, 163, 255); */
-
-}
-
-.head {
-    position: absolute;
-    width: 100%;
-    height: 15%;
-    margin-top: 2px;
-    font-size: 16px;
-    /* text-align: center; */
-    font-family: Arial, Helvetica, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.foot {
-    font-size: 16px;
-}
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div id="create-deck">
-    <h1>New Deck Form</h1>
+    <h1>{{ action }} Deck Form</h1>
 
     <form v-on:submit.prevent="saveData">
       <input type="text" placeholder="Title" v-model="newDeck.deckTitle" />
@@ -44,12 +44,13 @@ export default {
       //   deckTitle: this.newDeck.deckTitle,
       //   deckTags: this.newDeck.deckTags,
       // }
+      action: ''
     };
   },
   methods: {
     saveData() {
       if (this.deck && this.deck.deckId) {
-        DeckService.updateDeck(this.deck.deckId, this.newDeck).then( resp => {
+        DeckService.updateDeck(this.deck.deckId, this.newDeck).then(resp => {
           this.$store.commit('SET_DECK', this.newDeck);
 
         });
@@ -73,10 +74,19 @@ export default {
     },
   },
   created() {
-    if (this.deck) {
-      this.newDeck.deckId = this.deck.deckId;
-      this.newDeck.deckTitle = this.deck.deckTitle;
-      this.newDeck.deckTags = this.deck.deckTags;
+    if (this.$route.params.deckId) {
+      DeckService.getDeck(this.$route.params.deckId).then(resp => {
+        const deck = resp.data
+        this.newDeck.deckId = deck.deckId;
+        this.newDeck.deckTitle = deck.deckTitle;
+        this.newDeck.deckTags = deck.deckTags;
+
+        this.$store.commit('SET_DECK', deck);
+
+        this.action = "Edit"
+      });
+    } else {
+      this.action = "New"
     }
   },
 };

@@ -4,20 +4,21 @@
     <div class="deck-display">
       <DecksList v-bind:deckList="deckList" />
     </div>
-    <br/>
+    <br />
     <div class="create-deck-button">
       <button class="create-deck-button">
         <router-link class="router" v-bind:to="{ name: 'create-deck' }">Create New Deck</router-link>
       </button>
     </div>
-    <br/>
-    <div class="card-display">
-      <CardsList v-bind:cardList="cardList" from = 'home' @refresh="loadCards"/>
+    <br />
+    <div class="card-display" v-show="showCards">
+      <CardsList v-bind:cardList="cardList" from='home' @refresh="loadCards" />
     </div>
-    <br/>
+    <br />
     <div class="create-card-button">
-      <button  class="create-card-button">
+      <button class="create-card-button">
         <router-link class="router" v-bind:to="{ name: 'create-card' }">Create New Card</router-link>
+        <!-- Create New Card -->
       </button>
     </div>
   </div>
@@ -39,6 +40,9 @@ export default {
   computed: {
     cardList() {
       return this.$store.state.currCards;
+    },
+    showCards() {
+      return !this.$store.state.hideCards;
     }
   },
   components: {
@@ -46,33 +50,38 @@ export default {
     CardsList
   },
   created() {
+    // Hide cards so that they aren't visible as they flip back to
+    // fronts
+    this.$store.commit('SET_CARDS_HIDDEN', true);
     DeckService.getDecks().then((response) => {
       this.deckList = response.data;
     });
     this.loadCards()
   },
   methods: {
-    loadCards(){
-    CardService.getCards().then((response) => {
-      // this.cardList = response.data
-      // response.data.forEach( card => {
-      //   card.flipped = false;
-      //   card.correct = null
-      // })
-      let cards = response.data;
-      for (let i = 0; i < cards.length; i++ ) {
-        cards[i].flipped = false;
-        cards[i].completed = null;
-      }
-      this.$store.commit('SET_CARD_LIST', response.data);
-    })
+    loadCards() {
+      CardService.getCards().then((response) => {
+        let cards = response.data;
+        for (let i = 0; i < cards.length; i++) {
+          cards[i].flipped = false;
+          cards[i].completed = null;
+        }
+        this.$store.commit('SET_CARD_LIST', response.data);
+
+        // Once done loading, show the cards
+        this.$store.commit('SET_CARDS_HIDDEN', false)
+      })
+    },
+    goToCreateCard() {
+      this.$router.push({ name: 'create-card' });
     }
   }
 };
 </script>
 
 <style>
-html, body {
+html,
+body {
   background-color: #E6F4F1;
 }
 
@@ -80,7 +89,7 @@ h1 {
   text-align: center;
 }
 
-.create-deck-button{
+.create-deck-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -89,7 +98,7 @@ h1 {
   border-color: #3498db;
 }
 
-.create-card-button{
+.create-card-button {
   display: flex;
   align-items: center;
   justify-content: center;

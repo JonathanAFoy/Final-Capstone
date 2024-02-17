@@ -7,7 +7,11 @@ export default {
     },
 
     getDeck(deckId) {
-        return axios.get(`/deck/${deckId}`);
+        return axios.get(`/decks/${deckId}`);
+    },
+
+    getCardsForDeck(deckId) {
+        return axios.get(`/deck/${deckId}/cards`);
     },
 
     createDeck(deck) {
