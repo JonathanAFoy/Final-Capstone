@@ -18,7 +18,7 @@ CREATE SEQUENCE seq_deck_id
 
 CREATE TABLE deck (
    deck_id int NOT NULL DEFAULT nextval('seq_deck_id'),
-   username varchar(50) NOT NULL UNIQUE,
+   username varchar(50) NOT NULL,
    deck_title varchar(50) NOT NULL,
    deck_tags varchar(50) NOT NULL,
    is_public boolean,
@@ -32,7 +32,7 @@ CREATE SEQUENCE seq_card_id
 
 CREATE TABLE card (
 	card_id int NOT NULL DEFAULT nextval('seq_card_id'),
-	username varchar(50) NOT NULL UNIQUE,
+	username varchar(50) NOT NULL,
 	front_text varchar(150) NOT NULL,
 	back_text varchar(150) NOT NULL,
 	card_tags varchar(50) NOT NULL,
