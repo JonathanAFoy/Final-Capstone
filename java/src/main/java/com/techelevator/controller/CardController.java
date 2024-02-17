@@ -25,24 +25,24 @@ public class CardController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/card")
     public List<Card> getCards(Principal principal) {
-        return cardDao.getCards(principal);
+        return cardDao.getCards(principal.getName());
     }
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/deck/{deckId}/cards")
-    public List<Card> getDeckCards(Principal principal, @PathVariable int deckId) {
-        return cardDao.getDeckCards(principal, deckId);
+    public List<Card> getDeckCards(@PathVariable int deckId, Principal principal) {
+        return cardDao.getDeckCards(deckId, principal.getName());
     }
 
     @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/card/create")
     public Card createCard(@Valid @RequestBody Card newCard, Principal principal) {
-        return cardDao.createCard(principal, newCard);
+        return cardDao.createCard(newCard, principal.getName());
     }
     @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/card/{cardId}")
     public void deleteCard(@PathVariable int cardId, Principal principal) {
-        cardDao.deleteCard(cardId, principal);
+        cardDao.deleteCard(cardId, principal.getName());
     }
 }

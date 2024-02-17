@@ -5,12 +5,12 @@ import java.security.Principal;
 import java.util.List;
 
 public interface CardDao {
-   List<Card> getCards(Principal principal);
+   List<Card> getCards(String username);
 
-   List<Card> getDeckCards(Principal principal, int deckId);
+   List<Card> getDeckCards(int deckId, String username);
 
-   Card createCard(Principal principal, Card newCard);
+   Card createCard(Card newCard, String username);
 
-   void deleteCard(int cardId, Principal principal);
+   void deleteCard(int cardId, String username);
 
 }

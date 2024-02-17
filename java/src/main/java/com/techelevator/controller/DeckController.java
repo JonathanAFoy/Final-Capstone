@@ -25,20 +25,20 @@ public class DeckController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/deck")
     public List<Deck> getDecks(Principal principal) {
-        return deckDao.getDecks(principal);
+        return deckDao.getDecks(principal.getName());
     }
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/decks/{deckId}")
-    public Deck getDeck(@PathVariable int deckId) {
-        return deckDao.getDeck(deckId);
+    public Deck getDeck(@PathVariable int deckId, Principal principal) {
+        return deckDao.getDeck(deckId, principal.getName());
     }
 
     @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/deck/create")
     public void createDeck(@Valid @RequestBody Deck newDeck, Principal principal) {
-        deckDao.createDeck(principal, newDeck);
+        deckDao.createDeck(newDeck, principal.getName());
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -57,13 +57,13 @@ public class DeckController {
     @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/deck/{deckId}/{cardId}")
     public void removeCardFromDeck(@PathVariable int deckId, @PathVariable int cardId, Principal principal) {
-        deckDao.removeCardFromDeck(deckId, cardId, principal);
+        deckDao.removeCardFromDeck(deckId, cardId, principal.getName());
     }
 
     @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/deck/{deckId}")
     public void deleteDeck(@PathVariable int deckId, Principal principal) {
-        deckDao.deleteDeck(deckId, principal);
+        deckDao.deleteDeck(deckId, principal.getName());
     }
 
 }

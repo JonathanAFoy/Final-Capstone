@@ -17,10 +17,9 @@ public class JdbcCardDao implements CardDao {
     }
 
     @Override
-    public List<Card> getCards(Principal principal) {
+    public List<Card> getCards(String username) {
         List<Card> cards = new ArrayList<>();
         String sql = "SELECT * FROM card WHERE username = ?;";
-        String username = principal.getName();
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
             while(results.next()) {
@@ -33,11 +32,10 @@ public class JdbcCardDao implements CardDao {
         return cards;
     }
 
-    public List<Card> getDeckCards(Principal principal, int deckId) {
+    public List<Card> getDeckCards(int deckId, String username) {
         List<Card> deckCards = new ArrayList<>();
         String sql = "SELECT * FROM card JOIN deck_card ON card.card_id = deck_card.card_id " +
                 "JOIN deck ON deck_card.deck_id = deck.deck_id WHERE deck.deck_id = ? AND deck.username = ?;";
-        String username = principal.getName();
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, deckId, username);
             while(results.next()) {
@@ -51,9 +49,8 @@ public class JdbcCardDao implements CardDao {
     }
 
     @Override
-    public Card createCard(Principal principal, Card newCard) {
+    public Card createCard(Card newCard, String username) {
         String sql = "INSERT INTO card (username, front_text, back_text, card_tags, is_public) VALUES (?,?,?,?,?) RETURNING card_id";
-        String username = principal.getName();
         try {
             int newCardId = jdbcTemplate.queryForObject(sql, Integer.class, username, newCard.getFrontText(), newCard.getBackText(), newCard.getCardTags(), false);
             newCard.setCardId(newCardId);
@@ -66,10 +63,9 @@ public class JdbcCardDao implements CardDao {
         return null;
     }
 
-    public void deleteCard(int cardId, Principal principal){
+    public void deleteCard(int cardId, String username){
         String sql = "DELETE FROM deck_card USING card WHERE deck_card.card_id = ? AND card.username = ?; " +
                 "DELETE FROM card WHERE card_id = ? AND username = ?;";
-        String username = principal.getName();
         try {
             jdbcTemplate.update(sql, cardId, username, cardId, username);
         } catch (DataAccessException dae) {

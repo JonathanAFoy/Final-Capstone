@@ -5,18 +5,18 @@ import java.security.Principal;
 import java.util.List;
 
 public interface DeckDao {
-    List<Deck> getDecks(Principal principal);
+    List<Deck> getDecks(String username);
 
-    Deck getDeck(int deckId);
+    Deck getDeck(int deckId, String username);
 
-    void createDeck(Principal principal, Deck newDeck);
+    void createDeck(Deck newDeck, String username);
 
     void addCard(int deckId, int cardId);
 
     void updateDeck(int deckId, Deck newDeck, String username);
 
-    void removeCardFromDeck(int deckId, int cardId, Principal principal);
+    void removeCardFromDeck(int deckId, int cardId, String username);
 
-    void deleteDeck(int deckId, Principal principal);
+    void deleteDeck(int deckId, String username);
 
 }

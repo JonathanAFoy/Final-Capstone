@@ -17,10 +17,9 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     @Override
-    public List<Deck> getDecks(Principal principal) {
+    public List<Deck> getDecks(String username) {
         List<Deck> decks = new ArrayList<>();
         String sql = "SELECT * FROM deck WHERE username = ?;";
-        String username = principal.getName();
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
             while(results.next()) {
@@ -34,11 +33,11 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     @Override
-    public Deck getDeck(int deckId) {
+    public Deck getDeck(int deckId, String username) {
         List<Deck> decks = new ArrayList<>();
-        String sql = "SELECT * FROM deck WHERE deck_id = ?;";
+        String sql = "SELECT * FROM deck WHERE deck_id = ? AND username = ?;";
         try {
-            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, deckId);
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, deckId, username);
             if(results.next()) {
                 Deck newDeck = mapRowToDeck(results);
                 return newDeck;
@@ -51,9 +50,8 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     @Override
-    public void createDeck(Principal principal, Deck newDeck){
+    public void createDeck(Deck newDeck, String username){
         String sql = "INSERT INTO deck (username, deck_title, deck_tags, is_public) VALUES (?,?,?,?) RETURNING deck_id";
-        String username = principal.getName();
         try {
             int newDeckId = jdbcTemplate.queryForObject(sql, Integer.class, username, newDeck.getDeckTitle(), newDeck.getDeckTags(), false);
             newDeck.setDeckId(newDeckId);
@@ -85,9 +83,8 @@ public class JdbcDeckDao implements DeckDao{
         }
     }
 
-    public void removeCardFromDeck(int deckId, int cardId, Principal principal) {
+    public void removeCardFromDeck(int deckId, int cardId, String username) {
         String sql = "DELETE FROM deck_card USING card WHERE deck_card.deck_id = ? AND deck_card.card_id = ? AND card.username = ?;";
-        String username = principal.getName();
         try {
             jdbcTemplate.update(sql, deckId, cardId, username);
         } catch (DataAccessException dae) {
@@ -97,10 +94,9 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     @Override
-    public void deleteDeck(int deckId, Principal principal) {
+    public void deleteDeck(int deckId, String username) {
         String sql = "DELETE FROM deck_card USING deck WHERE deck_card.deck_id = ? AND deck.username = ?; " +
                 "DELETE FROM deck WHERE deck_id = ? AND username = ?;";
-        String username = principal.getName();
         try {
             jdbcTemplate.update(sql, deckId, username, deckId, username);
         } catch (DataAccessException dae) {
