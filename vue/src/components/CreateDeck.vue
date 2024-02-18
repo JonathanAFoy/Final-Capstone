@@ -1,14 +1,14 @@
 <template>
   <div id="create-deck">
-    <h1>{{ action }} Deck Form</h1>
+    <h1 class="head">{{ action }} Deck Form</h1>
 
     <form v-on:submit.prevent="saveData">
-      <input type="text" placeholder="Title" v-model="newDeck.deckTitle" />
+      <input class="form" type="text" placeholder="Title" v-model="newDeck.deckTitle" />
       <br /><br />
-      <input type="text" placeholder="Tags" v-model="newDeck.deckTags" />
+      <input class="form" type="text" placeholder="Tags" v-model="newDeck.deckTags" />
       <br /><br />
-      <div class="btns">
-        <input type="submit" class="regular-btn" />
+      <div>
+        <button type="submit" class="button">Submit</button>
       </div>
     </form>
   </div>
@@ -94,16 +94,35 @@ export default {
 
 <style>
 #create-deck {
+  display: block;
   border-radius: 15px;
   text-align: center;
   margin: 50px auto;
-  max-width: 500px;
-  background-color: #f7f9ff;
-  padding: 30px;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+ width: 300px;
+ color: white;
+  background-color:#acaaaa;
+  padding: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    
+}
+.head {
+  
+    
+}
+.form {
+  border-radius: 5px;
+  font-family:Arial, Helvetica, sans-serif;
+  border: none;
+  font-weight: bold;
 }
 
-/* .btns {
-  background-color: #3498db;
-} */
+.button {
+  border: none;
+  color: black;
+  background: white;
+  border-radius: 5px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
 </style>

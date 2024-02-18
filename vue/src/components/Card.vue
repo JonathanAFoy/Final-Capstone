@@ -23,15 +23,15 @@
         </div>
     </div>-->
 
-  <div
+  <!-- <div
     class="grid-container"
     name="home-view"
     v-if="from === 'home'"
-    v-on:click="flip(card)"
+    v-on:click="flip(card)" -->
   >
     <!-- Button to delete card from database -->
 
-      <button class="x" v-on:click="deleteCard(card.cardId)">X</button>
+      <!-- <button class="x" v-on:click="deleteCard(card.cardId)">X</button>
 
       <div class="head">
         <p>{{ card.cardId }} {{ card.username }}</p>
@@ -54,7 +54,7 @@
       <div class="edit">Edit</div>
       </div>
     
-    
+     -->
   
 
   <!-- Display for DeckView, shows all card properties except for public status -->
@@ -78,16 +78,16 @@
         </div>
     </div>-->
 
-  <div
+  <!-- <div
     class="card"
     name="deck-view"
     v-if="from === 'deck'"
     v-on:click="flip(card)"
   >
     <div class="head">
-      <p>{{ card.cardId }} {{ card.username }}</p>
+      <p>{{ card.cardId }} {{ card.username }}</p> -->
       <!-- Button to delete card from deck only -->
-      <button class="x" v-on:click="removeCardFromDeck(deckId, card.cardId)">
+      <!-- <button class="x" v-on:click="removeCardFromDeck(deckId, card.cardId)">
         X
       </button>
     </div>
@@ -103,7 +103,7 @@
     <div class="foot" v-bind:class="{ front: !card.flipped }">
       <p>{{ card.tags }}</p>
     </div>
-  </div>
+  </div> -->
 
   <!-- Display for Study Session, shows front and back text only -->
 
@@ -118,7 +118,7 @@
         </div>
     </div> -->
 
-  <div
+  <!-- <div
     class="card"
     name="session-view"
     v-if="from === 'session'"
@@ -135,213 +135,213 @@
       </div>
     </div>
   </div>
-</template>
+</template> -->
 
 <script>
-import CardService from "../services/CardService";
-import DeckService from "../services/DeckService";
+// import CardService from "../services/CardService";
+// import DeckService from "../services/DeckService";
 
-export default {
-  props: ["card", "from", "deckId"],
-  emits: ["refresh"],
-  data() {
-    return {
-      cardData: {},
-    };
-  },
-  methods: {
-    flip(card) {
-      // this.cardData.flipped = !this.cardData.flipped;
-      const cardInfo = {
-        cardId: card.cardId,
-        flipped: !card.flipped,
-        correct: card.correct,
-      };
-      this.$store.commit("UPDATE_CARD", cardInfo);
-    },
-    deleteCard(cardId) {
-      if (
-        confirm(
-          "Are you sure you want to delete this card? This action cannot be undone."
-        )
-      ) {
-        CardService.deleteCard(cardId)
-          .then((response) => {
-            if (response.status === 200) {
-              this.$store.commit("SET_NOTIFICATION", {
-                message: `Card has been deleted`,
-                type: "success",
-              });
-              this.$emit("refresh");
-              this.$router.push({ name: "home" });
-            }
-          })
-          .catch((error) => {
-            if (error.response) {
-              this.$store.commit(
-                "SET_NOTIFICATION",
-                "Error deleting card. Response received was '" +
-                  error.response.statusText +
-                  "'."
-              );
-            } else if (error.request) {
-              this.$store.commit(
-                "SET_NOTIFICATION",
-                "Error deleting card. Server could not be reached."
-              );
-            } else {
-              this.$store.commit(
-                "SET_NOTIFICATION",
-                "Error deleting card. Request could not be created."
-              );
-            }
-          });
-      }
-    },
-    removeCardFromDeck(deckId, cardId) {
-      if (confirm("Are you sure you want to remove this card from the deck?")) {
-        DeckService.removeCardFromDeck(deckId, cardId)
-          .then((response) => {
-            if (response.status === 200) {
-              this.$store.commit("SET_NOTIFICATION", {
-                message: `Card has been removed from deck.`,
-                type: "success",
-              });
-              this.$emit("refresh");
-              this.$router.push({
-                name: "deck-view",
-                params: { deckId: deckId },
-              });
-            }
-          })
-          .catch((error) => {
-            if (error.response) {
-              this.$store.commit(
-                "SET_NOTIFICATION",
-                "Error removing card from deck. Response received was '" +
-                  error.response.statusText +
-                  "'."
-              );
-            } else if (error.request) {
-              this.$store.commit(
-                "SET_NOTIFICATION",
-                "Error removing card from deck. Server could not be reached."
-              );
-            } else {
-              this.$store.commit(
-                "SET_NOTIFICATION",
-                "Error removing card from deck. Request could not be created."
-              );
-            }
-          });
-      }
-    },
-  },
-  created() {
-    this.cardData = {
-      cardId: this.card.cardId,
-      username: this.card.username,
-      frontText: this.card.frontText,
-      backText: this.card.backText,
-      cardTags: this.card.cardTags,
-      public: this.card.public,
-      flipped: false,
-      correct: null,
-    };
-  },
-};
-</script>
+// export default {
+//   props: ["card", "from", "deckId"],
+//   emits: ["refresh"],
+//   data() {
+//     return {
+//       cardData: {},
+//     };
+//   },
+//   methods: {
+    // flip(card) {
+    //   // this.cardData.flipped = !this.cardData.flipped;
+    //   const cardInfo = {
+    //     cardId: card.cardId,
+    //     flipped: !card.flipped,
+    //     correct: card.correct,
+    //   };
+    //   this.$store.commit("UPDATE_CARD", cardInfo);
+    // },
+    // deleteCard(cardId) {
+    //   if (
+    //     confirm(
+    //       "Are you sure you want to delete this card? This action cannot be undone."
+    //     )
+    //   ) {
+    //     CardService.deleteCard(cardId)
+    //       .then((response) => {
+    //         if (response.status === 200) {
+    //           this.$store.commit("SET_NOTIFICATION", {
+    //             message: `Card has been deleted`,
+    //             type: "success",
+    //           });
+    //           this.$emit("refresh");
+    //           this.$router.push({ name: "home" });
+    //         }
+    //       })
+    //       .catch((error) => {
+    //         if (error.response) {
+    //           this.$store.commit(
+    //             "SET_NOTIFICATION",
+    //             "Error deleting card. Response received was '" +
+    //               error.response.statusText +
+    //               "'."
+    //           );
+    //         } else if (error.request) {
+    //           this.$store.commit(
+    //             "SET_NOTIFICATION",
+    //             "Error deleting card. Server could not be reached."
+    //           );
+    //         } else {
+    //           this.$store.commit(
+    //             "SET_NOTIFICATION",
+    //             "Error deleting card. Request could not be created."
+    //           );
+    //         }
+    //       });
+    //   }
+    // },
+//     removeCardFromDeck(deckId, cardId) {
+//       if (confirm("Are you sure you want to remove this card from the deck?")) {
+//         DeckService.removeCardFromDeck(deckId, cardId)
+//           .then((response) => {
+//             if (response.status === 200) {
+//               this.$store.commit("SET_NOTIFICATION", {
+//                 message: `Card has been removed from deck.`,
+//                 type: "success",
+//               });
+//               this.$emit("refresh");
+//               this.$router.push({
+//                 name: "deck-view",
+//                 params: { deckId: deckId },
+//               });
+//             }
+//           })
+//           .catch((error) => {
+//             if (error.response) {
+//               this.$store.commit(
+//                 "SET_NOTIFICATION",
+//                 "Error removing card from deck. Response received was '" +
+//                   error.response.statusText +
+//                   "'."
+//               );
+//             } else if (error.request) {
+//               this.$store.commit(
+//                 "SET_NOTIFICATION",
+//                 "Error removing card from deck. Server could not be reached."
+//               );
+//             } else {
+//               this.$store.commit(
+//                 "SET_NOTIFICATION",
+//                 "Error removing card from deck. Request could not be created."
+//               );
+//             }
+//           });
+//       }
+//     },
+//   },
+//   created() {
+//     this.cardData = {
+//       cardId: this.card.cardId,
+//       username: this.card.username,
+//       frontText: this.card.frontText,
+//       backText: this.card.backText,
+//       cardTags: this.card.cardTags,
+//       public: this.card.public,
+//       flipped: false,
+//       correct: null,
+//     };
+//   },
+// };
+// </script>
 
-<style scoped>
-.grid-container {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  grid-template-rows: 1fr 3fr 1fr;
-  grid-template-areas:
-    "head . x"
-    "body body body"
-    "foot . edit";
+<!-- // <style scoped>
+// .grid-container {
+//   display: grid;
+//   grid-template-columns: 1fr 2fr 1fr;
+//   grid-template-rows: 1fr 3fr 1fr;
+//   grid-template-areas:
+//     "head . x"
+//     "body body body"
+//     "foot . edit";
 
 
-  border-radius: 15px;
-  background-color: rgb(181, 194, 238);
-  font-family: Arial, Helvetica, sans-serif;
+//   border-radius: 15px;
+//   background-color: rgb(181, 194, 238);
+//   font-family: Arial, Helvetica, sans-serif;
 
   
-    padding: 10px 10px;
-    transition: all 0.5s ease;
-}
+//     padding: 10px 10px;
+//     transition: all 0.5s ease;
+// }
 
 
-.head {
-    grid-area: head;
-    background-color: white;
-    margin: 10px;
-    border-radius: 10px;
+// .head {
+//     grid-area: head;
+//     background-color: white;
+//     margin: 10px;
+//     border-radius: 10px;
     
     
   
-}
+// }
 
-.x {
-    grid-area: x;
-    font-size: x-large;
-    font-weight: bold;
-    border: none;
-    background: none;
-    position: relative;
-    color: black;
-    right: -20px;
-    top: -10px;
-    padding: 10px 15px;
-    opacity: .4;
-    transition: all 0.5s ease;
+// .x {
+//     grid-area: x;
+//     font-size: x-large;
+//     font-weight: bold;
+//     border: none;
+//     background: none;
+//     position: relative;
+//     color: black;
+//     right: -20px;
+//     top: -10px;
+//     padding: 10px 15px;
+//     opacity: .4;
+//     transition: all 0.5s ease;
     
-}
-.x:hover, .error {
-    opacity: 1;
-    transform: rotate(360deg);
+// }
+// .x:hover, .error {
+//     opacity: 1;
+//     transform: rotate(360deg);
     
-}
+// }
 
 
-.body {
-  grid-area: body;
-  text-align: center;
-  justify-content: center;
-  align-content: center;
-  background-color: white;
-  margin: 20px;
-  border-radius: 10px;
+// .body {
+//   grid-area: body;
+//   text-align: center;
+//   justify-content: center;
+//   align-content: center;
+//   background-color: white;
+//   margin: 20px;
+//   border-radius: 10px;
   
-}
-.foot {
-    grid-area: foot;
-}
-.edit {
-    grid-area: edit;
-}
+// }
+// .foot {
+//     grid-area: foot;
+// }
+// .edit {
+//     grid-area: edit;
+// }
 
 
 
-.card-data {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+// .card-data {
+//   cursor: pointer;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
 
-.flip-enter-active {
-    transition: all 0.4s ease;
-  }
+// .flip-enter-active {
+//     transition: all 0.4s ease;
+//   }
   
-  .flip-leave-active {
-    display: none;
-  }
+//   .flip-leave-active {
+//     display: none;
+//   }
   
-  .flip-enter, .flip-leave {
-    transform: rotateY(180deg);
-    opacity: 0;
+//   .flip-enter, .flip-leave {
+//     transform: rotateY(180deg);
+//     opacity: 0;
   
-  }
-</style>
+//   }
+// </style> -->

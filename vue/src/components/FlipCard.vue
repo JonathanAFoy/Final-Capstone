@@ -346,13 +346,13 @@ export default {
 
 .card-face.front {
     min-height: 200px;
-    background-color: rgb(129, 163, 255);
+    background-color: rgb(68, 118, 255);
     color: #000000;
 }
 
 .card-face.back {
     /* background-color: blue; */
-    background-color: #97CE68;
+    background-color: rgb(130, 221, 112);
     transform: rotateY(180deg);
     color: #000000;
     

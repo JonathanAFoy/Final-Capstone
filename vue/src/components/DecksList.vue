@@ -24,11 +24,17 @@ export default {
 
 <style scoped>
 h2{
+  color:white;
   font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
 }
 
 h4{
+  font-family: Arial, Helvetica, sans-serif;
+  color:white;
   font-size: 12px;
+  font-weight: bold;
 }
 
 .decks-container { 
@@ -47,7 +53,7 @@ h4{
   margin: 10px;
   border: 10px;
   width: 150px;
-  background-color: rgb(129, 163, 255);
+  background-color:#7b68cee0;
   font-family: Arial, Helvetica, sans-serif;
   justify-content: center;
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>My Decks</h1>
+    <h1 id="my-decks">My Decks</h1>
     <div class="deck-display">
       <DecksList v-bind:deckList="deckList" />
     </div>
@@ -80,13 +80,20 @@ export default {
 </script>
 
 <style>
-html,
-body {
-  background-color: #E6F4F1;
-}
+body { 
+   background-image:url("https://www.wallpaperboulevard.com/Images/product/cream-white-triangle-geometric-shapes-w-qsac-l.jpg");
+     
+    background-size: stretch;}
 
 h1 {
+  border-radius: 10px;
+  font-family: Arial, Helvetica, sans-serif;
   text-align: center;
+  color:black;
+
+}
+#my-decks {
+  font-size:40px;
 }
 
 .create-deck-button {
@@ -123,6 +130,7 @@ h1 {
   column-gap: 25px;
   row-gap: 25px;
   align-items: center;
+  
 }
 
 .deck-display {

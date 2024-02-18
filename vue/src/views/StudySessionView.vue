@@ -1,7 +1,9 @@
 <template>
-  <div>
+  <div class>
     <!-- <CardsList v-bind:cardList="cardList" v-bind:deckId="$route.params.deckId" from = "session"/> -->
     <Card v-bind:card="currCard" from = "session" v-bind:deckId="$route.params.deckId" v-show="showCard"/>
+    
+    <br />
     <button v-on:click="nextCard">Next Card</button>
   </div>
 </template>
@@ -64,5 +66,7 @@ created() {
 </script>
 
 <style>
+
+
 
 </style>

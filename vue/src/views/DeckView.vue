@@ -194,6 +194,7 @@ export default {
     justify-content: center;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .header {
