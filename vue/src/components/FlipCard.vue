@@ -68,6 +68,9 @@
                         <div class="heading-text-section">
                             {{ card.username }}
                         </div>
+                        <div class="button-section">
+                            <button class="x" v-on:click.stop="removeCardFromDeck(deckId, card.cardId)">X</button>
+                        </div>
                         
                     </div>
                     <div class="front-back-section">{{ card.backText }}</div>
