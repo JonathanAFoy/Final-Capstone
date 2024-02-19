@@ -241,4 +241,14 @@ export default {
 button {
     border-radius: 10px;
 }
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px;
+  column-gap: 50px;
+  row-gap: 50px;
+  justify-content: center;
+  /* align-items: center; */
+}
 </style>

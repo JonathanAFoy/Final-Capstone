@@ -1,10 +1,10 @@
 <template>
-  <div class>
-    <!-- <CardsList v-bind:cardList="cardList" v-bind:deckId="$route.params.deckId" from = "session"/> -->
+  <div class="card">
     <Card v-bind:card="currCard" from = "session" v-bind:deckId="$route.params.deckId" v-show="showCard"/>
-    
+  </div>
     <br />
-    <button v-on:click="nextCard">Next Card</button>
+  <div class="next-card-button">
+    <button class="next-card-button" v-on:click="nextCard">Next Card</button>
   </div>
 </template>
 
@@ -66,7 +66,25 @@ created() {
 </script>
 
 <style>
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5%;
+  margin-bottom: 1%;
+}
 
-
+.next-card-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: large;
+  padding: 12px;
+  color: #3498db;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
 </style>
