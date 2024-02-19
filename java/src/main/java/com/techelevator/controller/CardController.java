@@ -44,6 +44,12 @@ public class CardController {
     }
 
     @PreAuthorize("isAuthenticated()")
+    @PutMapping("/card/{cardId}")
+    public void updateCard(@PathVariable int cardId, @Valid @RequestBody Card newCard, Principal principal) {
+        cardDao.updateCard(cardId, newCard, principal.getName());
+    }
+
+    @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/card/{cardId}")
     public void deleteCard(@PathVariable int cardId, Principal principal) {
         cardDao.deleteCard(cardId, principal.getName());

@@ -45,7 +45,7 @@ public class DeckController {
 
     @PreAuthorize("isAuthenticated()")
     @PutMapping("/deck/{deckId}")
-    public void updateDeck(@PathVariable int deckId, @Valid @RequestBody Deck newDeck, Principal principal){
+    public void updateDeck(@PathVariable int deckId, @Valid @RequestBody Deck newDeck, Principal principal) {
         deckDao.updateDeck(deckId, newDeck, principal.getName());
     }
 

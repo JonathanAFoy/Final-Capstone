@@ -11,6 +11,8 @@ public interface CardDao {
 
    Card createCard(Card newCard, String username);
 
+   void updateCard(int cardId, Card newCard, String username);
+
    void deleteCard(int cardId, String username);
 
 }

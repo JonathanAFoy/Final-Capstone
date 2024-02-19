@@ -66,6 +66,17 @@ public class JdbcCardDao implements CardDao {
     }
 
     @Override
+    public void updateCard(int cardId, Card newCard, String username) {
+        String sql = "UPDATE card SET front_text = ?, back_text = ?, card_tags = ? WHERE card_id = ? AND username = ?;";
+        try {
+            jdbcTemplate.update(sql, newCard.getFrontText(), newCard.getBackText(), newCard.getCardTags(), cardId, username);
+        } catch (DataAccessException dae) {
+            String detailedMessage = "Data access exception during: " +dae.getMessage();
+            System.out.println(detailedMessage);
+        }
+    }
+
+    @Override
     public void deleteCard(int cardId, String username){
         String sql = "DELETE FROM deck_card USING card WHERE deck_card.card_id = ? AND card.username = ?; " +
                 "DELETE FROM card WHERE card_id = ? AND username = ?;";
