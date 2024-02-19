@@ -14,7 +14,9 @@ import java.util.List;
 @RestController
 @CrossOrigin
 public class CardController {
+
     final private JdbcCardDao cardDao;
+
     final private UserDao userDao;
 
     public CardController(JdbcCardDao cardDao, JdbcUserDao userDao) {
@@ -30,8 +32,8 @@ public class CardController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/deck/{deckId}/cards")
-    public List<Card> getDeckCards(@PathVariable int deckId, Principal principal) {
-        return cardDao.getDeckCards(deckId, principal.getName());
+    public List<Card> getCardsForDeck(@PathVariable int deckId, Principal principal) {
+        return cardDao.getCardsForDeck(deckId, principal.getName());
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -40,9 +42,11 @@ public class CardController {
     public Card createCard(@Valid @RequestBody Card newCard, Principal principal) {
         return cardDao.createCard(newCard, principal.getName());
     }
+
     @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/card/{cardId}")
     public void deleteCard(@PathVariable int cardId, Principal principal) {
         cardDao.deleteCard(cardId, principal.getName());
     }
+
 }

@@ -5,13 +5,14 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class JdbcDeckDao implements DeckDao{
+
     private final JdbcTemplate jdbcTemplate;
+
     public JdbcDeckDao(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -62,17 +63,6 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     @Override
-    public void addCard(int deckId, int cardId) {
-        String sql = "INSERT INTO deck_card (deck_id, card_id) VALUES (?,?);";
-        try {
-            jdbcTemplate.update(sql, deckId, cardId);
-        } catch (DataAccessException dae) {
-            String detailedMessage = "Data access exception during: " +dae.getMessage();
-            System.out.println(detailedMessage);
-        }
-    }
-
-    @Override
     public void updateDeck(int deckId, Deck newDeck, String username) {
         String sql = "UPDATE deck SET deck_title = ?, deck_tags = ? WHERE deck_id = ? AND username = ?;";
         try {
@@ -83,10 +73,12 @@ public class JdbcDeckDao implements DeckDao{
         }
     }
 
-    public void removeCardFromDeck(int deckId, int cardId, String username) {
-        String sql = "DELETE FROM deck_card USING card WHERE deck_card.deck_id = ? AND deck_card.card_id = ? AND card.username = ?;";
+    @Override
+    public void deleteDeck(int deckId, String username) {
+        String sql = "DELETE FROM deck_card USING deck WHERE deck_card.deck_id = ? AND deck.username = ?; " +
+                "DELETE FROM deck WHERE deck_id = ? AND username = ?;";
         try {
-            jdbcTemplate.update(sql, deckId, cardId, username);
+            jdbcTemplate.update(sql, deckId, username, deckId, username);
         } catch (DataAccessException dae) {
             String detailedMessage = "Data access exception during: " + dae.getMessage();
             System.out.println(detailedMessage);
@@ -94,11 +86,22 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     @Override
-    public void deleteDeck(int deckId, String username) {
-        String sql = "DELETE FROM deck_card USING deck WHERE deck_card.deck_id = ? AND deck.username = ?; " +
-                "DELETE FROM deck WHERE deck_id = ? AND username = ?;";
+    public void addCardToDeck(int deckId, int cardId, String username) {
+        String sql = "INSERT INTO deck_card (deck_id, card_id) " +
+                "VALUES ((SELECT deck_id FROM deck WHERE username = ? AND deck_id = ?), (SELECT card_id FROM card WHERE username = ? AND card_id = ?));";
         try {
-            jdbcTemplate.update(sql, deckId, username, deckId, username);
+            jdbcTemplate.update(sql, username, deckId, username, cardId);
+        } catch (DataAccessException dae) {
+            String detailedMessage = "Data access exception during: " +dae.getMessage();
+            System.out.println(detailedMessage);
+        }
+    }
+
+    @Override
+    public void removeCardFromDeck(int deckId, int cardId, String username) {
+        String sql = "DELETE FROM deck_card USING card WHERE deck_card.deck_id = ? AND deck_card.card_id = ? AND card.username = ?;";
+        try {
+            jdbcTemplate.update(sql, deckId, cardId, username);
         } catch (DataAccessException dae) {
             String detailedMessage = "Data access exception during: " + dae.getMessage();
             System.out.println(detailedMessage);

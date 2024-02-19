@@ -14,7 +14,9 @@ import java.util.List;
 @RestController
 @CrossOrigin
 public class DeckController {
+
     final private JdbcDeckDao deckDao;
+
     final private UserDao userDao;
 
     public DeckController(JdbcDeckDao deckDao, JdbcUserDao userDao) {
@@ -42,28 +44,28 @@ public class DeckController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/deck/{deckId}/{cardId}")
-    public void addCard(@PathVariable int deckId, @PathVariable int cardId) {
-        deckDao.addCard(deckId, cardId);
-    }
-
-    @PreAuthorize("isAuthenticated()")
     @PutMapping("/deck/{deckId}")
     public void updateDeck(@PathVariable int deckId, @Valid @RequestBody Deck newDeck, Principal principal){
         deckDao.updateDeck(deckId, newDeck, principal.getName());
     }
 
     @PreAuthorize("isAuthenticated()")
-    @DeleteMapping("/deck/{deckId}/{cardId}")
-    public void removeCardFromDeck(@PathVariable int deckId, @PathVariable int cardId, Principal principal) {
-        deckDao.removeCardFromDeck(deckId, cardId, principal.getName());
-    }
-
-    @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/deck/{deckId}")
     public void deleteDeck(@PathVariable int deckId, Principal principal) {
         deckDao.deleteDeck(deckId, principal.getName());
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/deck/{deckId}/{cardId}")
+    public void addCardToDeck(@PathVariable int deckId, @PathVariable int cardId, Principal principal) {
+        deckDao.addCardToDeck(deckId, cardId, principal.getName());
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @DeleteMapping("/deck/{deckId}/{cardId}")
+    public void removeCardFromDeck(@PathVariable int deckId, @PathVariable int cardId, Principal principal) {
+        deckDao.removeCardFromDeck(deckId, cardId, principal.getName());
     }
 
 }

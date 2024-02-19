@@ -5,13 +5,14 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class JdbcCardDao implements CardDao {
+
     private final JdbcTemplate jdbcTemplate;
+
     public JdbcCardDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -32,7 +33,8 @@ public class JdbcCardDao implements CardDao {
         return cards;
     }
 
-    public List<Card> getDeckCards(int deckId, String username) {
+    @Override
+    public List<Card> getCardsForDeck(int deckId, String username) {
         List<Card> deckCards = new ArrayList<>();
         String sql = "SELECT * FROM card JOIN deck_card ON card.card_id = deck_card.card_id " +
                 "JOIN deck ON deck_card.deck_id = deck.deck_id WHERE deck.deck_id = ? AND deck.username = ?;";
@@ -63,6 +65,7 @@ public class JdbcCardDao implements CardDao {
         return null;
     }
 
+    @Override
     public void deleteCard(int cardId, String username){
         String sql = "DELETE FROM deck_card USING card WHERE deck_card.card_id = ? AND card.username = ?; " +
                 "DELETE FROM card WHERE card_id = ? AND username = ?;";
