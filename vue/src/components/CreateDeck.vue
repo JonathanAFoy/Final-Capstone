@@ -8,7 +8,7 @@
       <input class="form" type="text" placeholder="Tags" v-model="newDeck.deckTags" />
       <br /><br />
       <div>
-        <button type="submit" class="button">Submit</button>
+        <button type="submit" class="button" @click="refresh()">Submit</button>
       </div>
     </form>
   </div>
@@ -49,6 +49,9 @@ export default {
     };
   },
   methods: {
+    refresh() {
+      location.reload ? location.reload() : location = this.$router.push({name: "home"});
+    },
     saveData() {
       if (this.deck && this.deck.deckId) {
         DeckService.updateDeck(this.deck.deckId, this.newDeck).then(resp => {
@@ -59,7 +62,6 @@ export default {
         DeckService.createDeck(this.newDeck).then((response) => {
           if (response.status === 201) {
             window.alert("Deck Added!");
-            this.$emit('refresh')
             this.$router.push({ name: "home" });
           } else {
             DeckService.updateDeck(this.newDeck.deckId).then((response) => {
@@ -82,9 +84,7 @@ export default {
         this.newDeck.deckId = deck.deckId;
         this.newDeck.deckTitle = deck.deckTitle;
         this.newDeck.deckTags = deck.deckTags;
-
         this.$store.commit('SET_DECK', deck);
-
         this.action = "Edit"
       });
     } else {

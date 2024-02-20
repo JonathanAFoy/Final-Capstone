@@ -12,7 +12,7 @@
     <input class="form" type="text" placeholder="Back Text" v-model="newCard.backText"/> <br/><br/>
     <input class="form" type="text" placeholder="Tags" v-model="newCard.cardTags"/> <br/><br/>
     
-    <button class="button">Save</button> 
+    <button class="button" @click="refresh()">Save</button> 
     </form>
 
   </div>
@@ -26,20 +26,20 @@ export default {
   props: [
     "deckId"
   ],
-  emits: ['refresh'],
   data() {
     return {
       newCard: {},
     };
   },
   methods: {
+    refresh() {
+      location.reload ? location.reload() : location = this.$router.push({name: "home"});
+    },
     createCard() {
-
       CardService.createCard(this.newCard).then((response) => {
         if (response.status === 201) {
           window.alert("Card Added!");
           if(!this.deckId){
-            this.$emit('refresh')
             this.$router.push({name: "home"});
             this.newCard = {};
           } else {

@@ -9,7 +9,7 @@
       <button id="create" v-on:click.prevent="showDeckForm">Create Deck</button>
       </div>
       <div class="btn-group">
-            <CreateDeck id="form" v-if="showAddDeck" @refresh="refresh"/>
+            <CreateDeck id="form" v-if="showAddDeck"/>
       </div>
     <!-- <div class="create-deck-button">
       <button class="create-deck-button">Create Deck
@@ -23,10 +23,10 @@
     <br />
     <!-- <div class="create-card-button"> -->
       <div class="btn-group">
-      <button id="create" v-on:click.prevent="showCardForm" >Create Card</button>
+      <button id="create" v-on:click.prevent="showCardForm">Create Card</button>
       </div>
       <div class="btn-group">
-            <CreateCard id="form" v-if="showAddCard" @refresh="loadCards"/>
+            <CreateCard id="form" v-if="showAddCard"/>
       </div>
     <!-- </div> -->
   </div>
@@ -42,7 +42,6 @@ import CreateDeck from '../components/CreateDeck.vue';
 
 export default {
   name: "home",
-  emits: ['refresh'],
   data() {
     return {
       deckList: [],
@@ -74,10 +73,9 @@ export default {
     this.loadCards()
   },
   methods: {
-    refresh() {
-      this.$emit('refresh')
-      this.$router.push({ name: "home" });
-    },
+    // refresh() {
+    //   location.reload ? location.reload() : location = this.$router.push({name: "home"});
+    // },
     showCardForm() {
       this.showAddCard = !this.showAddCard;
     },
