@@ -365,7 +365,7 @@ export default {
     height: 200px;
     width: 300px;
     /* background-color: blue; */
-    background-color: rgb(130, 221, 112);
+    background-color: rgb(74, 167, 110);
     transform: rotateY(180deg);
     color: #000000;
     
