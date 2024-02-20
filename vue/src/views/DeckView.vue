@@ -2,17 +2,16 @@
     <div>
         <br />
         <br />
-        <div class="btn">
-
-            <button class="btn" id="back-to-decks">
-                <router-link class="btn" v-bind:to="{ name: 'home' }">Back to Decks</router-link>
+        <div class="btn-group">
+            <button id="back-to-decks">
+                <router-link v-bind:to="{ name: 'home' }">Back to Decks</router-link>
             </button>
 
-            <button class="btn" id="study-session">
-                <router-link class="btn" v-bind:to="{ name: 'study-session' }">Study Session</router-link>
+            <button id="study-session">
+                <router-link v-bind:to="{ name: 'study-session' }">Study Session</router-link>
             </button>
 
-            <button class="btn" id="delete-deck" v-on:click="deleteDeck">
+            <button id="delete-deck" v-on:click="deleteDeck">
                 Delete Deck
             </button>
         </div>
@@ -233,7 +232,7 @@ export default {
     
 } */
 
-.btn {
+.btn-group {
     display: flex;
     justify-content: space-evenly;
     font-family: Arial, Helvetica, sans-serif;
@@ -244,7 +243,13 @@ export default {
     margin: 10px;
 }
 
-#nav-style:hover{
+button {
+    border-radius: 10px;
+    height: 40px;
+    border:none;
+}
+
+button:hover{
     transform: scale(1.1);
     transition: ease 0.3s;
   }
@@ -273,12 +278,9 @@ export default {
     align-items: center;
     font-size: large;
     background-color: red;
+    font-weight: bold;
     color: white;
     width: 140px;
-}
-
-button {
-    border-radius: 10px;
 }
 
 .card-display {
@@ -297,6 +299,9 @@ button {
 }
 
 a {
+    text-decoration: none;
     color: white; 
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: bold;
 }
 </style>
