@@ -105,6 +105,7 @@ h1{
 button {
   padding: 8px;
   font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
   background-color: rgb(170, 167, 167);
   color: #ffffff;
   border-radius: 20px;
