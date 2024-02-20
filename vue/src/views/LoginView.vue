@@ -2,25 +2,26 @@
   <div id="login">
     
     <form v-on:submit.prevent="login">
-      <h1 >Please Sign In</h1>
-      <div role="alert" v-if="invalidCredentials">
+      <h1> Welcome to Flash Card App!</h1>
+      <h3>Please Sign In</h3>
+      <div class="alert" role="alert" v-if="invalidCredentials">
         Invalid username and password!
       </div>
-      <div role="alert" v-if="this.$route.query.registration">
+      <div class="alert" role="alert" v-if="this.$route.query.registration">
         Thank you for registering, please sign in.
       </div>
       <div class="form-input-group">
         <!-- <label for="username">Username</label> -->
-        <input type="text" id="username" placeholder="Enter your username" v-model="user.username" required autofocus />
+        <input class="input" type="text" id="username" placeholder="Enter your username" v-model="user.username" required autofocus />
       </div>
       <div class="form-input-group">
         <!-- <label for="password">Password</label> -->
-        <input type="password" id="password" placeholder="Enter your password" v-model="user.password" required />      </div>
+        <input class="input1" type="password" id="password" placeholder="Enter your password" v-model="user.password" required />      </div>
       <div>
         <button type="submit">Sign In</button>
       </div>
       <p>
-        <router-link v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link>
+        <router-link class="link" v-bind:to="{ name: 'register' }">Need an account? Sign up!</router-link>
       </p>
     </form>
     
@@ -66,7 +67,7 @@ export default {
 
 <style scoped>
 body {
-  font-family: 'Arial', sans-serif;
+  font-family:Arial, Helvetica, sans-serif;
   background-color: #f4f4f4;
   margin: 0;
   display: flex;
@@ -75,17 +76,17 @@ body {
   height: 100vh;
 }
 
-/* .login-container {
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  width: 10px;
-  text-align: center;
-} */
+h1{
+  color: white;
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  margin: 10px;
+}
 
-h2 {
-  color: #333;
+h3 {
+  color: white;
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight: bold;
   margin-bottom: 20px;
 }
 
@@ -93,9 +94,21 @@ form {
   display: flex;
   flex-direction: column;
 }
-
-.input-group {
+.form-input-group {
+  margin-bottom: 1rem;
   margin-bottom: 20px;
+}
+
+.form-input-group:hover{
+    transform: scale(1.1);
+    border-radius: 15px;
+  }
+ 
+  .input {
+    border-radius: 15px;
+  }
+.input1 {
+  border-radius: 15px;
 }
 
 label {
@@ -109,12 +122,24 @@ label {
 input {
   text-align: center;
   padding: 8px;
-  width: 25%;
+  width: 40%;
   margin-bottom: 10px;
-  border: 2px solid #ccc;
+  border: none;
   border-radius: 4px;
 }
 
+.link{
+color: rgb(255, 255, 255);
+font-family:Arial, Helvetica, sans-serif;
+font-weight: bold;
+text-decoration: none;
+}
+
+.link:hover {
+  color:rgb(0, 0, 0);
+  transition: color 0.8s ease;
+  
+}
 .checkbox-group {
   display: flex;
   align-items: center;
@@ -126,17 +151,20 @@ input {
 }
 
 button {
-  padding: 12px;
-  background-color: #3498db;
-  color: #fff;
-  border-radius: 4px;
+  padding: 8px;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(170, 167, 167);
+  color: #ffffff;
+  border-radius: 20px;
+  border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 100px;
+  width: 85px;
 }
 
 button:hover {
-  background-color: #2980b9;
+  background-color: #424344;
+ transition: background-color 0.8s ease;
 }
 
 .forgot-password a {
@@ -149,20 +177,22 @@ button:hover {
 }
 
 #login{
-  border-radius: 15px;
+  border-radius: 50px;
   text-align: center;
   margin: 50px auto;
   max-width: 500px;
-  background-color: #F7F9FF;
-  padding: 30px;
+  background-color: rgb(68, 118, 255);
+  padding: 20px;
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
-}
-
-.form-input-group {
-  margin-bottom: 1rem;
 }
 
 label {
   margin-right: 0.5rem;
+}
+
+.alert {
+  color: rgb(250, 129, 129);
+  font-family: Arial, Helvetica, sans-serif;
+  margin-bottom: 10px;
 }
 </style>
