@@ -38,6 +38,8 @@
 #nav-style:hover{
     transform: scale(1.1);
     transition: ease 0.3s;
+    
+    
   }
 
 a{

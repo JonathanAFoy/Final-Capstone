@@ -59,6 +59,6 @@ h4{
 }
 .deck-item:hover{
     transform: scale(1.1);
-    transition: all 0.8s ease;
+    transition: all 0.3s ease;
   }
 </style>

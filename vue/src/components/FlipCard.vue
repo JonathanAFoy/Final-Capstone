@@ -329,6 +329,7 @@ export default {
 
 .card:hover{
     transform: scale(1.1);
+    transition: ease 0.3s;
   }
 
 .card.is-flipped {
