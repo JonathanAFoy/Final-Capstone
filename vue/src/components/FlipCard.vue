@@ -269,15 +269,15 @@ export default {
     flex: wrap;
     align-items: center;
     justify-content: center;
-    text-align: left;
+    text-align: center;
     padding: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
     color: white;
     overflow-wrap: break-word;
 /*     overflow-y: auto;
     overflow-x: auto; */
 }
-
-.button-section {}
 
 .x {
     height: 10%;
