@@ -19,7 +19,7 @@
 #nav-style {
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
-  width: 25%;
+  width: 15%;
   height: 25%;
   display: flex;
   justify-content: space-around;
