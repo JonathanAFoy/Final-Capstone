@@ -23,7 +23,7 @@
             <h2>({{ deck.deckTags }})</h2>
         </div>
 
-        <div class="cards">
+        <div class="card-display">
             <CardsList v-bind:cardList="cardList" v-bind:deckId="deck.deckId" from='deck' @refresh="loadData" />
         </div>
         <div class="forms">
@@ -252,14 +252,14 @@ button {
     border-radius: 10px;
 }
 
-.cards {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 20px;
-    column-gap: 50px;
-    row-gap: 50px;
-    justify-content: center;
-    /* align-items: center; */
+.card-display {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px;
+  column-gap: 140px;
+  row-gap: 50px;
+  justify-content: center;
+  /* align-items: center; */
 }
 
 .forms {
