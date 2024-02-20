@@ -25,9 +25,13 @@
         <div class="card-display">
             <CardsList v-bind:cardList="cardList" v-bind:deckId="deck.deckId" from='deck' @refresh="loadData" />
         </div>
-        <div class="forms">
-            <CreateCard v-bind:deckId="deck.deckId" />
-            <CreateDeck v-bind:deck="deck" />
+        <div class="btn-group">
+            <button id="create" v-on:click.prevent="showCardForm">Create Card</button>
+            <button id="create" v-on:click.prevent="showDeckForm">Edit Deck</button> 
+        </div>
+        <div class="btn-group">
+            <CreateCard id="form" v-if="showAddCard" v-bind:deckId="deck.deckId" />
+            <CreateDeck id="form" v-if="showEditDeck" v-bind:deck="deck" />
         </div>
     </div>
 </template>
@@ -50,6 +54,7 @@ export default {
         return {
             newCard: {},
             showAddCard: false,
+            showEditDeck: false,
             from: "deck"
         };
     },
@@ -72,6 +77,12 @@ export default {
         // }
     },
     methods: {
+        showCardForm() {
+            this.showAddCard=!this.showAddCard;
+        },
+        showDeckForm() {
+            this.showEditDeck = !this.showEditDeck
+        },
         loadData() {
             DeckService.getCardsForDeck(this.deck.deckId)
                 .then((response) => {
@@ -262,7 +273,7 @@ button:hover{
     text-decoration: none;
     font-size: large;
     align-items: center;
-    background-color: rgb(130, 221, 112);
+    background-color: rgba(74, 167, 110, 0.765);
     color: white;
 }
 
@@ -270,17 +281,29 @@ button:hover{
     text-decoration: none;
     font-size: large;
     align-items: center;
-    background-color: rgb(187, 187, 33);
+    background-color: rgb(224, 205, 38);
     color: white;
 }
 
 #delete-deck {
     align-items: center;
     font-size: large;
-    background-color: red;
+    background-color: rgba(182, 0, 0, 0.765);
     font-weight: bold;
     color: white;
     width: 140px;
+}
+
+#create {
+    align-items: center;
+    margin-top: 50px;
+    font-size: large;
+    background-color: rgba(74, 167, 110, 0.765);
+    font-weight: bold;
+    color: white;
+    width: 120px;
+    height: 40px;
+    
 }
 
 .card-display {

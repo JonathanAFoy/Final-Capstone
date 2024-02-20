@@ -8,11 +8,11 @@
     <textarea type="text" placeholder="Back Text" v-model="newCard.frontText"/>
     <textarea type="text" placeholder="Tags" v-model="newCard.frontText"/> -->
 
-    <input type="text" placeholder="Front Text" v-model="newCard.frontText"/> <br/><br/>
-    <input type="text" placeholder="Back Text" v-model="newCard.backText"/> <br/><br/>
-    <input type="text" placeholder="Tags" v-model="newCard.cardTags"/> <br/><br/>
+    <input class="form" type="text" placeholder="Front Text" v-model="newCard.frontText"/> <br/><br/>
+    <input class="form" type="text" placeholder="Back Text" v-model="newCard.backText"/> <br/><br/>
+    <input class="form" type="text" placeholder="Tags" v-model="newCard.cardTags"/> <br/><br/>
     
-    <button>Save</button> 
+    <button class="button">Save</button> 
     </form>
 
   </div>
@@ -53,6 +53,7 @@ export default {
   
 <style>
 #create-card {
+  display: block;
   border-radius: 15px;
   text-align: center;
   margin: 50px auto;
@@ -60,5 +61,22 @@ export default {
   background-color: #F7F9FF;
   padding: 30px;
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+
+}
+
+.form {
+  border-radius: 5px;
+  font-family:Arial, Helvetica, sans-serif;
+  border: none;
+  font-weight: bold;
+}
+
+.button {
+  border: none;
+  color: black;
+  background: white;
+  border-radius: 5px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
 }
 </style>

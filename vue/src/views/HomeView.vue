@@ -15,12 +15,12 @@
       <CardsList v-bind:cardList="cardList" from='home' @refresh="loadCards" />
     </div>
     <br />
-    <div class="create-card-button">
-      <button class="create-card-button">Create Card
-        <!-- <router-link class="router" v-bind:to="{ name: 'create-card' }">Create New Card</router-link> -->
-        <!-- Create New Card -->
-      </button>
-    </div>
+    <!-- <div class="create-card-button"> -->
+      <div class="btn-group">
+            <button id="create" v-on:click.prevent="showCardForm" >Create Card</button>
+            <CreateCard id="form" v-if="showAddCard" @refresh="loadCards"/>
+        </div>
+    <!-- </div> -->
   </div>
 </template>
 
@@ -29,12 +29,15 @@ import DecksList from '../components/DecksList.vue';
 import CardsList from '../components/CardsList.vue';
 import DeckService from "../services/DeckService.js";
 import CardService from "../services/CardService.js";
+import CreateCard from "../components/CreateCard.vue";
 
 export default {
   name: "home",
+  emits: ['refresh'],
   data() {
     return {
       deckList: [],
+      showAddCard: false,
     };
   },
   computed: {
@@ -47,7 +50,8 @@ export default {
   },
   components: {
     DecksList,
-    CardsList
+    CardsList,
+    CreateCard
   },
   created() {
     // Hide cards so that they aren't visible as they flip back to
@@ -59,6 +63,12 @@ export default {
     this.loadCards()
   },
   methods: {
+    refresh() {
+      this.$emit('refresh')
+    },
+    showCardForm() {
+            this.showAddCard=!this.showAddCard;
+    },
     loadCards() {
       CardService.getCards().then((response) => {
         let cards = response.data;

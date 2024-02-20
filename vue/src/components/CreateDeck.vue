@@ -106,10 +106,7 @@ export default {
     font-weight: bold;
     
 }
-.head {
-  
-    
-}
+
 .form {
   border-radius: 5px;
   font-family:Arial, Helvetica, sans-serif;
