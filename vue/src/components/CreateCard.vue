@@ -3,9 +3,15 @@
     <h1>New Card Form</h1>
     
     <form v-on:submit.prevent="createCard">
+
+<!--     <textarea type="text" placeholder="Front Text" v-model="newCard.frontText"/>
+    <textarea type="text" placeholder="Back Text" v-model="newCard.frontText"/>
+    <textarea type="text" placeholder="Tags" v-model="newCard.frontText"/> -->
+
     <input type="text" placeholder="Front Text" v-model="newCard.frontText"/> <br/><br/>
     <input type="text" placeholder="Back Text" v-model="newCard.backText"/> <br/><br/>
     <input type="text" placeholder="Tags" v-model="newCard.cardTags"/> <br/><br/>
+    
     <button>Save</button> 
     </form>
 

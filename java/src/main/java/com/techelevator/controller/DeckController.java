@@ -39,8 +39,8 @@ public class DeckController {
     @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/deck/create")
-    public void createDeck(@Valid @RequestBody Deck newDeck, Principal principal) {
-        deckDao.createDeck(newDeck, principal.getName());
+    public Deck createDeck(@Valid @RequestBody Deck newDeck, Principal principal) {
+        return deckDao.createDeck(newDeck, principal.getName());
     }
 
     @PreAuthorize("isAuthenticated()")

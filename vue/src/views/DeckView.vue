@@ -19,13 +19,17 @@
         <div class="header">
             <h1>{{ deck.deckTitle }}</h1>
         </div>
-
-        <CreateDeck v-bind:deck="deck" />
+        <div class="tags">
+            <h2>({{ deck.deckTags }})</h2>
+        </div>
 
         <div class="cards">
             <CardsList v-bind:cardList="cardList" v-bind:deckId="deck.deckId" from='deck' @refresh="loadData" />
         </div>
-        <CreateCard v-bind:deckId="deck.deckId" />
+        <div class="forms">
+            <CreateCard v-bind:deckId="deck.deckId" />
+            <CreateDeck v-bind:deck="deck" />
+        </div>
     </div>
 </template>
 
@@ -204,6 +208,12 @@ export default {
     font-size: x-large;
 }
 
+.tags {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .header h1 {
     justify-content: center;
     flex-grow: 1;
@@ -243,12 +253,17 @@ button {
 }
 
 .cards {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 20px;
-  column-gap: 50px;
-  row-gap: 50px;
-  justify-content: center;
-  /* align-items: center; */
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px;
+    column-gap: 50px;
+    row-gap: 50px;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.forms {
+    display: flex;
+    justify-content:space-around;
 }
 </style>

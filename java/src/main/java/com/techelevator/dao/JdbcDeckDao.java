@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import com.techelevator.exception.FlashCardAppException;
 import com.techelevator.model.Deck;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -51,14 +52,14 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     @Override
-    public void createDeck(Deck newDeck, String username){
+    public Deck createDeck(Deck newDeck, String username){
         String sql = "INSERT INTO deck (username, deck_title, deck_tags, is_public) VALUES (?,?,?,?) RETURNING deck_id";
         try {
             int newDeckId = jdbcTemplate.queryForObject(sql, Integer.class, username, newDeck.getDeckTitle(), newDeck.getDeckTags(), false);
             newDeck.setDeckId(newDeckId);
+            return newDeck;
         } catch (DataAccessException dae) {
-            String detailedMessage = "Data access exception during: " + dae.getMessage();
-            System.out.println(detailedMessage);
+            throw new FlashCardAppException("Could not create new deck. Error: " + dae.getMessage());
         }
     }
 
@@ -68,7 +69,7 @@ public class JdbcDeckDao implements DeckDao{
         try {
             jdbcTemplate.update(sql, newDeck.getDeckTitle(), newDeck.getDeckTags(), deckId, username);
         } catch (DataAccessException dae) {
-            String detailedMessage = "Data access exception during: " +dae.getMessage();
+            String detailedMessage = "Data access exception during: " + dae.getMessage();
             System.out.println(detailedMessage);
         }
     }

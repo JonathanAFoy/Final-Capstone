@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import com.techelevator.exception.FlashCardAppException;
 import com.techelevator.model.Card;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -58,11 +59,9 @@ public class JdbcCardDao implements CardDao {
             newCard.setCardId(newCardId);
             return newCard;
         } catch (DataAccessException dae) {
-            String detailedMessage = "Data access exception during: " + dae.getMessage();
-            System.out.println(detailedMessage);
+            throw new FlashCardAppException("Could not create new card. Error: " + dae.getMessage());
         }
-        //TODO: throw exception/error
-        return null;
+
     }
 
     @Override
