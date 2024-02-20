@@ -105,8 +105,8 @@
                 <div class="card-face back">
                     <div class="heading-section">
 
-                        <div class="button-section">
-                            <input type="checkbox" id="correct" name="response" value="false">
+                        <div class="button-section" v-show="showAnswer">
+                            <input type="checkbox" id="correct" name="response" v-bind:checked="card.correct" v-on:click.stop="correctToggle">
                             <label for="answer"> Correct? </label><br>
                         </div>
                         <div class="heading-text-section">
@@ -133,7 +133,7 @@ export default {
     emits: ['refresh'],
     data() {
         return {
-            cardData: {}
+            cardData: {},
         }
     },
     computed: {
@@ -145,6 +145,9 @@ export default {
         }
     },
     methods: {
+        correctToggle() {
+            this.$store.commit('UPDATE_CORRECT', this.card);
+        },
         flip(evt, card) {
             const cardInfo = {
                 cardId: card.cardId,

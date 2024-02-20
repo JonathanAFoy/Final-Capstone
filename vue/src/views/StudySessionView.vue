@@ -10,7 +10,7 @@
     </h2>
     </div>
   <div class="next-card-button">
-    <button class="next-card-button" v-on:click="nextCard">Next Card</button>
+    <button class="next-card-button" v-on:click="nextCard" v-show="cardIndex < cardList.length - 1">Next Card</button>
   </div>
 </template>
 

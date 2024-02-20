@@ -46,6 +46,9 @@ export function createStore(currentToken, currentUser) {
           card.correct = cardInfo.correct;
         }
       },
+      UPDATE_CORRECT(state, card) {
+        card.correct = !card.correct;
+      },
       SET_ALL_CARDS_TO_FRONT(state) {
         state.currCards.forEach( card => card.flipped = false);
       },
