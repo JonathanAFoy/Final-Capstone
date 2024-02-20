@@ -9,7 +9,7 @@ public interface DeckDao {
 
     Deck getDeck(int deckId, String username);
 
-    void createDeck(Deck newDeck, String username);
+    Deck createDeck(Deck newDeck, String username);
 
     void updateDeck(int deckId, Deck newDeck, String username);
 

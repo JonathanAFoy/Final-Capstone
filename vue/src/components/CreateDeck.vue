@@ -52,7 +52,7 @@ export default {
       if (this.deck && this.deck.deckId) {
         DeckService.updateDeck(this.deck.deckId, this.newDeck).then(resp => {
           this.$store.commit('SET_DECK', this.newDeck);
-
+          this.newDeck = {};
         });
       } else {
         DeckService.createDeck(this.newDeck).then((response) => {
