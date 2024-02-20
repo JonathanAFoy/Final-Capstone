@@ -235,9 +235,24 @@ export default {
     margin: 10px;
 }
 
+#delete-deck:hover {
+    cursor: pointer;
+}
+
+#study-session {
+    text-decoration: none;
+    font-size: large;
+    align-items: center;
+    background-color: rgb(130, 221, 112);
+    color: white;
+}
+
 #back-to-decks {
     text-decoration: none;
     font-size: large;
+    align-items: center;
+    background-color: rgb(187, 187, 33);
+    color: white;
 }
 
 #delete-deck {
@@ -265,5 +280,9 @@ button {
 .forms {
     display: flex;
     justify-content:space-around;
+}
+
+a {
+    color: white; 
 }
 </style>
