@@ -3,23 +3,23 @@
     
     <form v-on:submit.prevent="register">
       <h1>Create Account</h1>
-      <div role="alert" v-if="registrationErrors">
+      <div  class="alert" role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
       <div class="form-input-group">
         <!-- <label for="username">Username</label> -->
-        <input type="text" id="username" placeholder="Enter your username" v-model="user.username" required autofocus />
+        <input class="input" type="text" id="username" placeholder="Enter your username" v-model="user.username" required autofocus />
       </div>
       <div class="form-input-group">
         <!-- <label for="password">Password</label> -->
-        <input type="password" id="password" placeholder="Enter your password" v-model="user.password" required />
+        <input class="input" type="password" id="password" placeholder="Enter your password" v-model="user.password" required />
       </div>
       <div class="form-input-group">
         <!-- <label for="confirmPassword">Confirm Password</label> -->
-        <input type="password" id="confirmPassword" placeholder="Confirm your password" v-model="user.confirmPassword" required />
+        <input class="input" type="password" id="confirmPassword" placeholder="Confirm your password" v-model="user.confirmPassword" required />
       </div>
       <button type="submit">Create Account</button>
-      <p><router-link v-bind:to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
+      <p><router-link class="link" v-bind:to="{ name: 'login' }">Already have an account? Log in!</router-link></p>
     </form>
     
   </div>
@@ -78,41 +78,85 @@ export default {
 input {
   text-align: center;
   padding: 8px;
-  width: 30%;
+  width: 40%;
   margin-bottom: 10px;
   border: 2px solid #ccc;
-  border-radius: 4px;
+  border-radius: 15px;
+  
 }
 
 #register {
-  border-radius: 15px;
+  border-radius: 50px;
   text-align: center;
   margin: 50px auto;
-  max-width: 500px;
-  background-color: #F7F9FF;
-  padding: 30px;
+  width: 500px;
+  background-color: #6AB0AA;
+  padding: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
 }
 
+h1{
+  color: white;
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
 button {
-  padding: 5px;
-  background-color: #3498db;
-  color: #fff;
-  border-radius: 4px;
+  padding: 8px;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(170, 167, 167);
+  color: #ffffff;
+  border-radius: 20px;
+  border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 100px;
+  width: 120px;
 }
 
 button:hover {
-  background-color: #2980b9;
+  background-color: #424344;
+ transition: background-color 0.8s ease;
 }
 
 .form-input-group {
   margin-bottom: 1rem;
+  margin-bottom: 20px;
+
+}
+
+.form-input-group:hover{
+    transform: scale(1.1);
+    border-radius: 15px;
+  }
+ 
+  .input {
+    
+  }
+.input1 {
+  border-radius: 15px;
 }
 
 label {
   margin-right: 0.5rem;
+}
+
+.link{
+color: rgb(255, 255, 255);
+font-family:Arial, Helvetica, sans-serif;
+font-weight: bold;
+text-decoration: none;
+}
+
+.link:hover {
+  color:rgb(0, 0, 0);
+  transition: color 0.8s ease;
+  
+}
+
+.alert {
+  color: rgb(250, 129, 129);
+  font-family: Arial, Helvetica, sans-serif;
+  margin-bottom: 10px;
 }
 </style>
