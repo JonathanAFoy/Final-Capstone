@@ -106,7 +106,8 @@
                     <div class="heading-section">
 
                         <div class="button-section">
-
+                            <input type="checkbox" id="correct" name="response" value="false">
+                            <label for="answer"> Correct? </label><br>
                         </div>
                         <div class="heading-text-section">
 
@@ -233,7 +234,7 @@ export default {
             cardTags: this.card.cardTags,
             public: this.card.public,
             flipped: false,
-            correct: null
+            correct: false,
         }
     }
 
