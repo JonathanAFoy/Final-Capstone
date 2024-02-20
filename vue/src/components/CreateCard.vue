@@ -26,7 +26,8 @@ export default {
   props: [
     "deckId"
   ],
-    data() {
+  emits: ['refresh'],
+  data() {
     return {
       newCard: {},
     };
@@ -38,7 +39,9 @@ export default {
         if (response.status === 201) {
           window.alert("Card Added!");
           if(!this.deckId){
-          this.$router.push({name: "home"});
+            this.$emit('refresh')
+            this.$router.push({name: "home"});
+            this.newCard = {};
           } else {
             DeckService.addCard(this.deckId, response.data.cardId).then((resp) => {
               this.$store.commit('ADD_CARD_CURRDECK', response.data);

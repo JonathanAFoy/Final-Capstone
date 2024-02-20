@@ -37,6 +37,7 @@ export default {
       required: true,
     },
   },
+  emits: ['refresh'],
   data() {
     return {
       newDeck: {},
@@ -58,6 +59,7 @@ export default {
         DeckService.createDeck(this.newDeck).then((response) => {
           if (response.status === 201) {
             window.alert("Deck Added!");
+            this.$emit('refresh')
             this.$router.push({ name: "home" });
           } else {
             DeckService.updateDeck(this.newDeck.deckId).then((response) => {

@@ -263,7 +263,7 @@ button {
 button:hover{
     transform: scale(1.1);
     transition: ease 0.3s;
-  }
+}
 
 #delete-deck:hover {
     cursor: pointer;

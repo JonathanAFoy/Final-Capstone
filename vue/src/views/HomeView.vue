@@ -5,11 +5,17 @@
       <DecksList v-bind:deckList="deckList" />
     </div>
     <br />
-    <div class="create-deck-button">
+    <div class="btn-group">
+      <button id="create" v-on:click.prevent="showDeckForm">Create Deck</button>
+      </div>
+      <div class="btn-group">
+            <CreateDeck id="form" v-if="showAddDeck" @refresh="refresh"/>
+      </div>
+    <!-- <div class="create-deck-button">
       <button class="create-deck-button">Create Deck
-        <!-- <router-link class="router" v-bind:to="{ name: 'create-deck' }">Create New Deck</router-link> -->
+        <router-link class="router" v-bind:to="{ name: 'create-deck' }">Create New Deck</router-link>
       </button>
-    </div>
+    </div> -->
     <br />
     <div class="card-display" v-show="showCards">
       <CardsList v-bind:cardList="cardList" from='home' @refresh="loadCards" />
@@ -17,9 +23,11 @@
     <br />
     <!-- <div class="create-card-button"> -->
       <div class="btn-group">
-            <button id="create" v-on:click.prevent="showCardForm" >Create Card</button>
+      <button id="create" v-on:click.prevent="showCardForm" >Create Card</button>
+      </div>
+      <div class="btn-group">
             <CreateCard id="form" v-if="showAddCard" @refresh="loadCards"/>
-        </div>
+      </div>
     <!-- </div> -->
   </div>
 </template>
@@ -30,6 +38,7 @@ import CardsList from '../components/CardsList.vue';
 import DeckService from "../services/DeckService.js";
 import CardService from "../services/CardService.js";
 import CreateCard from "../components/CreateCard.vue";
+import CreateDeck from '../components/CreateDeck.vue';
 
 export default {
   name: "home",
@@ -38,6 +47,7 @@ export default {
     return {
       deckList: [],
       showAddCard: false,
+      showAddDeck: false,
     };
   },
   computed: {
@@ -51,7 +61,8 @@ export default {
   components: {
     DecksList,
     CardsList,
-    CreateCard
+    CreateCard,
+    CreateDeck,
   },
   created() {
     // Hide cards so that they aren't visible as they flip back to
@@ -65,9 +76,13 @@ export default {
   methods: {
     refresh() {
       this.$emit('refresh')
+      this.$router.push({ name: "home" });
     },
     showCardForm() {
-            this.showAddCard=!this.showAddCard;
+      this.showAddCard = !this.showAddCard;
+    },
+    showDeckForm() {
+      this.showAddDeck = !this.showAddDeck;
     },
     loadCards() {
       CardService.getCards().then((response) => {
@@ -161,5 +176,34 @@ h1 {
   row-gap: 50px;
   justify-content: center;
   /* align-items: center; */
+}
+
+.btn-group {
+  display: flex;
+  justify-content: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  margin-top: 10px;
+}
+
+#create {
+    align-items: center;
+    margin-top: 10px;
+    font-size: large;
+    background-color: rgba(74, 167, 110, 0.765);
+    font-weight: bold;
+    color: white;
+    width: 120px;
+    height: 40px;
+    border-radius: 15px;
+    border: none;
+}
+
+#create:hover{
+    transform: scale(1.1);
+    transition: ease 0.3s;
 }
 </style>

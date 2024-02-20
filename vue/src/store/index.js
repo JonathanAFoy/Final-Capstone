@@ -27,15 +27,12 @@ export function createStore(currentToken, currentUser) {
         state.user = {};
         axios.defaults.headers.common = {};
       },
-
       SET_DECK(state, deck) {
         state.currDeck = deck;
       },
-
       SET_CARD_LIST(state, cardList) {
         state.currCards = cardList;
       },
-
       ADD_CARD_CURRDECK(state, card) {
         state.currCards.push(card);
       },
