@@ -3,8 +3,11 @@
     <div id="nav">
     <div id="nav-style">
       <router-link v-bind:to="{ name: 'home' }">Home</router-link>
-      <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
     </div>
+    <div id="nav-style" v-if="$store.state.token != ''">
+      <router-link v-bind:to="{ name: 'logout' }" >Logout</router-link>
+    </div>
+    
     </div>
     <router-view />
   </div>
@@ -18,16 +21,18 @@
 
 #nav-style {
   font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
   text-align: center;
-  width: 15%;
-  height: 25%;
+  width: 30px;
+  height: 15px;
+  margin: 10px;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   padding: 10px 20px;
-  background: rgb(68, 118, 255);
+  background: #f48b2f;
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
-  border-radius: 15px;
+  border-radius: 10px;
 }
 
 a{
