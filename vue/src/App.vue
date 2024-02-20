@@ -35,6 +35,11 @@
   border-radius: 10px;
 }
 
+#nav-style:hover{
+    transform: scale(1.1);
+    transition: ease 0.3s;
+  }
+
 a{
   text-decoration: none;
   color: white;

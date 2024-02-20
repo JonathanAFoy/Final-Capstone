@@ -57,4 +57,8 @@ h4{
   font-family: Arial, Helvetica, sans-serif;
   justify-content: center;
 }
+.deck-item:hover{
+    transform: scale(1.1);
+    transition: all 0.8s ease;
+  }
 </style>

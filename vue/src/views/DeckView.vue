@@ -205,7 +205,9 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: x-large;
+    font-weight: bold;
 }
 
 .tags {
@@ -219,6 +221,10 @@ export default {
     flex-grow: 1;
 }
 
+.tags {
+    margin-top: -30px;
+}
+
 /* .delete-deck {
     display: flex;
     justify-content: right;
@@ -230,10 +236,18 @@ export default {
 .btn {
     display: flex;
     justify-content: space-evenly;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
     text-align: center;
     text-decoration: none;
+    border: none;
     margin: 10px;
 }
+
+#nav-style:hover{
+    transform: scale(1.1);
+    transition: ease 0.3s;
+  }
 
 #delete-deck:hover {
     cursor: pointer;

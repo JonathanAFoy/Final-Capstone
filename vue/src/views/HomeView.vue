@@ -6,8 +6,8 @@
     </div>
     <br />
     <div class="create-deck-button">
-      <button class="create-deck-button">
-        <router-link class="router" v-bind:to="{ name: 'create-deck' }">Create New Deck</router-link>
+      <button class="create-deck-button">Create Deck
+        <!-- <router-link class="router" v-bind:to="{ name: 'create-deck' }">Create New Deck</router-link> -->
       </button>
     </div>
     <br />
@@ -16,8 +16,8 @@
     </div>
     <br />
     <div class="create-card-button">
-      <button class="create-card-button">
-        <router-link class="router" v-bind:to="{ name: 'create-card' }">Create New Card</router-link>
+      <button class="create-card-button">Create Card
+        <!-- <router-link class="router" v-bind:to="{ name: 'create-card' }">Create New Card</router-link> -->
         <!-- Create New Card -->
       </button>
     </div>
@@ -103,6 +103,7 @@ h1 {
   text-decoration: none;
   border-radius: 10px;
   border-color: #3498db;
+
 }
 
 .create-card-button {

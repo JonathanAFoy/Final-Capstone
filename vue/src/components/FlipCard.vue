@@ -279,6 +279,7 @@ export default {
     overflow-x: auto; */
 }
 
+
 .x {
     height: 10%;
     margin: 4px;
