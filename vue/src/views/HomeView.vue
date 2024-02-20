@@ -136,7 +136,7 @@ h1 {
 .deck-display {
   display: flex;
   flex-wrap: wrap;
-  column-gap: 10px;
+  column-gap: 25px;
   row-gap: 10px;
   justify-content: center;
   align-items: center;
@@ -146,7 +146,7 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   margin: 20px;
-  column-gap: 50px;
+  column-gap: 140px;
   row-gap: 50px;
   justify-content: center;
   /* align-items: center; */
