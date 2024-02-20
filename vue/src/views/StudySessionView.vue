@@ -3,6 +3,12 @@
     <Card v-bind:card="currCard" from = "session" v-bind:deckId="$route.params.deckId" v-show="showCard"/>
   </div>
     <br />
+    <br />
+    <div class="count">
+      <h2>
+      {{ correctCount }}/{{ this.cardList.length }} Correct
+    </h2>
+    </div>
   <div class="next-card-button">
     <button class="next-card-button" v-on:click="nextCard">Next Card</button>
   </div>
@@ -22,14 +28,11 @@ export default {
     };
     
 },
-computed: {
-  showCard() {
-    return !this.$store.state.hideCards;
-  }
-},
+
 components: {
     Card
 },
+
 methods: {
   nextCard() {
     this.$store.commit('UPDATE_CARD', {
@@ -47,12 +50,24 @@ methods: {
     
   }
 },
+
 computed: {
+  showCard() {
+    return !this.$store.state.hideCards;
+  },
   cardList() {
     return this.$store.state.currCards;
   },
   currCard() {
     return this.cardList[this.cardIndex];
+  },
+  correctCount() {
+    let count = 0;
+    for (let i=0; i<this.cardList.length; i++) {
+      if(this.cardList[i].correct == true){
+        count++;
+      } 
+    } return count;
   }
 },
 created() {
@@ -72,6 +87,12 @@ created() {
   justify-content: center;
   margin-top: 5%;
   margin-bottom: 1%;
+}
+
+.count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .next-card-button {
