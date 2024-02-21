@@ -31,7 +31,7 @@ public class DeckController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/decks/{deckId}")
+    @GetMapping("/deck/{deckId}")
     public Deck getDeck(@PathVariable int deckId, Principal principal) {
         return deckDao.getDeck(deckId, principal.getName());
     }

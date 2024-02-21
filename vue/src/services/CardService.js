@@ -14,8 +14,8 @@ export default {
         return axios.post(`/card/create`, card);
     },
 
-    updateCard(card) {
-        return axios.put(`/card/${card.id}`, card);
+    updateCard(cardId, card) {
+        return axios.put(`/card/${cardId}`, card);
     },
 
     deleteCard(cardId) {

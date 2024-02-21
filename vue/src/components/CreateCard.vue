@@ -1,8 +1,8 @@
 <template>
   <div id="create-card">
-    <h1>New Card Form</h1>
+    <h1 class="head">{{ action }} Card Form</h1>
     
-    <form v-on:submit.prevent="createCard">
+    <form v-on:submit.prevent="customizedCardForm">
 
 <!--     <textarea type="text" placeholder="Front Text" v-model="newCard.frontText"/>
     <textarea type="text" placeholder="Back Text" v-model="newCard.frontText"/>
@@ -12,7 +12,9 @@
     <input class="form" type="text" placeholder="Back Text" v-model="newCard.backText"/> <br/><br/>
     <input class="form" type="text" placeholder="Tags" v-model="newCard.cardTags"/> <br/><br/>
     
-    <button class="button" @click="refresh()">Save</button> 
+    <button type="submit" class="button" v-if="action === 'New'" @click="refreshHome()">Submit</button>
+    <button type="submit" class="button" v-if="action === 'Create'">Submit</button>
+    <button type="submit" class="button" v-if="action === 'Edit'">Submit</button>
     </form>
 
   </div>
@@ -24,33 +26,88 @@ import DeckService from '../services/DeckService';
   
 export default {
   props: [
-    "deckId"
+    "deckId",
   ],
   data() {
     return {
       newCard: {},
+      action: '',
     };
   },
   methods: {
-    refresh() {
+    refreshHome() {
       location.reload ? location.reload() : location = this.$router.push({name: "home"});
     },
-    createCard() {
-      CardService.createCard(this.newCard).then((response) => {
-        if (response.status === 201) {
-          window.alert("Card Added!");
-          if(!this.deckId){
+    // createCard() {
+    //   CardService.createCard(this.newCard).then((response) => {
+    //     if (response.status === 201) {
+    //       window.alert("Card Added!");
+    //       if(!this.deckId){
+    //         this.$router.push({name: "home"});
+    //         this.newCard = {};
+    //       } else {
+    //         DeckService.addCard(this.deckId, response.data.cardId).then((resp) => {
+    //           this.$store.commit('ADD_CARD_CURRDECK', response.data);
+    //         })
+    //       }
+    //     }
+    //   });
+    // },
+    customizedCardForm() {
+      if (this.card && this.card.cardId) {
+        CardService.updateCard(this.card.cardId, this.newCard).then(resp => {
+          this.$store.commit('SET_CARD', this.newCard);
+          this.newCard = {};
+        });
+      } else {
+        CardService.createCard(this.newCard).then((response) => {
+          if (response.status === 201) {
+            if (!this.deckId) {
             this.$router.push({name: "home"});
             this.newCard = {};
-          } else {
+            } else {
             DeckService.addCard(this.deckId, response.data.cardId).then((resp) => {
               this.$store.commit('ADD_CARD_CURRDECK', response.data);
-            })
+            });
           }
-        }
-      });
+          } 
+          else {
+            CardService.updateCard(this.newCard.cardId).then((response) => {
+              if (response.status === 200) {
+                if (this.$route.params.deckId) {
+                this.$router.push({
+                  name: "DeckView",
+                  params: { deckId: this.editDeck.deckId },
+                });
+                } else {
+                  this.$router.push({name: "home"});
+                }
+              }
+            });
+          }
+        });
+      }
     },
   },
+  created() {
+    if (this.$route.params.cardId) {
+        CardService.getCard(this.$route.params.cardId).then(resp => {
+        const card = resp.data;
+        this.newCard.cardId = card.cardId;
+        this.newCard.frontText = card.frontText;
+        this.newCard.backText = card.backText;
+        this.newCard.cardTags = card.cardTags;
+        this.$store.commit('SET_CARD', card);
+        this.action = "Edit";
+      });
+    }
+    if (this.$route.params.deckId) {
+      this.action = "Create";
+    }
+    else {
+      this.action = "New";
+    }
+  }
 }
 </script>
   

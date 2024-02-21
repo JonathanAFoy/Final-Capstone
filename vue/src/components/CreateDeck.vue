@@ -2,13 +2,14 @@
   <div id="create-deck">
     <h1 class="head">{{ action }} Deck Form</h1>
 
-    <form v-on:submit.prevent="saveData">
+    <form v-on:submit.prevent="customizedDeckForm">
       <input class="form" type="text" placeholder="Title" v-model="newDeck.deckTitle" />
       <br /><br />
       <input class="form" type="text" placeholder="Tags" v-model="newDeck.deckTags" />
       <br /><br />
       <div>
-        <button type="submit" class="button" @click="refresh()">Submit</button>
+        <button type="submit" class="button" v-if="action === 'New'" @click="refresh()">Submit</button>
+        <button type="submit" class="button" v-if="action === 'Edit'">Submit</button>
       </div>
     </form>
   </div>
@@ -35,9 +36,9 @@ export default {
     deck: {
       type: Object,
       required: true,
-    },
+    }
   },
-  emits: ['refresh'],
+  // emits: ['refresh'],
   data() {
     return {
       newDeck: {},
@@ -45,14 +46,14 @@ export default {
       //   deckTitle: this.newDeck.deckTitle,
       //   deckTags: this.newDeck.deckTags,
       // }
-      action: ''
+      action: '',
     };
   },
   methods: {
     refresh() {
       location.reload ? location.reload() : location = this.$router.push({name: "home"});
     },
-    saveData() {
+    customizedDeckForm() {
       if (this.deck && this.deck.deckId) {
         DeckService.updateDeck(this.deck.deckId, this.newDeck).then(resp => {
           this.$store.commit('SET_DECK', this.newDeck);
@@ -61,14 +62,13 @@ export default {
       } else {
         DeckService.createDeck(this.newDeck).then((response) => {
           if (response.status === 201) {
-            window.alert("Deck Added!");
             this.$router.push({ name: "home" });
           } else {
             DeckService.updateDeck(this.newDeck.deckId).then((response) => {
               if (response.status === 200) {
                 this.$router.push({
                   name: "DeckView",
-                  params: { deckId: this.editDeck.deckId },
+                  params: { deckId: this.deck.deckId },
                 });
               }
             });
@@ -80,15 +80,15 @@ export default {
   created() {
     if (this.$route.params.deckId) {
       DeckService.getDeck(this.$route.params.deckId).then(resp => {
-        const deck = resp.data
+        const deck = resp.data;
         this.newDeck.deckId = deck.deckId;
         this.newDeck.deckTitle = deck.deckTitle;
         this.newDeck.deckTags = deck.deckTags;
         this.$store.commit('SET_DECK', deck);
-        this.action = "Edit"
+        this.action = "Edit";
       });
     } else {
-      this.action = "New"
+      this.action = "New";
     }
   },
 };

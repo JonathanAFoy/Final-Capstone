@@ -19,7 +19,7 @@
             <h1>{{ deck.deckTitle }}</h1>
         </div>
         <div class="tags">
-            <h2>({{ deck.deckTags }})</h2>
+            <h2 >({{ deck.deckTags }})</h2>
         </div>
 
         <div class="card-display">
@@ -44,7 +44,6 @@ import CreateCard from "../components/CreateCard.vue";
 import CreateDeck from "../components/CreateDeck.vue";
 
 export default {
-
     components: {
         CardsList,
         CreateCard,
@@ -139,10 +138,10 @@ export default {
     created() {
         let deckId = parseInt(this.$route.params.deckId);
 
-        // DeckService.getDeck(deckId).then( resp => {
-        //     this.$store.commit('SET_DECK', resp.data);
-        // })
-
+        // Get deck with id so we can use deck attributes.
+        DeckService.getDeck(deckId).then( resp => {
+            this.$store.commit('SET_DECK', resp.data);
+        });
 
         // Hide cards so that they aren't visible as they flip back to
         // fronts

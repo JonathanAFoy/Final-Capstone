@@ -8,7 +8,8 @@
 
                         
                         <div class="heading-text-section">
-                           {{ card.username }}
+                            <button class="x" v-on:click="updateCard()">⚙️</button>
+                            {{ card.username }}
                         </div>
                         <div class="button-section">
                             <button class="x" v-on:click.stop="deleteCard(card.cardId)">X</button>
@@ -25,6 +26,7 @@
 
                         
                         <div class="heading-text-section">
+                            <button class="x" v-on:click="updateCard()">⚙️</button>
                             {{ card.username }}
                         </div>
                         <div class="button-section">
@@ -157,10 +159,20 @@ export default {
             this.$store.commit('UPDATE_CARD', cardInfo);
 
         },
+        updateCard() {
+        let text;
+        let frontText = prompt("Front Text", "");
+        let backText = prompt("Back Text", "");
+        let cardTags = prompt("Tags", "");
+        document.getElementById("demo").innerHTML = text;
+        },
         deleteCard(cardId) {
             if (confirm("Are you sure you want to delete this card? This action cannot be undone.")) {
                 CardService.deleteCard(cardId).then((response) => {
                     if (response.status === 200) {
+                        // HALIL C KARAKAS: We don't have any mutations called SET_NOTIFICATION in store/index.js folder.
+                        // Do we need to keep?: this.$store.commit("SET_NOTIFICATION")
+                        // Because if we don't remove, it throws an error in Chrome Dev Tools.
                         this.$store.commit("SET_NOTIFICATION", {
                             message: `Card has been deleted`,
                             type: "success",

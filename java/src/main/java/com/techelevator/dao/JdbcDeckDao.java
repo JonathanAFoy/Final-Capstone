@@ -36,19 +36,19 @@ public class JdbcDeckDao implements DeckDao{
 
     @Override
     public Deck getDeck(int deckId, String username) {
-        List<Deck> decks = new ArrayList<>();
+        Deck newDeck = new Deck ();
         String sql = "SELECT * FROM deck WHERE deck_id = ? AND username = ?;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, deckId, username);
             if(results.next()) {
-                Deck newDeck = mapRowToDeck(results);
+                newDeck = mapRowToDeck(results);
                 return newDeck;
             }
         } catch (DataAccessException dae) {
             String detailedMessage = "Data access exception during: " + dae.getMessage();
             System.out.println(detailedMessage);
         }
-        return null;
+        return newDeck;
     }
 
     @Override

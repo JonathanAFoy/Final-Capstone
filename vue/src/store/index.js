@@ -7,6 +7,7 @@ export function createStore(currentToken, currentUser) {
       token: currentToken || '',
       user: currentUser || {},
       currDeck: {},
+      currCard:{},
       currCards: [],
       hideCards: false
     },
@@ -29,6 +30,9 @@ export function createStore(currentToken, currentUser) {
       },
       SET_DECK(state, deck) {
         state.currDeck = deck;
+      },
+      SET_CARD(state, card) {
+        state.currCard = card;
       },
       SET_CARD_LIST(state, cardList) {
         state.currCards = cardList;
