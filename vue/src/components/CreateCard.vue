@@ -68,6 +68,8 @@ export default {
             this.newCard = {};
             } else {
             DeckService.addCard(this.deckId, response.data.cardId).then((resp) => {
+              let cardData = response.data;
+              cardData.username = this.$store.state.user.username;
               this.$store.commit('ADD_CARD_CURRDECK', response.data);
             });
           }
