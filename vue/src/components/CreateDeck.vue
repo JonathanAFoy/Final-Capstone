@@ -35,7 +35,7 @@ export default {
   props: {
     deck: {
       type: Object,
-      required: true,
+      required: false,
     }
   },
   // emits: ['refresh'],
