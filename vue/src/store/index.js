@@ -10,7 +10,9 @@ export function createStore(currentToken, currentUser) {
       currCard:{},
       currCards: [],
       hideCards: false,
-      searchTerm: ''
+      searchTerm: '',
+      editCardMode: false,
+      editModeDeckId: null
     },
     mutations: {
       SET_AUTH_TOKEN(state, token) {
@@ -59,6 +61,12 @@ export function createStore(currentToken, currentUser) {
       },
       UPDATE_SEARCH_TERM(state, searchText) {
         state.searchTerm = searchText;
+      }, 
+      UPDATE_EDIT_STATUS(state, inEditMode) {
+        state.editCardMode = inEditMode;
+      },
+      SET_EDIT_DECK_ID(state, id) {
+        state.editModeDeckId = id;
       }
     },
   });

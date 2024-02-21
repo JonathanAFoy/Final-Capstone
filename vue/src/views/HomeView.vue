@@ -11,11 +11,7 @@
     <div class="btn-group">
       <CreateDeck id="form" v-if="showAddDeck" />
     </div>
-    <!-- <div class="create-deck-button">
-      <button class="create-deck-button">Create Deck
-        <router-link class="router" v-bind:to="{ name: 'create-deck' }">Create New Deck</router-link>
-      </button>
-    </div> -->
+    
     <br />
     <br />
     <SearchBox class="search"/>
@@ -87,6 +83,7 @@ export default {
     this.loadCards()
     this.searchTerm = '';
     this.$store.commit('UPDATE_SEARCH_TERM', this.searchTerm);
+    this.$store.commit('UPDATE_EDIT_STATUS', false);
   },
   methods: {
     // refresh() {
