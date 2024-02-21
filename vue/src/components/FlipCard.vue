@@ -28,7 +28,9 @@
 
                         
                         <div class="heading-text-section">
-                            <button class="x" v-on:click="updateCard()">⚙️</button>
+                            <button class="x">
+                                <router-link v-bind:to="{ name: 'edit-card', params: { cardId: this.card.cardId } }">⚙️</router-link>
+                            </button>
                             {{ card.username }}
                         </div>
                         <div class="button-section">
@@ -161,13 +163,6 @@ export default {
             }
             this.$store.commit('UPDATE_CARD', cardInfo);
 
-        },
-        updateCard() {
-        let text;
-        let frontText = prompt("Front Text", "");
-        let backText = prompt("Back Text", "");
-        let cardTags = prompt("Tags", "");
-        document.getElementById("demo").innerHTML = text;
         },
         deleteCard(cardId) {
             if (confirm("Are you sure you want to delete this card? This action cannot be undone.")) {
@@ -315,7 +310,6 @@ export default {
 .x:hover, .error {
     opacity: 1;
     transform: rotate(360deg);
-    
 }
 
 
@@ -323,9 +317,10 @@ export default {
     flex-grow: 1;
     margin: 10px;
     text-align: left;
-    
+}
 
-
+a {
+    text-decoration: none;
 }
 
 .foot-section {
