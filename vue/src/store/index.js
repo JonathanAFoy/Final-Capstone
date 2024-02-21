@@ -9,7 +9,8 @@ export function createStore(currentToken, currentUser) {
       currDeck: {},
       currCard:{},
       currCards: [],
-      hideCards: false
+      hideCards: false,
+      searchTerm: ''
     },
     mutations: {
       SET_AUTH_TOKEN(state, token) {
@@ -55,6 +56,9 @@ export function createStore(currentToken, currentUser) {
       },
       SET_CARDS_HIDDEN(state, hidden) {
         state.hideCards = hidden;
+      },
+      UPDATE_SEARCH_TERM(state, searchText) {
+        state.searchTerm = searchText;
       }
     },
   });

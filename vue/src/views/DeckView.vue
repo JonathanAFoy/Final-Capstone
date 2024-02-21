@@ -19,19 +19,21 @@
             <h1>{{ deck.deckTitle }}</h1>
         </div>
         <div class="tags">
-            <h2 >({{ deck.deckTags }})</h2>
+            <h2>({{ deck.deckTags }})</h2>
         </div>
 
+        <!-- {{ filteredCards }} -->
         <div class="card-display">
-            <CardsList v-bind:cardList="cardList" v-bind:deckId="deck.deckId" from='deck' @refresh="loadData" />
+            <CardsList v-bind:cardList="filteredCards" v-bind:deckId="deck.deckId" from='deck' @refresh="loadData" />
         </div>
         <div class="btn-group">
             <button id="create" v-on:click.prevent="showCardForm">Create Card</button>
-            <button id="create" v-on:click.prevent="showDeckForm">Edit Deck</button> 
+            <button id="create" v-on:click.prevent="showDeckForm">Edit Deck</button>
         </div>
         <div class="btn-group">
             <CreateCard id="form" v-if="showAddCard" v-bind:deckId="deck.deckId" />
             <CreateDeck id="form" v-if="showEditDeck" v-bind:deck="deck" />
+            <SearchBox />
         </div>
     </div>
 </template>
@@ -42,19 +44,22 @@ import CardService from "../services/CardService";
 import DeckService from "../services/DeckService";
 import CreateCard from "../components/CreateCard.vue";
 import CreateDeck from "../components/CreateDeck.vue";
+import SearchBox from "../components/SearchBox.vue";
 
 export default {
     components: {
         CardsList,
         CreateCard,
-        CreateDeck
+        CreateDeck,
+        SearchBox
     },
     data() {
         return {
             newCard: {},
             showAddCard: false,
             showEditDeck: false,
-            from: "deck"
+            from: "deck",
+            searchTerm: ''
         };
     },
     computed: {
@@ -64,6 +69,13 @@ export default {
         cardList() {
             return this.$store.state.currCards;
         },
+        filteredCards() {
+            const searchTerm = this.$store.state.searchTerm;
+            const matchText = searchTerm.toLowerCase();
+            return this.cardList.filter(card =>
+                card.cardTags.toLowerCase().includes(matchText)
+            );
+        }
 
         // planned() {
         //     return this.deck.cards.filter(card => card.status === 'Planned');
@@ -77,7 +89,7 @@ export default {
     },
     methods: {
         showCardForm() {
-            this.showAddCard=!this.showAddCard;
+            this.showAddCard = !this.showAddCard;
         },
         showDeckForm() {
             this.showEditDeck = !this.showEditDeck
@@ -136,10 +148,14 @@ export default {
         },
     },
     created() {
+
+        this.searchTerm = '';
+        this.$store.commit('UPDATE_SEARCH_TERM', this.searchTerm);
+
         let deckId = parseInt(this.$route.params.deckId);
 
         // Get deck with id so we can use deck attributes.
-        DeckService.getDeck(deckId).then( resp => {
+        DeckService.getDeck(deckId).then(resp => {
             this.$store.commit('SET_DECK', resp.data);
         });
 
@@ -256,10 +272,10 @@ export default {
 button {
     border-radius: 10px;
     height: 40px;
-    border:none;
+    border: none;
 }
 
-button:hover{
+button:hover {
     transform: scale(1.1);
     transition: ease 0.3s;
 }
@@ -302,28 +318,28 @@ button:hover{
     color: white;
     width: 120px;
     height: 40px;
-    
+
 }
 
 .card-display {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 20px;
-  column-gap: 140px;
-  row-gap: 50px;
-  justify-content: center;
-  /* align-items: center; */
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px;
+    column-gap: 140px;
+    row-gap: 50px;
+    justify-content: center;
+    /* align-items: center; */
 }
 
 .forms {
     display: flex;
-    justify-content:space-around;
+    justify-content: space-around;
 }
 
 a {
     text-decoration: none;
-    color: white; 
-    font-family:Arial, Helvetica, sans-serif;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
 }
 </style>

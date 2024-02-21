@@ -7,27 +7,29 @@
     <br />
     <div class="btn-group">
       <button id="create" v-on:click.prevent="showDeckForm">Create Deck</button>
-      </div>
-      <div class="btn-group">
-            <CreateDeck id="form" v-if="showAddDeck"/>
-      </div>
+    </div>
+    <div class="btn-group">
+      <CreateDeck id="form" v-if="showAddDeck" />
+    </div>
     <!-- <div class="create-deck-button">
       <button class="create-deck-button">Create Deck
         <router-link class="router" v-bind:to="{ name: 'create-deck' }">Create New Deck</router-link>
       </button>
     </div> -->
     <br />
+    <SearchBox />
+    <br />
     <div class="card-display" v-show="showCards">
-      <CardsList v-bind:cardList="cardList" from='home' @refresh="loadCards" />
+      <CardsList v-bind:cardList="filteredCards" from='home' @refresh="loadCards" />
     </div>
     <br />
     <!-- <div class="create-card-button"> -->
-      <div class="btn-group">
+    <div class="btn-group">
       <button id="create" v-on:click.prevent="showCardForm">Create Card</button>
-      </div>
-      <div class="btn-group">
-            <CreateCard id="form" v-if="showAddCard"/>
-      </div>
+    </div>
+    <div class="btn-group">
+      <CreateCard id="form" v-if="showAddCard" />
+    </div>
     <!-- </div> -->
   </div>
 </template>
@@ -39,6 +41,7 @@ import DeckService from "../services/DeckService.js";
 import CardService from "../services/CardService.js";
 import CreateCard from "../components/CreateCard.vue";
 import CreateDeck from '../components/CreateDeck.vue';
+import SearchBox from '../components/SearchBox.vue';
 
 export default {
   name: "home",
@@ -55,6 +58,15 @@ export default {
     },
     showCards() {
       return !this.$store.state.hideCards;
+    },
+    filteredCards() {
+
+      // return this.cardList;
+      const searchTerm = this.$store.state.searchTerm;
+      const matchText = searchTerm.toLowerCase();
+      return this.cardList.filter(card => {
+        return card.cardTags.toLowerCase().includes(matchText)
+      });
     }
   },
   components: {
@@ -62,6 +74,7 @@ export default {
     CardsList,
     CreateCard,
     CreateDeck,
+    SearchBox
   },
   created() {
     // Hide cards so that they aren't visible as they flip back to
@@ -71,6 +84,8 @@ export default {
       this.deckList = response.data;
     });
     this.loadCards()
+    this.searchTerm = '';
+    this.$store.commit('UPDATE_SEARCH_TERM', this.searchTerm);
   },
   methods: {
     // refresh() {
@@ -103,20 +118,22 @@ export default {
 </script>
 
 <style>
-body { 
-   background-image:url("https://www.wallpaperboulevard.com/Images/product/cream-white-triangle-geometric-shapes-w-qsac-l.jpg");
-     
-    background-size: stretch;}
+body {
+  background-image: url("https://www.wallpaperboulevard.com/Images/product/cream-white-triangle-geometric-shapes-w-qsac-l.jpg");
+
+  background-size: stretch;
+}
 
 h1 {
   border-radius: 10px;
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
-  color:black;
+  color: black;
 
 }
+
 #my-decks {
-  font-size:40px;
+  font-size: 40px;
 }
 
 .create-deck-button {
@@ -154,7 +171,7 @@ h1 {
   column-gap: 25px;
   row-gap: 25px;
   align-items: center;
-  
+
 }
 
 .deck-display {
@@ -188,20 +205,20 @@ h1 {
 }
 
 #create {
-    align-items: center;
-    margin-top: 10px;
-    font-size: large;
-    background-color: rgba(74, 167, 110, 0.765);
-    font-weight: bold;
-    color: white;
-    width: 120px;
-    height: 40px;
-    border-radius: 15px;
-    border: none;
+  align-items: center;
+  margin-top: 10px;
+  font-size: large;
+  background-color: rgba(74, 167, 110, 0.765);
+  font-weight: bold;
+  color: white;
+  width: 120px;
+  height: 40px;
+  border-radius: 15px;
+  border: none;
 }
 
-#create:hover{
-    transform: scale(1.1);
-    transition: ease 0.3s;
+#create:hover {
+  transform: scale(1.1);
+  transition: ease 0.3s;
 }
 </style>

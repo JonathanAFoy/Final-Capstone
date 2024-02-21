@@ -18,8 +18,8 @@ export default {
   methods: {
     refresh() {
       this.$emit('refresh')
-    }
-  }
+    },
+  },
 };
 </script>
 
