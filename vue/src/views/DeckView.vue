@@ -32,9 +32,11 @@
         </div>
         <div class="btn-group">
             <CreateCard id="form" v-if="showAddCard" v-bind:deckId="deck.deckId" />
-            <CreateDeck id="form" v-if="showEditDeck" v-bind:deck="deck" />
-            <SearchBox />
+            <CreateDeck id="form" v-if="showEditDeck" v-bind:deck="deck" /> 
         </div>
+        <br />
+        <br />
+        <div><SearchBox /></div>
     </div>
 </template>
 

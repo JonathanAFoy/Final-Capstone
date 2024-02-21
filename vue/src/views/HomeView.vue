@@ -17,6 +17,7 @@
       </button>
     </div> -->
     <br />
+    <br />
     <SearchBox class="search"/>
     <br />
     <div class="card-display" v-show="showCards">
