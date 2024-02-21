@@ -67,7 +67,7 @@ export default {
             DeckService.updateDeck(this.newDeck.deckId).then((response) => {
               if (response.status === 200) {
                 this.$router.push({
-                  name: "DeckView",
+                  name: "deck-view",
                   params: { deckId: this.deck.deckId },
                 });
               }

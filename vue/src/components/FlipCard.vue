@@ -8,7 +8,9 @@
 
                         
                         <div class="heading-text-section">
-                            <button class="x" v-on:click="updateCard()">⚙️</button>
+                            <button class="x">
+                                <router-link v-bind:to="{ name: 'edit-card', params: { cardId: this.card.cardId } }">⚙️</router-link>
+                            </button>
                             {{ card.username }}
                         </div>
                         <div class="button-section">
@@ -128,6 +130,7 @@
 <script>
 import CardService from '../services/CardService';
 import DeckService from '../services/DeckService';
+import CreateCard from './CreateCard.vue';
 
 export default {
     props: [

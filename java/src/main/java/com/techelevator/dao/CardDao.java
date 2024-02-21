@@ -7,6 +7,8 @@ public interface CardDao {
 
    List<Card> getCards(String username);
 
+   Card getCard(int cardId, String username);
+
    List<Card> getCardsForDeck(int deckId, String username);
 
    Card createCard(Card newCard, String username);

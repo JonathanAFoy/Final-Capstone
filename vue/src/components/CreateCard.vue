@@ -31,6 +31,7 @@ export default {
   data() {
     return {
       newCard: {},
+      card: {},
       action: '',
     };
   },
@@ -57,7 +58,7 @@ export default {
       if (this.card && this.card.cardId) {
         CardService.updateCard(this.card.cardId, this.newCard).then(resp => {
           this.$store.commit('SET_CARD', this.newCard);
-          this.newCard = {};
+          this.$router.push({name: "home"});
         });
       } else {
         CardService.createCard(this.newCard).then((response) => {
@@ -71,20 +72,20 @@ export default {
             });
           }
           } 
-          else {
-            CardService.updateCard(this.newCard.cardId).then((response) => {
-              if (response.status === 200) {
-                if (this.$route.params.deckId) {
-                this.$router.push({
-                  name: "DeckView",
-                  params: { deckId: this.editDeck.deckId },
-                });
-                } else {
-                  this.$router.push({name: "home"});
-                }
-              }
-            });
-          }
+          // else {
+          //   CardService.updateCard(this.newCard.cardId).then((response) => {
+          //     if (response.status === 200) {
+          //       if (this.$route.params.deckId) {
+          //       this.$router.push({
+          //         name: "DeckView",
+          //         params: { deckId: this.editDeck.deckId },
+          //       });
+          //       } else {
+          //         this.$router.push({name: "home"});
+          //       }
+          //     }
+          //   });
+          // }
         });
       }
     },
@@ -92,12 +93,12 @@ export default {
   created() {
     if (this.$route.params.cardId) {
         CardService.getCard(this.$route.params.cardId).then(resp => {
-        const card = resp.data;
-        this.newCard.cardId = card.cardId;
-        this.newCard.frontText = card.frontText;
-        this.newCard.backText = card.backText;
-        this.newCard.cardTags = card.cardTags;
-        this.$store.commit('SET_CARD', card);
+        this.card = resp.data;
+        this.newCard.cardId = this.card.cardId;
+        this.newCard.frontText = this.card.frontText;
+        this.newCard.backText = this.card.backText;
+        this.newCard.cardTags = this.card.cardTags;
+        this.$store.commit('SET_CARD', this.card);
         this.action = "Edit";
       });
     }

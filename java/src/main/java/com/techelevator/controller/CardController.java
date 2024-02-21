@@ -31,6 +31,12 @@ public class CardController {
     }
 
     @PreAuthorize("isAuthenticated()")
+    @GetMapping("/card/{cardId}")
+    public Card getCard(@PathVariable int cardId, Principal principal) {
+        return cardDao.getCard(cardId, principal.getName());
+    }
+
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/deck/{deckId}/cards")
     public List<Card> getCardsForDeck(@PathVariable int deckId, Principal principal) {
         return cardDao.getCardsForDeck(deckId, principal.getName());

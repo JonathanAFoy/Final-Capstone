@@ -33,6 +33,20 @@ public class JdbcCardDao implements CardDao {
         }
         return cards;
     }
+    @Override
+    public Card getCard(int cardId, String username) {
+        String sql = "SELECT * FROM card WHERE card_id = ? AND username = ?;";
+        try {
+            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, cardId, username);
+            if (result.next()) {
+                return mapRowToCard(result);
+            }
+        } catch (DataAccessException dae) {
+            String detailedMessage = "Data access exception during: " + dae.getMessage();
+            System.out.println(detailedMessage);
+        }
+        return null;
+    }
 
     @Override
     public List<Card> getCardsForDeck(int deckId, String username) {
