@@ -17,7 +17,7 @@
       </button>
     </div> -->
     <br />
-    <SearchBox />
+    <SearchBox class="search"/>
     <br />
     <div class="card-display" v-show="showCards">
       <CardsList v-bind:cardList="filteredCards" from='home' @refresh="loadCards" />
@@ -118,9 +118,13 @@ export default {
 </script>
 
 <style>
+
+.search {
+
+}
+
 body {
   background-image: url("https://www.wallpaperboulevard.com/Images/product/cream-white-triangle-geometric-shapes-w-qsac-l.jpg");
-
   background-size: stretch;
 }
 
@@ -129,7 +133,6 @@ h1 {
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
   color: black;
-
 }
 
 #my-decks {
@@ -143,7 +146,6 @@ h1 {
   text-decoration: none;
   border-radius: 10px;
   border-color: #3498db;
-
 }
 
 .create-card-button {
@@ -171,7 +173,6 @@ h1 {
   column-gap: 25px;
   row-gap: 25px;
   align-items: center;
-
 }
 
 .deck-display {

@@ -1,6 +1,6 @@
 <template>
 <div class="search-box-container">
-    <input id="search-box" type="text" v-model="searchTerm" v-on:keyup="updateSearchTerm"/>
+    <input id="search-box" type="text" placeholder="Enter search term here!" v-model="searchTerm" v-on:keyup="updateSearchTerm"/>
     <label for="search-box">Filter</label>
   </div>
 </template>
@@ -27,7 +27,19 @@ export default {
 </script>
 
 <style>
+.search-box-container {
+    display: flex;
+    justify-content: center;
+}
+#search-box {
+    display: flex;
+    border-radius: 10px;
+    border: none;
+    width: 175px;
+}
 div.search-box-container>label {
+    display: flex;
+    justify-content: center;
     padding-left: 10px;
     font-weight: bold;
 }
