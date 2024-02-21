@@ -56,8 +56,13 @@ export default {
     customizedDeckForm() {
       if (this.deck && this.deck.deckId) {
         DeckService.updateDeck(this.deck.deckId, this.newDeck).then(resp => {
+          const deckInfo = {
+            deckId: this.newDeck.deckId,
+            deckTitle: this.newDeck.deckTitle,
+            deckTags: this.newDeck.deckTags,
+          };
           this.$store.commit('SET_DECK', this.newDeck);
-          this.newDeck = {};
+          this.newDeck = deckInfo;
         });
       } else {
         DeckService.createDeck(this.newDeck).then((response) => {

@@ -246,7 +246,7 @@ export default {
     created() {
         this.cardData = {
             cardId: this.card.cardId,
-            username: this.card.username,
+            username: this.$store.state.user.username,
             frontText: this.card.frontText,
             backText: this.card.backText,
             cardTags: this.card.cardTags,
