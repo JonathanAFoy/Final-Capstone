@@ -117,10 +117,6 @@ export default {
 
 <style>
 
-.search {
-
-}
-
 body {
   background-image: url("https://www.wallpaperboulevard.com/Images/product/cream-white-triangle-geometric-shapes-w-qsac-l.jpg");
   background-size: stretch;
@@ -186,6 +182,7 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   margin: 20px;
+  padding: 50px;
   column-gap: 140px;
   row-gap: 50px;
   justify-content: center;

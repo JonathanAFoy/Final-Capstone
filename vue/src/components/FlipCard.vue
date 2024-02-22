@@ -8,7 +8,7 @@
 
                         
                         <div class="heading-text-section">
-                            <button class="x">
+                            <button class="edit">
                                 <router-link v-bind:to="{ name: 'edit-card', params: { cardId: this.card.cardId } }">⚙️</router-link>
                             </button>
                             {{ card.username }}
@@ -55,7 +55,7 @@
                     <div class="heading-section">
 
                         <div class="heading-text-section">
-                           {{ card.username }}
+                            &nbsp;{{ card.username }}
                         </div>
                         
                         <div class="button-section">
@@ -258,7 +258,7 @@ export default {
 .card {
     width: 100%;
     height: 100%;
-    border-radius: 15px;
+    border-radius: 20px;
     transition: transform 1s;
     transform-style: preserve-3d;
     cursor: pointer;
@@ -293,7 +293,7 @@ export default {
 }
 .x {
     height: 10%;
-    margin: 4px;
+    margin-right: 10px;
     border-radius: 10px;
     background: none;
     border: none;
@@ -310,6 +310,24 @@ export default {
     transform: rotate(360deg);
 }
 
+.edit {
+    height: 10%;
+    margin-left: -5px;
+    border-radius: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+    padding: 10px 5px;
+    opacity: 1;
+    transition: all 0.5s ease;
+    color: rgb(255, 255, 255);
+}
+.edit:hover, .error {
+    opacity: 1;
+    transform: rotate(360deg);
+}
 
 .heading-text-section {
     flex-grow: 1;
@@ -361,6 +379,7 @@ a {
 }
 
 .card-face.front {
+    border-radius: 20px;
     height: 200px;
     width: 300px;
     background-color: rgb(68, 118, 255, 0.8);
@@ -368,6 +387,7 @@ a {
 }
 
 .card-face.back {
+    border-radius: 20px;
     height: 200px;
     width: 300px;
     /* background-color: blue; */
