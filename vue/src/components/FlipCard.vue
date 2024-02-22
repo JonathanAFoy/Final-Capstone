@@ -258,7 +258,7 @@ export default {
 .card {
     width: 100%;
     height: 100%;
-    border-radius: 15px;
+    border-radius: 20px;
     transition: transform 1s;
     transform-style: preserve-3d;
     cursor: pointer;
@@ -361,6 +361,7 @@ a {
 }
 
 .card-face.front {
+    border-radius: 20px;
     height: 200px;
     width: 300px;
     background-color: rgb(68, 118, 255, 0.8);
@@ -368,6 +369,7 @@ a {
 }
 
 .card-face.back {
+    border-radius: 20px;
     height: 200px;
     width: 300px;
     /* background-color: blue; */

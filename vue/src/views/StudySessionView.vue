@@ -4,19 +4,17 @@
   </div>
   <br />
   <br />
-  <div class="count">
-    <h2>
-      {{ correctCount }}/{{ this.cardList.length }} Correct
-    </h2>
-  </div>
+  
   <div class="next-card-button">
     <button class="next-card-button" v-on:click="nextCard" v-show="cardIndex < cardList.length - 1">Next Card</button>
-    <a href="#" @click.prevent="show()">End Session</a>
+    <button id="end-session" @click.prevent="show()">End Session</button>
   </div>
   <div class="popup" id="endSession" ref="endSession">
-    <p>Session Completed</p>
-    <p>You correctly answered {{ correctCount }} out of {{ this.cardList.length }} cards.</p>
-    <a href="#" @click.prevent="toDeckView">Back to Deck</a>
+    <p>Session Complete!</p>
+    <p>You correctly answered {{ correctCount }} of {{ this.cardList.length }} cards.</p>
+    
+    <br />
+    <button id="back-to-deck" @click.prevent="toDeckView">Back to Deck</button>
   </div>
 </template>
 
@@ -140,6 +138,7 @@ export default {
 
 #endSession:before {
   position: absolute;
+  border-radius: 20px;
   content: "";
   top: 0;
   left: 0;
@@ -154,9 +153,24 @@ p {
   font-size: larger;
 }
 
-a {
+#end-session {
   color: white;
+  background-color: rgb(224, 205, 38);
+  border: none;
+  border-radius: 20px;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  font-weight: bold;
+  font-size: large;
+  height: 40px;
+  width: 130px;
   text-decoration: none;
-  border-outline: black;
+}
+
+#back-to-deck {
+  border-radius: 10px;
+  border: none;
+  height: 20px;
 }
 </style>
