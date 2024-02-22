@@ -15,17 +15,24 @@
                 Delete Deck
             </button>
         </div>
-        <div class="header">
-            <h1>{{ deck.deckTitle }}</h1>
+        <div id="title-wiz">
+            <div id="deck-wiz-display">
+                <img class="image" src="../assets/images/DeckWizard.png" />
+            </div>
+            <div id="title">
+                <div class="header">
+                    <h1>{{ deck.deckTitle }}</h1>
+                </div>
+                <div class="tags">
+                    <h2>({{ deck.deckTags }})</h2>
+                </div>
+            </div>
         </div>
-        <div class="tags">
-            <h2>({{ deck.deckTags }})</h2>
-        </div>
-
         <!-- {{ filteredCards }} -->
         <div class="card-display">
             <CardsList v-bind:cardList="filteredCards" v-bind:deckId="deck.deckId" from='deck' @refresh="loadData" />
         </div>
+        <div><SearchBox /></div>
         <div class="btn-group">
             <button id="create" v-on:click.prevent="showCardForm">Create Card</button>
             <button id="create" v-on:click.prevent="showDeckForm">Edit Deck</button>
@@ -36,7 +43,7 @@
         </div>
         <br />
         <br />
-        <div><SearchBox /></div>
+        
     </div>
 </template>
 
@@ -219,6 +226,30 @@ export default {
 };
 </script>
 <style scoped>
+#title-wiz {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: "image title .";
+}
+
+#title {
+    grid-area: title;
+    margin-top: 20%;
+}
+
+.image {
+    display: flex;
+    justify-content: center;
+    width: 1000px;
+    margin: -10px -400px -200px 0px;
+}
+
+#deck-wiz-display {
+    display: flex;
+    grid-area: image;
+    justify-content: center;
+}
+
 .cards {
     display: flex;
     align-items: center;
@@ -241,6 +272,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: -30px;
 }
 
 .header h1 {
@@ -248,9 +280,6 @@ export default {
     flex-grow: 1;
 }
 
-.tags {
-    margin-top: -30px;
-}
 
 /* .delete-deck {
     display: flex;
@@ -344,4 +373,5 @@ a {
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
 }
+
 </style>

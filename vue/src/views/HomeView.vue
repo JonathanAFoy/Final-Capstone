@@ -1,9 +1,16 @@
 <template>
   <div class="home">
     <h1 id="my-decks">My Decks</h1>
-    <div class="deck-display">
-      <DecksList v-bind:deckList="deckList" />
+
+    <div class="deck-wiz">
+      <div id="deck-display">
+        <DecksList v-bind:deckList="deckList" />
+      </div>
+      <div id="wiz-display">
+        <img class="home-wiz" src="../assets/images/HomeWizard.png" />
+      </div>
     </div>
+
     <br />
     <div class="btn-group">
       <button id="create" v-on:click.prevent="showDeckForm">Create Deck</button>
@@ -169,13 +176,24 @@ h1 {
   align-items: center;
 }
 
-.deck-display {
+.deck-wiz {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas: ". deck deck deck image";
+}
+
+#deck-display {
   display: flex;
+  grid-area: deck;
   flex-wrap: wrap;
   column-gap: 25px;
   row-gap: 10px;
   justify-content: center;
   align-items: center;
+}
+
+#wiz-display {
+  grid-area: image;
 }
 
 .card-display {
@@ -186,7 +204,7 @@ h1 {
   column-gap: 140px;
   row-gap: 50px;
   justify-content: center;
-  /* align-items: center; */
+  align-items: center;
 }
 
 .btn-group {
@@ -216,5 +234,10 @@ h1 {
 #create:hover {
   transform: scale(1.1);
   transition: ease 0.3s;
+}
+
+.home-wiz{
+  display: inline-block;
+  width: 300px;
 }
 </style>

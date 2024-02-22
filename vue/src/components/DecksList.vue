@@ -65,10 +65,12 @@ h4{
   padding: 10px;
   margin: 10px;
   border: 10px;
-  width: 150px;
+  width: 180px;
+  height: 120px;
   background-color:#7b68cec7;
   font-family: Arial, Helvetica, sans-serif;
   justify-content: center;
+  align-items: center;
 }
 .deck-item:hover{
     transform: scale(1.1);

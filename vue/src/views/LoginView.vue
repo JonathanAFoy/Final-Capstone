@@ -26,6 +26,9 @@
     </form>
     
   </div>
+  <div class="avatar">
+      <img class="login-wiz" src="../assets/images/LoginWizard.png" />
+    </div>
 </template>
 
 <script>
@@ -195,5 +198,17 @@ label {
   color: rgb(250, 129, 129);
   font-family: Arial, Helvetica, sans-serif;
   margin-bottom: 10px;
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+ 
+}
+
+.login-wiz{
+  width: 1000px;
+  height: 500px;
+  margin-right: 50px;
 }
 </style>

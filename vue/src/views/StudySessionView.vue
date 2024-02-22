@@ -18,8 +18,11 @@
   </div>
 
   <div id="end-session-div">
-    <button id="end-session" @click.prevent="show()">End Session</button>
+    <button id="end-session" @click.prevent="show()"><span>End Session</span></button>
   </div>
+  <div class="avatar">
+      <img class="study-wiz" src="../assets/images/StudyWizard.png" />
+    </div>
   
 </template>
 
@@ -102,7 +105,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 5%;
+  margin-top: 2%;
   margin-bottom: 1%;
 }
 
@@ -118,17 +121,7 @@ export default {
   
 }
 
-#next-card-button {
-  font-size: large;
-  font-weight: bold;
-  border: none;
-  padding: 10px;
-  color: white;
-  background-color: rgba(74, 167, 110, 0.8);
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
+
 
 .popup {
   display: none;
@@ -169,7 +162,7 @@ p {
 
 }
 
-#end-session {
+/* #end-session {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -187,20 +180,58 @@ p {
   height: 40px;
   width: 130px;
   text-decoration: none;
-}
+  cursor: pointer;
+} */
 
-#end-session:hover {
-  transform: scale(1.2);
-    transition: ease 0.9s;
-    font-weight:bolder;
-}
-
-#back-to-deck {
-  border-radius: 15px;
-  border: none;
-  color: #7b68cee0;
+#end-session {
+  font-size: large;
   font-weight: bold;
-  height: 25px;
+  border: none;
+  padding: 10px;
+  color: white;
+  background-color: rgb(224, 205, 38);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#end-session span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+#end-session span:after {
+  content: '\25a0';
+  font-size: xx-large;
+  position: absolute;
+  margin-top: -10px;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+#end-session:hover span {
+  padding-right: 25px;
+}
+
+#end-session:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+#next-card-button {
+  font-size: large;
+  font-weight: bold;
+  border: none;
+  padding: 10px;
+  color: white;
+  background-color: rgba(74, 167, 110, 0.8);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 #next-card-button span {
@@ -230,6 +261,14 @@ p {
   right: 0;
 }
 
+#back-to-deck {
+  border-radius: 15px;
+  border: none;
+  color: #7b68cee0;
+  font-weight: bold;
+  height: 25px;
+}
+
 #back-to-deck span {
   cursor: pointer;
   display: inline-block;
@@ -255,5 +294,16 @@ p {
 #back-to-deck:hover span:after {
   opacity: 1;
   left: 0;
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+ 
+}
+
+.study-wiz{
+  width: 1000px;
+  margin: 0px -150px -300px 0px;
 }
 </style>
