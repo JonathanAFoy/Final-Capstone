@@ -1,46 +1,93 @@
 <template>
   <div id="create-card">
-    <h1 class="head">{{ action }} Card Form</h1>
+    <h1 id="card-head">{{ action }} Card Form</h1>
 
     <form v-on:submit.prevent="customizedCardForm">
-      
-      <input class="form" type="text" placeholder="Front Text"  v-model="newCard.frontText"/>
-      <br/><br/>
-      
-      <input class="form" type="text" placeholder="Back Text" v-model="newCard.backText"/>
-      <br/><br/>
-      
-      <input class="form" type="text" placeholder="Tags" v-model="newCard.cardTags"/>
-      <br/><br/>
+      <input
+        class="form"
+        type="text"
+        placeholder="Front Text"
+        v-model="newCard.frontText"
+      />
+      <br /><br />
+
+      <input
+        class="form"
+        type="text"
+        placeholder="Back Text"
+        v-model="newCard.backText"
+      />
+      <br /><br />
+
+      <input
+        class="form"
+        type="text"
+        placeholder="Tags"
+        v-model="newCard.cardTags"
+      />
+      <br /><br />
 
       <!-- Return Button is here because center alignment for other buttons -->
-      <button class="button" v-if="action === 'Edit'"  @click.prevent="returnHome">Return</button> &nbsp; 
+      <button
+        class="button"
+        v-if="action === 'Edit'"
+        @click.prevent="returnHome"
+      >
+        Go Back
+      </button>
+      &nbsp; &nbsp; &nbsp;
 
-      <button type="submit" class="button" v-if="action === 'New'" @click="refreshHome()">Submit</button>
+      <button
+        type="submit"
+        class="button"
+        v-if="action === 'New'"
+        @click="refreshHome()"
+      >
+        Submit
+      </button>
 
-      <button type="submit" class="button" v-if="action === 'Create'">Submit</button>      
-      
-      <button class="button" v-if="action === 'Edit'"  @click.prevent="showDeckList">Show Decks To Add</button>  
-      
+      <button type="submit" class="button" v-if="action === 'Create'">
+        Submit
+      </button>
+
+      <button
+        class="button"
+        v-if="action === 'Edit'"
+        @click.prevent="showDeckList"
+      >
+        Show Decks To Add
+      </button>
+
       <!-- Submit Button is here because center alignment for other buttons -->
-      &nbsp; <button type="submit" class="button" v-if="action === 'Edit'">Submit</button>
+      &nbsp; &nbsp; &nbsp;
+      <button type="submit" class="button" id="bottom" v-if="action === 'Edit'">
+        Submit
+      </button>
     </form>
   </div>
 
   <div class="edit-button-section">
-      <button type="submit" class="edit-button" v-if="addToDeckId" @click="addToDeck">Add to Deck</button>
-    <br/><br/>
+    <button
+      type="submit"
+      class="edit-button"
+      v-if="addToDeckId"
+      @click="addToDeck"
+    >
+      Add to Deck
+    </button>
+    <br /><br />
   </div>
 
   <div class="deck-display">
-    <DecksList v-bind:deckList="deckList" v-if="showDecks"/>
+    <DecksList v-bind:deckList="deckList" v-if="showDecks" />
   </div>
-  
+
   <div class="edit-button-section">
-    <br/><br/>
-    <button class="edit-button" v-if="showDecks" @click.prevent="showDeckList">Cancel</button>
+    <br /><br />
+    <button class="edit-button" v-if="showDecks" @click.prevent="showDeckList">
+      Cancel
+    </button>
   </div>
-  
 </template>
   
 <script>
@@ -70,7 +117,7 @@ export default {
     returnHome() {
       this.showDecks = !this.showDecks;
       this.$store.commit("SET_EDIT_DECK_ID", null);
-      this.$router.push({ name: 'home' });
+      this.$router.push({ name: "home" });
     },
     refreshHome() {
       location.reload
@@ -103,10 +150,13 @@ export default {
       }
     },
     addToDeck() {
-      DeckService.addCard(this.$store.state.editModeDeckId, this.card.cardId).then((response) => {
+      DeckService.addCard(
+        this.$store.state.editModeDeckId,
+        this.card.cardId
+      ).then((response) => {
         this.showDecks = !this.showDecks;
         this.$store.commit("SET_EDIT_DECK_ID", null);
-      })
+      });
     },
   },
   computed: {
@@ -146,11 +196,14 @@ export default {
   text-align: center;
   margin: 50px auto;
   max-width: 350px;
-  background-color: rgb(68, 118, 255);
-  padding: 30px;
+  background-color: rgba(68, 118, 255, 0.785);
+  padding: 20px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
 }
-.head {
+
+#card-head {
+  margin-top: 5px;
+  margin-bottom: 20px;
   color: white;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -171,6 +224,11 @@ export default {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
 }
+
+#bottom {
+  margin-bottom: 10px;
+}
+
 .edit-button {
   border: none;
   color: black;
@@ -179,6 +237,7 @@ export default {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
 }
+
 .edit-button-section {
   display: flex;
   justify-content: center;

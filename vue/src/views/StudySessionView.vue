@@ -124,6 +124,8 @@ export default {
 
 .popup {
   display: none;
+  text-align: center;
+  border-radius: 20px;
   position: fixed;
   padding: 10px;
   width: 280px;
@@ -132,20 +134,9 @@ export default {
   height: 180px;
   top: 50%;
   margin-top: -100px;
-  background: #7b68cee0;
+  background: #7b68cec5;
   z-index: 20;
 }
-
-/* #endSession:after {
-  position: fixed;
-  content: "";
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: -2;
-} */
 
 #endSession:before {
   position: absolute;
@@ -161,5 +152,11 @@ export default {
 p {
   color: white;
   font-size: larger;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  border-outline: black;
 }
 </style>

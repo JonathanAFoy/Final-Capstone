@@ -111,17 +111,17 @@
                 <div class="card-face back">
                     <div class="heading-section">
 
-                        <div class="button-section" v-show="showAnswer">
-                            <input type="checkbox" id="correct" name="response" v-bind:checked="card.correct" v-on:click.stop="correctToggle">
-                            <label for="answer"> Correct? </label><br>
-                        </div>
+
                         <div class="heading-text-section">
 
                         </div>
                     </div>
                     <div class="front-back-section"  v-show="showAnswer" >{{ card.backText }}</div>
                     <div class="foot-section">
-
+                        <div class="button-section" v-show="showAnswer">
+                            <input type="checkbox" id="correct" name="response" v-bind:checked="card.correct" v-on:click.stop="correctToggle">
+                            <label for="answer"> Correct? </label><br>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -291,8 +291,6 @@ export default {
 /*     overflow-y: auto;
     overflow-x: auto; */
 }
-
-
 .x {
     height: 10%;
     margin: 4px;
@@ -362,12 +360,10 @@ a {
     backface-visibility: hidden;
 }
 
-
-
 .card-face.front {
     height: 200px;
     width: 300px;
-    background-color: rgb(68, 118, 255);
+    background-color: rgb(68, 118, 255, 0.8);
     color: #000000;
 }
 
@@ -375,10 +371,11 @@ a {
     height: 200px;
     width: 300px;
     /* background-color: blue; */
-    background-color: rgb(74, 167, 110);
+    background-color: rgba(74, 167, 110, 0.8);
     transform: rotateY(180deg);
     color: #000000;
     
 }
+
 
 </style>
