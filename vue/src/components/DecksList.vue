@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import DeckService from '../services/DeckService';
+
 export default {
   props: ['deckList'],
   methods: {
@@ -20,18 +22,17 @@ export default {
       } else {
         this.$store.commit('SET_EDIT_DECK_ID', deck.deckId);
       }
+    }
+  },
+  computed: {
+    isEditMode() {
+      return this.$store.state.editCardMode;
+    }
+  },
+  created() {
+    this.$store.commit('SET_EDIT_DECK_ID', null);
   }
-},
-computed: {
-  isEditMode() {
-    return this.$store.state.editCardMode;
-  }
-},
-created() {
-  this.$store.commit('SET_EDIT_DECK_ID', null);
-}
 };
-
 </script>
 
 <style scoped>

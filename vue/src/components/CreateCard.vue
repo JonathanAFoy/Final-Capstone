@@ -3,65 +3,44 @@
     <h1 class="head">{{ action }} Card Form</h1>
 
     <form v-on:submit.prevent="customizedCardForm">
-      <input
-        class="form"
-        type="text"
-        placeholder="Front Text"
-        v-model="newCard.frontText"
-      />
-      <br /><br />
-      <input
-        class="form"
-        type="text"
-        placeholder="Back Text"
-        v-model="newCard.backText"
-      />
-      <br /><br />
-      <input
-        class="form"
-        type="text"
-        placeholder="Tags"
-        v-model="newCard.cardTags"
-      />
-      <br /><br />
-
-      <button
-        type="submit"
-        class="button"
-        v-if="action === 'New'"
-        @click="refreshHome()"
-      >
-        Submit
-      </button>
-      <button type="submit" class="button" v-if="action === 'Create'">
-        Submit
-      </button>
-      <button type="submit" class="button" v-if="action === 'Edit'">
-        Submit
-      </button>
-      <button class="button" v-if="action === 'Edit'"  v-on:click.prevent="showDeckList">
-        Show Decks To Add
-      </button>
       
+      <input class="form" type="text" placeholder="Front Text"  v-model="newCard.frontText"/>
+      <br/><br/>
+      
+      <input class="form" type="text" placeholder="Back Text" v-model="newCard.backText"/>
+      <br/><br/>
+      
+      <input class="form" type="text" placeholder="Tags" v-model="newCard.cardTags"/>
+      <br/><br/>
+
+      <!-- Return Button is here because center alignment for other buttons -->
+      <button class="button" v-if="action === 'Edit'"  @click.prevent="returnHome">Return</button> &nbsp; 
+
+      <button type="submit" class="button" v-if="action === 'New'" @click="refreshHome()">Submit</button>
+
+      <button type="submit" class="button" v-if="action === 'Create'">Submit</button>      
+      
+      <button class="button" v-if="action === 'Edit'"  @click.prevent="showDeckList">Show Decks To Add</button>  
+      
+      <!-- Submit Button is here because center alignment for other buttons -->
+      &nbsp; <button type="submit" class="button" v-if="action === 'Edit'">Submit</button>
     </form>
   </div>
-  <div class="deck-display">
-  
-    
-      <DecksList v-bind:deckList="deckList" v-if="showDecks" />
-    
-      
+
+  <div class="edit-button-section">
+      <button type="submit" class="edit-button" v-if="addToDeckId" @click="addToDeck">Add to Deck</button>
+    <br/><br/>
   </div>
-  <div>
-  <button
-        type="submit"
-        class="button"
-        @click="addToDeck"
-        v-if="addToDeckId"
-      >
-        Add to Deck
-      </button>
-    </div>
+
+  <div class="deck-display">
+    <DecksList v-bind:deckList="deckList" v-if="showDecks"/>
+  </div>
+  
+  <div class="edit-button-section">
+    <br/><br/>
+    <button class="edit-button" v-if="showDecks" @click.prevent="showDeckList">Cancel</button>
+  </div>
+  
 </template>
   
 <script>
@@ -86,13 +65,18 @@ export default {
   methods: {
     showDeckList() {
       this.showDecks = !this.showDecks;
+      this.$store.commit("SET_EDIT_DECK_ID", null);
+    },
+    returnHome() {
+      this.showDecks = !this.showDecks;
+      this.$store.commit("SET_EDIT_DECK_ID", null);
+      this.$router.push({ name: 'home' });
     },
     refreshHome() {
       location.reload
         ? location.reload()
         : (location = this.$router.push({ name: "home" }));
     },
-
     customizedCardForm() {
       if (this.card && this.card.cardId) {
         CardService.updateCard(this.card.cardId, this.newCard).then((resp) => {
@@ -119,8 +103,10 @@ export default {
       }
     },
     addToDeck() {
-      DeckService.addCard(this.$store.state.editModeDeckId, this.card.cardId);
-      // this.$store.commit("SET_EDIT_DECK_ID", null);
+      DeckService.addCard(this.$store.state.editModeDeckId, this.card.cardId).then((response) => {
+        this.showDecks = !this.showDecks;
+        this.$store.commit("SET_EDIT_DECK_ID", null);
+      })
     },
   },
   computed: {
@@ -184,5 +170,19 @@ export default {
   border-radius: 5px;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
+}
+.edit-button {
+  border: none;
+  color: black;
+  background: white;
+  border-radius: 5px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+.edit-button-section {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
 }
 </style>

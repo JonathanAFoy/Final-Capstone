@@ -78,6 +78,16 @@ export default {
                 card.cardTags.toLowerCase().includes(matchText)
             );
         }
+
+        // planned() {
+        //     return this.deck.cards.filter(card => card.status === 'Planned');
+        // },
+        // inProgress() {
+        //     return this.deck.cards.filter(card => card.status === 'In Progress');
+        // },
+        // completed() {
+        //     return this.deck.cards.filter(card => card.status === 'Completed');
+        // }
     },
     methods: {
         showCardForm() {
