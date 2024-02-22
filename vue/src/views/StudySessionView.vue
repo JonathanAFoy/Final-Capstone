@@ -5,17 +5,22 @@
   <br />
   <br />
   
-  <div class="next-card-button">
-    <button class="next-card-button" v-on:click="nextCard" v-show="cardIndex < cardList.length - 1">Next Card</button>
-    <button id="end-session" @click.prevent="show()">End Session</button>
+  <div id="next-card-div">
+    <button id="next-card-button" v-on:click="nextCard" v-show="cardIndex < cardList.length - 1"><span>Next Card</span></button>
   </div>
+
   <div class="popup" id="endSession" ref="endSession">
     <p>Session Complete!</p>
     <p>You correctly answered {{ correctCount }} of {{ this.cardList.length }} cards.</p>
     
     <br />
-    <button id="back-to-deck" @click.prevent="toDeckView">Back to Deck</button>
+    <button id="back-to-deck" @click.prevent="toDeckView"><span>Back to Deck</span></button>
   </div>
+
+  <div id="end-session-div">
+    <button id="end-session" @click.prevent="show()">End Session</button>
+  </div>
+  
 </template>
 
 <script>
@@ -107,15 +112,20 @@ export default {
   justify-content: center;
 }
 
-.next-card-button {
+#next-card-div {
   display: flex;
-  align-items: center;
   justify-content: center;
-  text-decoration: none;
+  
+}
+
+#next-card-button {
   font-size: large;
-  padding: 12px;
-  color: #3498db;
-  border-radius: 10px;
+  font-weight: bold;
+  border: none;
+  padding: 10px;
+  color: white;
+  background-color: rgba(74, 167, 110, 0.8);
+  border-radius: 20px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -123,17 +133,16 @@ export default {
 .popup {
   display: none;
   text-align: center;
+  justify-items: center;
   border-radius: 20px;
   position: fixed;
   padding: 10px;
-  width: 280px;
+  width: 320px;
   left: 50%;
-  margin-left: -150px;
-  height: 180px;
-  top: 50%;
-  margin-top: -100px;
+  margin-left: -170px;
+  height: 225px;
+  margin-top: -300px;
   background: #7b68cec5;
-  z-index: 20;
 }
 
 #endSession:before {
@@ -153,7 +162,19 @@ p {
   font-size: larger;
 }
 
+#end-session-div {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+
+}
+
 #end-session {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: large;
   color: white;
   background-color: rgb(224, 205, 38);
   border: none;
@@ -168,9 +189,71 @@ p {
   text-decoration: none;
 }
 
+#end-session:hover {
+  transform: scale(1.2);
+    transition: ease 0.9s;
+    font-weight:bolder;
+}
+
 #back-to-deck {
-  border-radius: 10px;
+  border-radius: 15px;
   border: none;
-  height: 20px;
+  color: #7b68cee0;
+  font-weight: bold;
+  height: 25px;
+}
+
+#next-card-button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+#next-card-button span:after {
+  content: '\00bb';
+  font-size: xx-large;
+  position: absolute;
+  margin-top: -10px;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+#next-card-button:hover span {
+  padding-right: 25px;
+}
+
+#next-card-button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+#back-to-deck span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+#back-to-deck span:after {
+  content: '\00ab';
+  font-size: xx-large;
+  position: absolute;
+  margin-top: -13px;
+  opacity: 0;
+  top: 0;
+  left: -20px;
+  transition: 0.5s;
+}
+
+#back-to-deck:hover span {
+  padding-left: 20px;
+}
+
+#back-to-deck:hover span:after {
+  opacity: 1;
+  left: 0;
 }
 </style>
