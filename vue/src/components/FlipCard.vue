@@ -19,7 +19,7 @@
                     </div>
                     <div class="front-back-section">{{ card.frontText }}</div>
                     <div class="foot-section">
-                         {{ card.public }}
+                        private
                     </div>
                 </div>
                 <div class="card-face back">
@@ -28,10 +28,10 @@
 
                         
                         <div class="heading-text-section">
-                            <button class="x">
+                            <button class="edit">
                                 <router-link v-bind:to="{ name: 'edit-card', params: { cardId: this.card.cardId } }">⚙️</router-link>
                             </button>
-                            {{ card.username }}
+
                         </div>
                         <div class="button-section">
                             <button class="x" v-on:mousedown.stop="deleteCard(card.cardId)">X</button>
@@ -39,7 +39,6 @@
                     </div>
                     <div class="front-back-section">{{ card.backText }}</div>
                     <div class="foot-section">
-                         {{ card.public }}
                     </div>
                 </div>
             </div>
@@ -67,10 +66,12 @@
                         {{ card.cardTags }}
                     </div>
                 </div>
+
+
+
+
                 <div class="card-face back">
                     <div class="heading-section">
-
-                        
                         <div class="heading-text-section">
                             {{ card.username }}
                         </div>

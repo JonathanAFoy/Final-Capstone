@@ -1,50 +1,59 @@
 <template>
-    <div>
-        <br />
-        <br />
-        <div class="btn-group">
-            <button id="back-to-decks">
-                <router-link v-bind:to="{ name: 'home' }">Back to Decks</router-link>
-            </button>
+  <div>
+    <br />
+    <br />
+    <div class="btn-group">
+      <button id="back-to-decks">
+        <router-link v-bind:to="{ name: 'home' }">Back to Decks</router-link>
+      </button>
 
-            <button id="study-session">
-                <router-link v-bind:to="{ name: 'study-session' }">Study Session</router-link>
-            </button>
+      <button id="study-session">
+        <router-link v-bind:to="{ name: 'study-session' }"
+          >Study Session</router-link
+        >
+      </button>
 
-            <button id="delete-deck" v-on:click="deleteDeck">
-                Delete Deck
-            </button>
-        </div>
-        <div id="title-wiz">
-            <div id="deck-wiz-display">
-                <img class="image" src="../assets/images/DeckWizard.png" />
-            </div>
-            <div id="title">
-                <div class="header">
-                    <h1>{{ deck.deckTitle }}</h1>
-                </div>
-                <div class="tags">
-                    <h2>({{ deck.deckTags }})</h2>
-                </div>
-            </div>
-        </div>
-        <!-- {{ filteredCards }} -->
-        <div class="card-display">
-            <CardsList v-bind:cardList="filteredCards" v-bind:deckId="deck.deckId" from='deck' @refresh="loadData" />
-        </div>
-        <div><SearchBox /></div>
-        <div class="btn-group">
-            <button id="create" v-on:click.prevent="showCardForm">Create Card</button>
-            <button id="create" v-on:click.prevent="showDeckForm">Edit Deck</button>
-        </div>
-        <div class="btn-group">
-            <CreateCard id="form" v-if="showAddCard" v-bind:deckId="deck.deckId" />
-            <CreateDeck id="form" v-if="showEditDeck" v-bind:deck="deck" /> 
-        </div>
-        <br />
-        <br />
-        
+      <button id="delete-deck" v-on:click="deleteDeck">Delete Deck</button>
     </div>
+    <div id="title-wiz">
+      <div id="deck-wiz-display">
+        <img class="image" src="../assets/images/DeckWizard.png" />
+      </div>
+      <div id="title">
+        <div class="header">
+          <h1>{{ deck.deckTitle }}</h1>
+        </div>
+        <div class="tags">
+          <!-- <h2>({{ deck.deckTags }})</h2> -->
+        </div>
+        <br />
+        <div><SearchBox /></div>
+        <br />
+        <div class="btn-group">
+          <button id="create" v-on:click.prevent="showCardForm">
+            Create Card
+          </button>
+          <button id="create" v-on:click.prevent="showDeckForm">
+            Edit Deck
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="btn-group">
+      <CreateCard id="form" v-if="showAddCard" v-bind:deckId="deck.deckId" />
+      <CreateDeck id="form" v-if="showEditDeck" v-bind:deck="deck" />
+    </div>
+
+    <!-- {{ filteredCards }} -->
+    <div class="card-display">
+      <CardsList
+        v-bind:cardList="filteredCards"
+        v-bind:deckId="deck.deckId"
+        from="deck"
+        @refresh="loadData"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -56,173 +65,153 @@ import CreateDeck from "../components/CreateDeck.vue";
 import SearchBox from "../components/SearchBox.vue";
 
 export default {
-    components: {
-        CardsList,
-        CreateCard,
-        CreateDeck,
-        SearchBox
+  components: {
+    CardsList,
+    CreateCard,
+    CreateDeck,
+    SearchBox,
+  },
+  data() {
+    return {
+      newCard: {},
+      showAddCard: false,
+      showEditDeck: false,
+      from: "deck",
+      searchTerm: "",
+    };
+  },
+  computed: {
+    deck() {
+      return this.$store.state.currDeck;
     },
-    data() {
-        return {
-            newCard: {},
-            showAddCard: false,
-            showEditDeck: false,
-            from: "deck",
-            searchTerm: ''
-        };
+    cardList() {
+      return this.$store.state.currCards;
     },
-    computed: {
-        deck() {
-            return this.$store.state.currDeck;
-        },
-        cardList() {
-            return this.$store.state.currCards;
-        },
-        filteredCards() {
-            const searchTerm = this.$store.state.searchTerm;
-            const matchText = searchTerm.toLowerCase();
-            return this.cardList.filter(card =>
-                card.cardTags.toLowerCase().includes(matchText)
-            );
+    filteredCards() {
+      const searchTerm = this.$store.state.searchTerm;
+      const matchText = searchTerm.toLowerCase();
+      return this.cardList.filter((card) =>
+        card.cardTags.toLowerCase().includes(matchText)
+      );
+    },
+  },
+  methods: {
+    showCardForm() {
+      this.showAddCard = !this.showAddCard;
+      this.showEditDeck = false;
+    },
+    showDeckForm() {
+      this.showEditDeck = !this.showEditDeck;
+      this.showAddCard = false;
+    },
+    loadData() {
+      DeckService.getCardsForDeck(this.deck.deckId).then((response) => {
+        let cards = response.data;
+        for (let i = 0; i < cards.length; i++) {
+          cards[i].flipped = false;
+          cards[i].completed = null;
         }
+        this.$store.commit("SET_CARD_LIST", cards);
 
-        // planned() {
-        //     return this.deck.cards.filter(card => card.status === 'Planned');
-        // },
-        // inProgress() {
-        //     return this.deck.cards.filter(card => card.status === 'In Progress');
-        // },
-        // completed() {
-        //     return this.deck.cards.filter(card => card.status === 'Completed');
-        // }
+        // Show cards
+        this.$store.commit("SET_CARDS_HIDDEN", false);
+      });
     },
-    methods: {
-        showCardForm() {
-            this.showAddCard = !this.showAddCard;
-        },
-        showDeckForm() {
-            this.showEditDeck = !this.showEditDeck
-        },
-        loadData() {
-            DeckService.getCardsForDeck(this.deck.deckId)
-                .then((response) => {
-                    let cards = response.data;
-                    for (let i = 0; i < cards.length; i++) {
-                        cards[i].flipped = false;
-                        cards[i].completed = null;
-                    }
-                    this.$store.commit('SET_CARD_LIST', cards);
-
-                    // Show cards
-                    this.$store.commit('SET_CARDS_HIDDEN', false);
-                })
-        },
-        deleteDeck() {
-            if (
-                confirm(
-                    "Are you sure you want to delete this deck and all associated cards? This action cannot be undone."
-                )
-            ) {
-                DeckService.deleteDeck(this.deck.deckId)
-                    .then((response) => {
-                        if (response.status === 200) {
-                            this.$store.commit("SET_NOTIFICATION", {
-                                message: `Deck has been deleted`,
-                                type: "success",
-                            });
-                            this.$router.push({ name: "home" });
-                        }
-                    })
-                    .catch((error) => {
-                        if (error.response) {
-                            this.$store.commit(
-                                "SET_NOTIFICATION",
-                                "Error deleting deck. Response received was '" +
-                                error.response.statusText +
-                                "'."
-                            );
-                        } else if (error.request) {
-                            this.$store.commit(
-                                "SET_NOTIFICATION",
-                                "Error deleting deck. Server could not be reached."
-                            );
-                        } else {
-                            this.$store.commit(
-                                "SET_NOTIFICATION",
-                                "Error deleting deck. Request could not be created."
-                            );
-                        }
-                    });
+    deleteDeck() {
+      if (
+        confirm(
+          "Are you sure you want to delete this deck and all associated cards? This action cannot be undone."
+        )
+      ) {
+        DeckService.deleteDeck(this.deck.deckId)
+          .then((response) => {
+            if (response.status === 200) {
+              this.$store.commit("SET_NOTIFICATION", {
+                message: `Deck has been deleted`,
+                type: "success",
+              });
+              this.$router.push({ name: "home" });
             }
-        },
+          })
+          .catch((error) => {
+            if (error.response) {
+              this.$store.commit(
+                "SET_NOTIFICATION",
+                "Error deleting deck. Response received was '" +
+                  error.response.statusText +
+                  "'."
+              );
+            } else if (error.request) {
+              this.$store.commit(
+                "SET_NOTIFICATION",
+                "Error deleting deck. Server could not be reached."
+              );
+            } else {
+              this.$store.commit(
+                "SET_NOTIFICATION",
+                "Error deleting deck. Request could not be created."
+              );
+            }
+          });
+      }
     },
-    created() {
+  },
+  created() {
+    this.searchTerm = "";
+    this.$store.commit("UPDATE_SEARCH_TERM", this.searchTerm);
 
-        this.searchTerm = '';
-        this.$store.commit('UPDATE_SEARCH_TERM', this.searchTerm);
+    let deckId = parseInt(this.$route.params.deckId);
 
-        let deckId = parseInt(this.$route.params.deckId);
+    // Get deck with id so we can use deck attributes.
+    DeckService.getDeck(deckId).then((resp) => {
+      this.$store.commit("SET_DECK", resp.data);
+    });
 
-        // Get deck with id so we can use deck attributes.
-        DeckService.getDeck(deckId).then(resp => {
-            this.$store.commit('SET_DECK', resp.data);
-        });
-
-        // Hide cards so that they aren't visible as they flip back to
-        // fronts
-        this.$store.commit('SET_CARDS_HIDDEN', true);
-        DeckService.getCardsForDeck(deckId)
-            .then((response) => {
-                let cards = response.data;
-                for (let i = 0; i < cards.length; i++) {
-                    cards[i].flipped = false;
-                    cards[i].completed = null;
-                }
-                this.$store.commit('SET_CARD_LIST', cards);
-            })
-            .catch((error) => {
-                if (error.response) {
-                    if (error.response.status === 404) {
-                        this.$store.commit(
-                            "SET_NOTIFICATION",
-                            "Error: Deck " +
-                            deckId +
-                            " was not found. This deck may have been deleted or you have entered an invalid deck ID."
-                        );
-                        this.$router.push({ name: "home" });
-                    } else {
-                        this.$store.commit(
-                            "SET_NOTIFICATION",
-                            "Error getting deck " +
-                            deckId +
-                            ". Response received was '" +
-                            error.response.statusText +
-                            "'."
-                        );
-                    }
-                } else if (error.request) {
-                    this.$store.commit(
-                        "SET_NOTIFICATION",
-                        "Error getting deck. Server could not be reached."
-                    );
-                } else {
-                    this.$store.commit(
-                        "SET_NOTIFICATION",
-                        "Error getting deck. Request could not be created."
-                    );
-                }
-            });
-    },
-    // saveNewCard(newCard) {
-    //     CardService.createCard(this.newCard).then((response) => {
-    //     if (response.status === 201) {
-    //       window.alert("Card Added!");
-    //       this.$router.push({name: "home"});
-
-    //     }
-    //   });
-
-    // }
+    // Hide cards so that they aren't visible as they flip back to
+    // fronts
+    this.$store.commit("SET_CARDS_HIDDEN", true);
+    DeckService.getCardsForDeck(deckId)
+      .then((response) => {
+        let cards = response.data;
+        for (let i = 0; i < cards.length; i++) {
+          cards[i].flipped = false;
+          cards[i].completed = null;
+        }
+        this.$store.commit("SET_CARD_LIST", cards);
+      })
+      .catch((error) => {
+        if (error.response) {
+          if (error.response.status === 404) {
+            this.$store.commit(
+              "SET_NOTIFICATION",
+              "Error: Deck " +
+                deckId +
+                " was not found. This deck may have been deleted or you have entered an invalid deck ID."
+            );
+            this.$router.push({ name: "home" });
+          } else {
+            this.$store.commit(
+              "SET_NOTIFICATION",
+              "Error getting deck " +
+                deckId +
+                ". Response received was '" +
+                error.response.statusText +
+                "'."
+            );
+          }
+        } else if (error.request) {
+          this.$store.commit(
+            "SET_NOTIFICATION",
+            "Error getting deck. Server could not be reached."
+          );
+        } else {
+          this.$store.commit(
+            "SET_NOTIFICATION",
+            "Error getting deck. Request could not be created."
+          );
+        }
+      });
+  },
 };
 </script>
 <style scoped>
@@ -233,145 +222,135 @@ export default {
 }
 
 #title {
-    grid-area: title;
-    margin-top: 20%;
+  grid-area: title;
+  margin-top: 20%;
 }
 
 .image {
-    display: flex;
-    justify-content: center;
-    width: 1000px;
-    margin: -10px -400px -200px 0px;
+  display: flex;
+  justify-content: center;
+  width: 1000px;
+  margin: -10px -250px -100px -400px;
 }
 
 #deck-wiz-display {
-    display: flex;
-    grid-area: image;
-    justify-content: center;
+  display: flex;
+  grid-area: image;
+  justify-content: center;
 }
 
 .cards {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: x-large;
-    font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: x-large;
+  font-weight: bold;
 }
 
 .tags {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: -30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .header h1 {
-    justify-content: center;
-    flex-grow: 1;
+  justify-content: center;
+  flex-grow: 1;
 }
 
-
-/* .delete-deck {
-    display: flex;
-    justify-content: right;
-    align-items: right;
-    text-align: right;
-    
-} */
-
 .btn-group {
-    display: flex;
-    justify-content: space-evenly;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    border: none;
-    margin: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  margin: 10px;
 }
 
 button {
-    border-radius: 10px;
-    height: 40px;
-    border: none;
+  border-radius: 10px;
+  height: 40px;
+  border: none;
 }
 
 button:hover {
-    transform: scale(1.1);
-    transition: ease 0.3s;
+  transform: scale(1.1);
+  transition: ease 0.3s;
 }
 
 #delete-deck:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 #study-session {
-    text-decoration: none;
-    font-size: large;
-    align-items: center;
-    background-color: rgba(74, 167, 110, 0.765);
-    color: white;
+  text-decoration: none;
+  font-size: large;
+  align-items: center;
+  background-color: rgba(74, 167, 110, 0.765);
+  color: white;
 }
 
 #back-to-decks {
-    text-decoration: none;
-    font-size: large;
-    align-items: center;
-    background-color: rgb(224, 205, 38);
-    color: white;
+  text-decoration: none;
+  font-size: large;
+  align-items: center;
+  background-color: rgb(224, 205, 38);
+  color: white;
 }
 
 #delete-deck {
-    align-items: center;
-    font-size: large;
-    background-color: rgba(182, 0, 0, 0.765);
-    font-weight: bold;
-    color: white;
-    width: 140px;
+  align-items: center;
+  font-size: large;
+  background-color: rgba(182, 0, 0, 0.765);
+  font-weight: bold;
+  color: white;
+  width: 140px;
 }
 
 #create {
-    align-items: center;
-    margin-top: 50px;
-    font-size: large;
-    background-color: rgba(74, 167, 110, 0.765);
-    font-weight: bold;
-    color: white;
-    width: 120px;
-    height: 40px;
-
+  align-items: center;
+  margin-top: 50px;
+  font-size: large;
+  background-color: rgba(74, 167, 110, 0.765);
+  font-weight: bold;
+  color: white;
+  width: 120px;
+  height: 40px;
 }
 
 .card-display {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 20px;
-    column-gap: 140px;
-    row-gap: 50px;
-    justify-content: center;
-    /* align-items: center; */
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px;
+  column-gap: 140px;
+  row-gap: 50px;
+  justify-content: center;
+  /* align-items: center; */
 }
 
 .forms {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
 
 a {
-    text-decoration: none;
-    color: white;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
+  text-decoration: none;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
 }
-
 </style>

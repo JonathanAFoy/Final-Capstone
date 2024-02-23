@@ -203,12 +203,24 @@ label {
 .avatar {
   display: flex;
   justify-content: center;
+  animation-name: floating;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    margin-top: 5px;
+}
  
+@keyframes floating {
+    0% { transform: translate(0,  0px); }
+    50%  { transform: translate(0, 30px); }
+    100%   { transform: translate(0, -0px); }    
 }
 
 .login-wiz{
-  width: 1000px;
-  height: 500px;
+  width: 750px;
   margin-right: 50px;
+  
 }
+
+
 </style>

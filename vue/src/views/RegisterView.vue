@@ -133,9 +133,7 @@ button:hover {
     border-radius: 15px;
   }
  
-  .input {
-    
-  }
+
 .input1 {
   border-radius: 15px;
 }
@@ -164,14 +162,39 @@ text-decoration: none;
 }
 
 .avatar {
-  display: flex;
-  justify-content: center;
- 
+  display:flex;
+  justify-content: flex-start;
+  
+  
 }
+
 
 .register-wiz{
   width: 1000px;
-  margin-right: -50px;
-  margin-top: -50px;
+  bottom: 15%;
+  position: relative;
+  -webkit-animation: linear infinite;
+  -webkit-animation-name: run;
+  -webkit-animation-duration: 15s;
+}
+@-webkit-keyframes run {
+  0% {
+    left: 0;
+  }
+  48% {
+    -webkit-transform: rotateY(0deg); 
+  }
+  50% { 
+    left: calc(100% - 1050px);
+    -webkit-transform: rotateY(180deg); 
+  }
+  98% {
+    -webkit-transform: rotateY(180deg); 
+  }
+  100% {
+    left: 0;    
+     -webkit-transform: rotateY(0deg);
+  }
+ 
 }
 </style>

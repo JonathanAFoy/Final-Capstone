@@ -42,5 +42,6 @@ div.search-box-container>label {
     justify-content: center;
     padding-left: 10px;
     font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
 }
 </style>

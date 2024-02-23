@@ -29,7 +29,7 @@
 
       <!-- Return Button is here because center alignment for other buttons -->
       <button
-        class="button"
+        class="button" id="go-back"
         v-if="action === 'Edit'"
         @click.prevent="returnHome"
       >
@@ -51,7 +51,7 @@
       </button>
 
       <button
-        class="button"
+        class="button" id="sdta"
         v-if="action === 'Edit'"
         @click.prevent="showDeckList"
       >
@@ -66,10 +66,17 @@
     </form>
   </div>
 
+  <div class="edit-button-section"> 
+    <button class="edit-button" id="cancel" v-if="showDecks" @click.prevent="showDeckList">
+      Cancel
+    </button>
+  </div>
+  <br />
+
   <div class="edit-button-section">
     <button
       type="submit"
-      class="edit-button"
+      class="edit-button" id="add-to-deck"
       v-if="addToDeckId"
       @click="addToDeck"
     >
@@ -78,16 +85,13 @@
     <br /><br />
   </div>
 
-  <div class="deck-display">
+ 
+
+  <div id="add-to-deck-display">
     <DecksList v-bind:deckList="deckList" v-if="showDecks" />
   </div>
 
-  <div class="edit-button-section">
-    <br /><br />
-    <button class="edit-button" v-if="showDecks" @click.prevent="showDeckList">
-      Cancel
-    </button>
-  </div>
+  
 </template>
   
 <script>
@@ -190,6 +194,12 @@ export default {
 </script>
   
 <style>
+
+#add-to-deck-display {
+  display: flex;
+  justify-content: center;
+}
+
 #create-card {
   display: block;
   border-radius: 30px;
@@ -218,24 +228,43 @@ export default {
 
 .button {
   border: none;
-  color: black;
-  background: white;
-  border-radius: 5px;
+  color: rgb(255, 255, 255);
+  border-radius: px;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
 }
 
 #bottom {
   margin-bottom: 10px;
+  color: rgb(74, 167, 110);
+}
+
+#add-to-deck {
+  background: #7b68cec7;
+  height: 30px;
+}
+
+#add-to-deck:hover {
+  transform: scale(1.2);
+    transition: ease 0.3s;
 }
 
 .edit-button {
   border: none;
-  color: black;
-  background: white;
+  color: rgb(255, 255, 255);
+  background: #ffffff;
   border-radius: 5px;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
+}
+
+#cancel {
+  background:  rgba(182, 0, 0, 0.765);
+  height: 30px;
+}
+#cancel:hover {
+  transform: scale(1.2);
+    transition: ease 0.3s;
 }
 
 .edit-button-section {
@@ -243,5 +272,16 @@ export default {
   justify-content: center;
   text-align: center;
   align-items: center;
+}
+
+#go-back {
+  text-decoration: none;
+    align-items: center;
+    color: rgb(224, 205, 38);
+}
+
+#sdta {
+  color: #5a41ca;
+  
 }
 </style>

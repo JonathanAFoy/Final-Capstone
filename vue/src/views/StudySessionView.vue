@@ -129,6 +129,7 @@ export default {
   justify-items: center;
   border-radius: 20px;
   position: fixed;
+  font-family:Arial, Helvetica, sans-serif;
   padding: 10px;
   width: 320px;
   left: 50%;
@@ -206,7 +207,7 @@ p {
   content: '\25a0';
   font-size: xx-large;
   position: absolute;
-  margin-top: -10px;
+  margin-top: -12px;
   opacity: 0;
   top: 0;
   right: -20px;

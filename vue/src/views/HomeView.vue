@@ -11,7 +11,7 @@
       </div>
     </div>
 
-    <br />
+    
     <div class="btn-group">
       <button id="create" v-on:click.prevent="showDeckForm">Create Deck</button>
     </div>
@@ -23,18 +23,16 @@
     <br />
     <SearchBox class="search"/>
     <br />
-    <div class="card-display" v-show="showCards">
-      <CardsList v-bind:cardList="filteredCards" from='home' @refresh="loadCards" />
-    </div>
-    <br />
-    <!-- <div class="create-card-button"> -->
     <div class="btn-group">
       <button id="create" v-on:click.prevent="showCardForm">Create Card</button>
     </div>
     <div class="btn-group">
       <CreateCard id="form" v-if="showAddCard" />
     </div>
-    <!-- </div> -->
+   
+    <div class="card-display" v-show="showCards">
+      <CardsList v-bind:cardList="filteredCards" from='home' @refresh="loadCards" />
+    </div>
   </div>
 </template>
 
