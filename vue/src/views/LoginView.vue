@@ -185,7 +185,7 @@ button:hover {
   text-align: center;
   margin: 50px auto;
   max-width: 500px;
-  background-color: rgb(68, 118, 255);
+  background-color: rgba(68, 118, 255, 0.753);
   padding: 20px;
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
 }

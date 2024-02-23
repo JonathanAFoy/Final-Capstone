@@ -68,6 +68,7 @@ export default {
           };
           this.$store.commit("SET_DECK", this.newDeck);
           this.newDeck = deckInfo;
+          this.$store.commit('SHOW_EDIT_DECK', false)
         });
       } else {
         DeckService.createDeck(this.newDeck).then((response) => {

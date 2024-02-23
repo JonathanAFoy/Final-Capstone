@@ -63,157 +63,105 @@ import DeckService from "../services/DeckService";
 import CreateCard from "../components/CreateCard.vue";
 import CreateDeck from "../components/CreateDeck.vue";
 import SearchBox from "../components/SearchBox.vue";
-
 export default {
-  components: {
-    CardsList,
-    CreateCard,
-    CreateDeck,
-    SearchBox,
-  },
-  data() {
-    return {
-      newCard: {},
-      showAddCard: false,
-      showEditDeck: false,
-      from: "deck",
-      searchTerm: "",
-    };
-  },
-  computed: {
-    deck() {
-      return this.$store.state.currDeck;
+    components: {
+        CardsList,
+        CreateCard,
+        CreateDeck,
+        SearchBox
     },
-    cardList() {
-      return this.$store.state.currCards;
+    data() {
+        return {
+            newCard: {},
+            // showAddCard: false,
+            // showEditDeck: false,
+            from: "deck",
+            searchTerm: ''
+        };
     },
-    filteredCards() {
-      const searchTerm = this.$store.state.searchTerm;
-      const matchText = searchTerm.toLowerCase();
-      return this.cardList.filter((card) =>
-        card.cardTags.toLowerCase().includes(matchText)
-      );
-    },
-  },
-  methods: {
-    showCardForm() {
-      this.showAddCard = !this.showAddCard;
-      this.showEditDeck = false;
-    },
-    showDeckForm() {
-      this.showEditDeck = !this.showEditDeck;
-      this.showAddCard = false;
-    },
-    loadData() {
-      DeckService.getCardsForDeck(this.deck.deckId).then((response) => {
-        let cards = response.data;
-        for (let i = 0; i < cards.length; i++) {
-          cards[i].flipped = false;
-          cards[i].completed = null;
-        }
-        this.$store.commit("SET_CARD_LIST", cards);
-
-        // Show cards
-        this.$store.commit("SET_CARDS_HIDDEN", false);
-      });
-    },
-    deleteDeck() {
-      if (
-        confirm(
-          "Are you sure you want to delete this deck and all associated cards? This action cannot be undone."
-        )
-      ) {
-        DeckService.deleteDeck(this.deck.deckId)
-          .then((response) => {
-            if (response.status === 200) {
-              this.$store.commit("SET_NOTIFICATION", {
-                message: `Deck has been deleted`,
-                type: "success",
-              });
-              this.$router.push({ name: "home" });
-            }
-          })
-          .catch((error) => {
-            if (error.response) {
-              this.$store.commit(
-                "SET_NOTIFICATION",
-                "Error deleting deck. Response received was '" +
-                  error.response.statusText +
-                  "'."
-              );
-            } else if (error.request) {
-              this.$store.commit(
-                "SET_NOTIFICATION",
-                "Error deleting deck. Server could not be reached."
-              );
-            } else {
-              this.$store.commit(
-                "SET_NOTIFICATION",
-                "Error deleting deck. Request could not be created."
-              );
-            }
-          });
-      }
-    },
-  },
-  created() {
-    this.searchTerm = "";
-    this.$store.commit("UPDATE_SEARCH_TERM", this.searchTerm);
-
-    let deckId = parseInt(this.$route.params.deckId);
-
-    // Get deck with id so we can use deck attributes.
-    DeckService.getDeck(deckId).then((resp) => {
-      this.$store.commit("SET_DECK", resp.data);
-    });
-
-    // Hide cards so that they aren't visible as they flip back to
-    // fronts
-    this.$store.commit("SET_CARDS_HIDDEN", true);
-    DeckService.getCardsForDeck(deckId)
-      .then((response) => {
-        let cards = response.data;
-        for (let i = 0; i < cards.length; i++) {
-          cards[i].flipped = false;
-          cards[i].completed = null;
-        }
-        this.$store.commit("SET_CARD_LIST", cards);
-      })
-      .catch((error) => {
-        if (error.response) {
-          if (error.response.status === 404) {
-            this.$store.commit(
-              "SET_NOTIFICATION",
-              "Error: Deck " +
-                deckId +
-                " was not found. This deck may have been deleted or you have entered an invalid deck ID."
+    computed: {
+        deck() {
+            return this.$store.state.currDeck;
+        },
+        cardList() {
+            return this.$store.state.currCards;
+        },
+        filteredCards() {
+            const searchTerm = this.$store.state.searchTerm;
+            const matchText = searchTerm.toLowerCase();
+            return this.cardList.filter(card =>
+                card.cardTags.toLowerCase().includes(matchText)
             );
-            this.$router.push({ name: "home" });
-          } else {
-            this.$store.commit(
-              "SET_NOTIFICATION",
-              "Error getting deck " +
-                deckId +
-                ". Response received was '" +
-                error.response.statusText +
-                "'."
-            );
-          }
-        } else if (error.request) {
-          this.$store.commit(
-            "SET_NOTIFICATION",
-            "Error getting deck. Server could not be reached."
-          );
-        } else {
-          this.$store.commit(
-            "SET_NOTIFICATION",
-            "Error getting deck. Request could not be created."
-          );
+        },
+        showEditDeck() {
+            return this.$store.state.showEditDeck;
+        },
+        showAddCard() {
+            return this.$store.state.showAddCard;
         }
-      });
-  },
+    },
+    methods: {
+        showCardForm() {
+            // this.showAddCard = !this.showAddCard;
+            this.$store.commit('SHOW_ADD_CARD', !this.$store.state.showAddCard);
+        },
+        showDeckForm() {
+            // this.showEditDeck = !this.showEditDeck
+            this.$store.commit('SHOW_EDIT_DECK', !this.$store.state.showEditDeck);
+        },
+        loadData() {
+            DeckService.getCardsForDeck(this.deck.deckId)
+                .then((response) => {
+                    let cards = response.data;
+                    for (let i = 0; i < cards.length; i++) {
+                        cards[i].flipped = false;
+                        cards[i].completed = null;
+                    }
+                    this.$store.commit('SET_CARD_LIST', cards);
+                    // Show cards
+                    this.$store.commit('SET_CARDS_HIDDEN', false);
+                })
+        },
+        deleteDeck() {
+            if (
+                confirm(
+                    "Are you sure you want to delete this deck and all associated cards? This action cannot be undone."
+                )
+            ) {
+                DeckService.deleteDeck(this.deck.deckId)
+                    .then((response) => {
+                        if (response.status === 200) {
+                            this.$router.push({ name: "home" });
+                        }
+                    })
+            }
+        },
+    },
+    created() {
+        this.searchTerm = '';
+        this.$store.commit('UPDATE_SEARCH_TERM', this.searchTerm);
+        let deckId = parseInt(this.$route.params.deckId);
+        // Get deck with id so we can use deck attributes.
+        DeckService.getDeck(deckId).then(resp => {
+            this.$store.commit('SET_DECK', resp.data);
+        });
+        // Hide cards so that they aren't visible as they flip back to
+        // fronts
+        this.$store.commit('SET_CARDS_HIDDEN', true);
+        DeckService.getCardsForDeck(deckId)
+            .then((response) => {
+                let cards = response.data;
+                for (let i = 0; i < cards.length; i++) {
+                    cards[i].flipped = false;
+                    cards[i].completed = null;
+                }
+                this.$store.commit('SET_CARD_LIST', cards);
+            });
+    },
+   
 };
 </script>
+
 <style scoped>
 #title-wiz {
   display: grid;

@@ -146,6 +146,7 @@ export default {
                   let cardData = response.data;
                   cardData.username = this.$store.state.user.username;
                   this.$store.commit("ADD_CARD_CURRDECK", response.data);
+                  this.$store.commit('SHOW_ADD_CARD', false);
                 }
               );
             }
