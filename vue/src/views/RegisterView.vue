@@ -21,8 +21,10 @@
       <button type="submit">Create Account</button>
       <p><router-link class="link" v-bind:to="{ name: 'login' }">Already have an account? Log in!</router-link></p>
     </form>
-    
   </div>
+  <div class="avatar">
+      <img class="register-wiz" src="../assets/images/RegisterWizard.png" />
+    </div>
 </template>
 
 <script>
@@ -159,5 +161,17 @@ text-decoration: none;
   color: rgb(250, 129, 129);
   font-family: Arial, Helvetica, sans-serif;
   margin-bottom: 10px;
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+ 
+}
+
+.register-wiz{
+  width: 1000px;
+  margin-right: -50px;
+  margin-top: -50px;
 }
 </style>
