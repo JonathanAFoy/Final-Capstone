@@ -65,8 +65,8 @@ export default {
     data() {
         return {
             newCard: {},
-            showAddCard: false,
-            showEditDeck: false,
+            // showAddCard: false,
+            // showEditDeck: false,
             from: "deck",
             searchTerm: ''
         };
@@ -84,7 +84,15 @@ export default {
             return this.cardList.filter(card =>
                 card.cardTags.toLowerCase().includes(matchText)
             );
+        },
+        showEditDeck() {
+            return this.$store.state.showEditDeck;
+        },
+        showAddCard() {
+            return this.$store.state.showAddCard;
         }
+
+
 
         // planned() {
         //     return this.deck.cards.filter(card => card.status === 'Planned');
@@ -98,10 +106,12 @@ export default {
     },
     methods: {
         showCardForm() {
-            this.showAddCard = !this.showAddCard;
+            // this.showAddCard = !this.showAddCard;
+            this.$store.commit('SHOW_ADD_CARD', !this.$store.state.showAddCard);
         },
         showDeckForm() {
-            this.showEditDeck = !this.showEditDeck
+            // this.showEditDeck = !this.showEditDeck
+            this.$store.commit('SHOW_EDIT_DECK', !this.$store.state.showEditDeck);
         },
         loadData() {
             DeckService.getCardsForDeck(this.deck.deckId)
@@ -126,33 +136,9 @@ export default {
                 DeckService.deleteDeck(this.deck.deckId)
                     .then((response) => {
                         if (response.status === 200) {
-                            this.$store.commit("SET_NOTIFICATION", {
-                                message: `Deck has been deleted`,
-                                type: "success",
-                            });
                             this.$router.push({ name: "home" });
                         }
                     })
-                    .catch((error) => {
-                        if (error.response) {
-                            this.$store.commit(
-                                "SET_NOTIFICATION",
-                                "Error deleting deck. Response received was '" +
-                                error.response.statusText +
-                                "'."
-                            );
-                        } else if (error.request) {
-                            this.$store.commit(
-                                "SET_NOTIFICATION",
-                                "Error deleting deck. Server could not be reached."
-                            );
-                        } else {
-                            this.$store.commit(
-                                "SET_NOTIFICATION",
-                                "Error deleting deck. Request could not be created."
-                            );
-                        }
-                    });
             }
         },
     },
@@ -179,38 +165,6 @@ export default {
                     cards[i].completed = null;
                 }
                 this.$store.commit('SET_CARD_LIST', cards);
-            })
-            .catch((error) => {
-                if (error.response) {
-                    if (error.response.status === 404) {
-                        this.$store.commit(
-                            "SET_NOTIFICATION",
-                            "Error: Deck " +
-                            deckId +
-                            " was not found. This deck may have been deleted or you have entered an invalid deck ID."
-                        );
-                        this.$router.push({ name: "home" });
-                    } else {
-                        this.$store.commit(
-                            "SET_NOTIFICATION",
-                            "Error getting deck " +
-                            deckId +
-                            ". Response received was '" +
-                            error.response.statusText +
-                            "'."
-                        );
-                    }
-                } else if (error.request) {
-                    this.$store.commit(
-                        "SET_NOTIFICATION",
-                        "Error getting deck. Server could not be reached."
-                    );
-                } else {
-                    this.$store.commit(
-                        "SET_NOTIFICATION",
-                        "Error getting deck. Request could not be created."
-                    );
-                }
             });
     },
     // saveNewCard(newCard) {

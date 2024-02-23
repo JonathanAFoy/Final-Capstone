@@ -12,9 +12,17 @@ export function createStore(currentToken, currentUser) {
       hideCards: false,
       searchTerm: '',
       editCardMode: false,
-      editModeDeckId: null
+      editModeDeckId: null,
+      showAddCard: false,
+      showEditDeck: false,
     },
     mutations: {
+      SHOW_ADD_CARD(state, showAddCard){
+        state.showAddCard = showAddCard;
+      },
+      SHOW_EDIT_DECK(state, showEditDeck){
+        state.showEditDeck = showEditDeck;
+      },
       SET_AUTH_TOKEN(state, token) {
         state.token = token;
         localStorage.setItem('token', token);
